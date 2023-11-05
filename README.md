@@ -22,7 +22,7 @@ Web Application Project CN331
 - Restaurant list
 - Queue status
 - Payment
-- Review/Report Queueman\
+- Review/Report Queueman
 #### Accont
 - Account edit
 
