@@ -36,7 +36,7 @@ There are functions to use as follows:
 * Customer can review/report Queueman for feedback to Queuepid.
 
 #### Admin
-* Admin can 
+* Admin can timer while a queueman is waiting for queue to calculate price to customer.
 
 ### Web Application Project
 [Web link]()
