@@ -1,30 +1,42 @@
-# QueuePid
-Web Application Project CN331
+# CN331 - Final Project : QueuePid
+### CN331 : Software Engineering
+
+This is a Django framework-based with HTML web application development, using for `Waiting Queue Reservation` to reservation a queue in a restaurant.
 
 ### Members
-- Peekkan Piankan \[6410615097\]
-- Chalisa Thummaraj \[6410685041\]
-- Thanadon Boontawee \[6410685165\]
-- Peerapat Ngamsanga \[6410685223\]
-- Siriphatson Sringamphong \[6410685249\]
+- \[6410685041\] Peekkan Pienkan
+- \[6410685041\] Chalisa Thammaraj
+- \[6410685165\] Thanadon Boontawee
+- \[6410685223\] Peerapat Ngamsanga
+- \[6410685249\] Siriphatson Sringamphong
 
 ### QueuePid Application Features
+There are functions to use as follows:
+
 #### Default
-- Log in/Log out
-- sign up
-- About us
+* Login Page as admin, customer or queueman.
+* Sign up for get account to login.
+* User can edit profile.
+* About us to describe about business infomation.
+
 #### Queueman
-- Ordering list
-- Updating status
-- Wallet
+* Queuepid can list order to pick the one order to get queue.
+* Queueman can update queue status for their customer.
+* Queueman can use see distance between their position and restaurant with GPS.
+* Queueman can use `QueueWallet` to get money from customer and withdraw money.
+
 #### Customer
-- Order History
-- Restaurant list
-- Queue status
-- Payment
-- Review/Report Queueman
-#### Accont
-- Account edit
+* Queuepid can list restaurant around customer to see interesting restaurant.
+* Customer can search restaurant that they want from the list.
+* Queuepid can calculate price that customer have to pay in a service.
+* Customer can see order history.
+* Customer can see queue status to predict a time to go to restaurant.
+* Customer can get e-mail notification from Queuepid to see the queue remain.
+* Customer can use `QueueWallet` to top up money with QR Payment.
+* Customer can review/report Queueman for feedback to Queuepid.
+
+#### Admin
+* Admin can 
 
 ### Web Application Project
 [Web link]()
