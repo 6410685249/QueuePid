@@ -9,6 +9,6 @@ class User_info(models.Model):
     surname = models.CharField(max_length=30)
     email = models.EmailField(unique=True)
     type = models.CharField(max_length = 10,default='customer')
-    credit = models.PositiveIntegerField(default='customer')
+    credit = models.PositiveIntegerField(default=0)
     def __str__(self) -> str:
         return f'{self.name} {self.surname} {self.telephone} {self.email}'
