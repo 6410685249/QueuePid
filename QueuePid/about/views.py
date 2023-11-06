@@ -4,4 +4,4 @@ from django.http import request
 
 
 def about(request):
-    return render(request,'about/about.html')
+    return render(request,'about.html')

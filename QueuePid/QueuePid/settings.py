@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-fwv&7dcci5m64ulnn0^x8-4ga6un5#w@2dcl-*-ld_2!lj+4f8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'about',
+    # 'customers',
+    # 'queueman',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'QueuePid.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "static/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
