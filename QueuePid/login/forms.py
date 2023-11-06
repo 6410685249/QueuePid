@@ -17,16 +17,5 @@ class RegisterForm(UserCreationForm):
         for field_name in ['password1', 'password2']:
             self.fields[field_name].help_text = None
         self.fields['username'].help_text = None
-    def clean_password1(self):
-        password1 = self.cleaned_data.get("password1")
-        password_validation.validate_password(password1, self.user)
-        return password1
 
-    def clean_password2(self):
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2:
-            if password1 != password2:
-                raise forms.ValidationError("The two password fields didn't match.")
-        return password2
 
