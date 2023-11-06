@@ -18,7 +18,6 @@ def signup(request):
                 name=form.cleaned_data['name'],
                 surname=form.cleaned_data['surname'],
                 email=form.cleaned_data['email'],
-                type=form.cleaned_data['type'],
             )
             user_info.save()
             # print(form.cleaned_data)
