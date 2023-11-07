@@ -1,37 +1,48 @@
 {% extends 'layout.html' %}
 {% block title %} Sign up to Queuepid. {% endblock %}
 {% block body %}
-
+<h1>Create new account</h1>
+<p>It's quick and easy</p><br>
 <form action = "{% url 'signup' %}" method="post">
     {% csrf_token %}
-    {{ form.username.label_tag }}
-    {{ form.username }}
-    {{ form.username.errors }}
     
-    {{ form.password1.label_tag }}
-    {{ form.password1 }}
-    {{ form.password1.errors }}
-
-    {{ form.password2.label_tag }}
-    {{ form.password2 }}
-    {{ form.password2.errors }}
-
-    {{ form.telephone.label_tag }}
-    {{ form.telephone }}
-    {{ form.telephone.errors }}
-
     {{ form.name.label_tag }}
     {{ form.name }}
     {{ form.name.errors }}
+    <br><br>
 
     {{ form.surname.label_tag }}
     {{ form.surname }}
     {{ form.surname.errors }}
-
+    <br><br>
+    
+    {{ form.username.label_tag }}
+    {{ form.username }}
+    {{ form.username.errors }}
+    <br><br>
+    
+    {{ form.password1.label_tag }}
+    {{ form.password1 }}
+    {{ form.password1.errors }}
+    <br><br>
+    
+    {{ form.password2.label_tag }}
+    {{ form.password2 }}
+    {{ form.password2.errors }}
+    <br><br>
+    
+    {{ form.telephone.label_tag }}
+    {{ form.telephone }}
+    {{ form.telephone.errors }}
+    <br><br>
+    
     {{ form.email.label_tag }}
     {{ form.email }}
     {{ form.email.errors }}
+    <br><br>
+    
     <button type="submit">Sign Up</button>
+    <p>Already have an account? <a href="{% url 'login' %}">Sign in your accout.</a></p>
 </form>
 
 {% endblock %}
