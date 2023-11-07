@@ -6,8 +6,29 @@
     <title>Home</title>
 </head>
 <body>
-    <h1>Hi {{ request.user.username }}</h1>
-    <h2>You're Queueman</h2>
+    <h1>Hi {{ queueman.username }}</h1>
+    
+    <nav>
+        <a href="{% url 'qwallet' %}">Wallet</a>
+        <a href="{% url 'qhistory' %}">History</a>
+        <a href="{% url 'qprofile' %}">Profile</a>
+    </nav>
+
+    <h3>Your credit remianing: {{ queueman.credit }}</h3>
+
+
+
+    <hr>
+    <h2>Customer list</h2>
+    <ul>
+        {% for customer in clist %}
+            <li>
+                <p> {{ customer.username }} </p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <hr>
 
     <a href="{% url 'logout' %}">Log Out</a>
 </body>
