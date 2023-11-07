@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Sign in to Queuepid</title>
 </head>
 <body>
-    <h1>Login</h1>
+    <h1>Sign in to Queuepid</h1>
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
+        <input type="text" name="username" placeholder="Username"><br><br>
+        <input type="password" name="password" placeholder="Password"><br><br>
         <button type="submit">Log In</button>
     </form>
 
+    <p>Don't have an account? <a href="{% url 'signup' %}">Create your accout.</a></p>
     {% if message %}
         <h3>{{ message }}</h3>
     {% endif %}
