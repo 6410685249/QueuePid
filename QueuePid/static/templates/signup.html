@@ -1,12 +1,37 @@
 {% extends 'layout.html' %}
 {% block title %} Sign up to Queuepid. {% endblock %}
 {% block body %}
-<h1>Create account</h1><br>
-<form action="{% url 'signup' %}" method="post">
+
+<form action = "{% url 'signup' %}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button><br><br>
-    <a href="{% url 'login' %}">Already have an account?</a>
+    {{ form.username.label_tag }}
+    {{ form.username }}
+    {{ form.username.errors }}
+    
+    {{ form.password1.label_tag }}
+    {{ form.password1 }}
+    {{ form.password1.errors }}
+
+    {{ form.password2.label_tag }}
+    {{ form.password2 }}
+    {{ form.password2.errors }}
+
+    {{ form.telephone.label_tag }}
+    {{ form.telephone }}
+    {{ form.telephone.errors }}
+
+    {{ form.name.label_tag }}
+    {{ form.name }}
+    {{ form.name.errors }}
+
+    {{ form.surname.label_tag }}
+    {{ form.surname }}
+    {{ form.surname.errors }}
+
+    {{ form.email.label_tag }}
+    {{ form.email }}
+    {{ form.email.errors }}
+    <button type="submit">Sign Up</button>
 </form>
 
 {% endblock %}
