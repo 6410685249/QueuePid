@@ -7,11 +7,15 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from .models import User_info
 def signup(request):
+    print('In signup')
     if request.method == 'POST':
+        print("in post")
         form = RegisterForm(request.POST)
+        print(form)
         if form.is_valid():
-
+            print('form valid')
             user = form.save()
+            print(form.cleaned_data)
             user_info = User_info(
                 username=user,
                 telephone=form.cleaned_data['telephone'],
@@ -22,7 +26,7 @@ def signup(request):
             user_info.save()
             # print(form.cleaned_data)
             login(request, user)
-            return redirect('home')
+            return redirect(reverse('home'))
     else:
         form = RegisterForm()
     return render(request, 'signup.html', {'form': form})
