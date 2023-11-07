@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import Group
 # Create your views here.
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
@@ -32,12 +33,17 @@ def signup(request):
 
 def login_view(request):
     if request.method == "POST":
+        queueman_group = Group.objects.get(name="Queueman").user_set.all()
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
-            login(request, user)
-            return HttpResponseRedirect(reverse("restaurant_list"))
+            if user in queueman_group:
+                login(request, user)
+                return HttpResponseRedirect(reverse("qhome"))
+            else:
+                login(request, user)
+                return HttpResponseRedirect(reverse("restaurant_list"))
         else:
             return render(request, 'login.html', {
                 'message': 'Invalid credentials!'

@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('',views.queuepid,name='queuepid')
+    path('home/',views.qhome,name='qhome')
 ]

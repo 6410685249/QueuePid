@@ -5,3 +5,6 @@ from django.http import request
 
 def about(request):
     return render(request,'about.html')
+
+def queuepid(request):
+    return render(request, 'queuepid.html')

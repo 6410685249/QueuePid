@@ -22,4 +22,5 @@ urlpatterns = [
     path('',include('about.urls')),
     path('',include('login.urls')),
     path('',include('customers.urls')),
+    path('queueman/',include('queueman.urls')),
 ]

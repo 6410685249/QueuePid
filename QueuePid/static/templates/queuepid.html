@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block title %} Queuepid {% endblock %}
+{% block body %}
+    <h1>Queuepid</h1>
+    <nav>
+        <a href="#"> about </a> |
+        <a href="{% url 'login' %}"> sign in </a> |
+        <a href="{% url 'signup' %}"> sign up </a>
+    </nav>
+
+    <article>
+        <p>Let us help you save your time</p>
+        <p>Whether you`re working, studying, or renting,
+            we can wait for the restaurant queue for you.</p>
+    </article>
+
+{% endblock %}

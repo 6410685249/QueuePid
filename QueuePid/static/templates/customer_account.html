@@ -1,9 +1,22 @@
 {% extends 'layout.html' %}
 {% block body %}
     <h1>account</h1>
+    <h1>Your username: {{ user.username }}</h1>
+    <h1>Your name: {{ user.name }} {{ user.surname }}</h1>
+    <h1>Your email: {{ user.email }}</h1>
+    <h1>Your credit: {{ user.credit }}</h1>
+    <form action="{% url 'go_to_edit_profile_page' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" name="account" value="edit profile">    
+    </form>
+
+    <form action="{% url 'go_to_change_password_page' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" name="account" value="chage password">
+    </form>
+
     <form action="{% url 'in_account_back_to_home' %}" method="post">
         {% csrf_token %}
-
         <input type="submit" name="account" value="back to home">
     </form>
 {% endblock %}
