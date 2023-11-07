@@ -11,7 +11,6 @@ def signup(request):
     if request.method == 'POST':
         print("in post")
         form = RegisterForm(request.POST)
-        print(form)
         if form.is_valid():
             print('form valid')
             user = form.save()

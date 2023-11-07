@@ -1,40 +1,11 @@
 {% extends 'layout.html' %}
-
+{% block title %} Sign up to Queuepid. {% endblock %}
 {% block body %}
 
 <form action = "{% url 'signup' %}" method="post">
     {% csrf_token %}
-    <!-- {{ form.as_p }} -->
-    {{ form.username.error }}
-    {{ form.username.label_tag  }}
-    {{ form.username }}
-
-    {{ form.password1.error }}
-    {{ form.password1.label_tag  }}
-    {{ form.password1 }}
-    
-    {{ form.password2.error }}
-    {{ form.password2.label_tag  }}
-    {{ form.password2 }}
-
-    {{ form.name.error }}
-    {{ form.name.label_tag  }}
-    {{ form.name }}
-
-    {{ form.surname.error }}
-    {{ form.surname.label_tag  }}
-    {{ form.surname }}
-
-    {{ form.telephone.error }}
-    {{ form.telephone.label_tag  }}
-    {{ form.telephone }}    
-
-    {{ form.email.error }}
-    {{ form.email.label_tag  }}
-    {{ form.email }}
-    
+    {{ form.as_p }}
     <button type="submit">Sign Up</button>
 </form>
-
 
 {% endblock %}
