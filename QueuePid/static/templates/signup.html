@@ -41,8 +41,9 @@
     {{ form.email.errors }}
     <br><br>
     
-    <button type="submit">Sign Up</button>
-    <p>Already have an account? <a href="{% url 'login' %}">Sign in your accout.</a></p>
+    <button type="submit">Sign Up</button><br>
+    
 </form>
+<a href="{% url 'login' %}">Sign in your accout.</a>
 
 {% endblock %}
