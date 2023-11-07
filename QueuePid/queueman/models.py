@@ -7,4 +7,3 @@ class Queueman(models.Model):
     line_id = models.CharField(max_length=30)
     star = models.IntegerField(default=5)
     credit = models.PositiveIntegerField(default=0)
-    type = models.CharField(max_length = 10,default='queueman')
