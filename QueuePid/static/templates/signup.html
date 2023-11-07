@@ -2,12 +2,11 @@
 {% block title %} Sign up to Queuepid. {% endblock %}
 {% block body %}
 <h1>Create account</h1><br>
-<form action="/submit" method="post">
+<form action="{% url 'signup' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Sign Up</button><br><br>
     <a href="{% url 'login' %}">Already have an account?</a>
 </form>
-
 
 {% endblock %}

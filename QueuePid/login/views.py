@@ -9,6 +9,7 @@ from .models import User_info
 def signup(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
+       # print(form)
         if form.is_valid():
 
             user = form.save()

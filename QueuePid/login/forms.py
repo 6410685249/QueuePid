@@ -10,12 +10,12 @@ class RegisterForm(UserCreationForm):
     surname = forms.CharField(max_length=30, required=True)
     email = forms.EmailField(max_length=254, required=True)
     telephone = forms.CharField(max_length=30, required=True)
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
 
-        # Remove the default help texts for the password fields
-        for field_name in ['password1', 'password2']:
-            self.fields[field_name].help_text = None
-        self.fields['username'].help_text = None
+    #     # Remove the default help texts for the password fields
+    #     for field_name in ['password1', 'password2']:
+    #         self.fields[field_name].help_text = None
+    #     self.fields['username'].help_text = None
 
 
