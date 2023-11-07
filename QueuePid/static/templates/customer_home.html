@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queuepid | Let's make value for your time.</title>
+</head>
+<body>
+    <H1>Hi {{ request.user.username }}</H1>
+    <form action="{% url 'go_to_history_page' %}" method="post">
+        {% csrf_token %}
+
+        <input type="submit" name="history" value="history">
+    </form>
+
+    <form action="{% url 'go_to_about_page' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" name="about" value="about">
+    </form>
+
+    <form action="{% url 'go_to_wallet_page' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" name="about" value="wallet">
+    </form>
+
+    <form action="{% url 'go_to_account_page' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" name="about" value="account">
+    </form>
+    {% for name,location in form %}
+        <h1>{{name}} {{location}}</h1>
+    {% endfor %}
+    <a href="{% url 'logout' %}">Log Out</a>
+    
+</body>
+</html>

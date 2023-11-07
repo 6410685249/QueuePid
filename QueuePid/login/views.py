@@ -25,7 +25,7 @@ def signup(request):
             user_info.save()
             # print(form.cleaned_data)
             login(request, user)
-            return redirect(reverse('home'))
+            return redirect(reverse('restaurant_list'))
     else:
         form = RegisterForm()
     return render(request, 'signup.html', {'form': form})
@@ -37,7 +37,7 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("home"))
+            return HttpResponseRedirect(reverse("restaurant_list"))
         else:
             return render(request, 'login.html', {
                 'message': 'Invalid credentials!'

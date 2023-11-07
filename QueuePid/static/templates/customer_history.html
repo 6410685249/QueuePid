@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block body %}
+    {% for i in history %}
+    <h1>{{i.date}} {{i.queeuManName}} {{i.restaurant}} {{i.cost}} {{i.phone_number_QueueMan}}</h1>
+    {% endfor %}
+    <form action="{% url 'history_back_to_home' %}" method="post">
+        {% csrf_token %}
+
+        <input type="submit" name="history" value="back to home">
+    </form>
+
+{% endblock %}
