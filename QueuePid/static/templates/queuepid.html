@@ -1,17 +1,37 @@
 {% extends 'layout.html' %}
-{% block title %} Queuepid {% endblock %}
-{% block body %}
-    <h1>Queuepid</h1>
-    <nav>
-        <a href="#"> about </a> |
-        <a href="{% url 'login' %}"> sign in </a> |
-        <a href="{% url 'signup' %}"> sign up </a>
-    </nav>
 
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/queuepid.css' %}" />
+{% endblock %}
+
+{% block body %}
+    <nav>
+        <table>
+            <tr>
+                <td>
+                    <img src="{% static '../img/logo.png' %}" alt="logo">
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <h3><a href="#"> about </a></h3>
+                </td>
+                <td>
+                    <h3><a href="{% url 'login' %}"> sign in </a></h3>
+                </td>
+                <td>
+                    <h3><a href="{% url 'signup' %}"> sign up </a></h3>
+                </td>
+            </tr>
+        </table>
+    </nav>
     <article>
-        <p>Let us help you save your time</p>
-        <p>Whether you`re working, studying, or renting,
-            we can wait for the restaurant queue for you.</p>
+        <h1 class="tagline">Let us help you save your time</h1>
+        <h4 class="content">Whether you're working, studying, or resting,
+            we can wait for the restaurant queue for you.</h4>
     </article>
 
 {% endblock %}
