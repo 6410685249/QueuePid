@@ -34,16 +34,14 @@ def signup(request):
 
 def login_view(request):
     if request.method == "POST":
-        queueman_group = Group.objects.get(name="Queueman").user_set.all()
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
-            if user in queueman_group:
-                login(request, user)
+            login(request, user)
+            if user.groups.filter(name='Queueman').exists():
                 return HttpResponseRedirect(reverse("qhome"))
             else:
-                login(request, user)
                 return HttpResponseRedirect(reverse("restaurant_list"))
         else:
             return render(request, 'login.html', {
