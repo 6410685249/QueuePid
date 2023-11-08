@@ -1,0 +1,47 @@
+/* import font : Lato Bold 700 */
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Lato:wght@700&family=Nunito:wght@600&family=Rubik+Iso&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=DM+Sans:opsz,wght@9..40,100&family=Lato:wght@100;700&family=Nunito:wght@600&family=Rubik+Iso&display=swap');
+
+/* styles.css */
+
+body {
+    font-family: "Lato", sans-serif;
+    background-image: url("../img/background.jpg");
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    text-align: center;
+    color: #ffffff;
+    margin-left: 200px;
+    margin-top: 120px;
+    margin-right: 200px;
+    background-color: rgba(0, 9, 92, 0.5);
+}
+
+/* class */
+.logo {
+    height: 100px;
+    width: auto;
+}
+
+button, input {
+    font-family: "DM sans", sans-serif;
+    font-weight: bold;
+}
+
+input {
+    width: 300px;
+    height: 30px;
+}
+
+button {
+    width: 100px;
+    height: 30px;
+}
+
+a, p{
+    font-family: "DM sans", sans-serif;
+    color: #ffffff;
+}
