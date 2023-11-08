@@ -7,5 +7,16 @@
 </head>
 <body>
     <h1>Edit Profile</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="username">Username: </label>
+        <input type="text" id="username" name="username" value="{{ queueman.username }}">
+        <label for="phone">Phone Number: </label>
+        <input type="text" id="phone" name="phone_number" value="{{ queueman.phone_number}}">
+        <label for="line_id">Lind-ID: </label>
+        <input type="text" id="line_id" name="line_id" value="{{ queueman.line_id }}">
+        <button type="submit">Save changes</button>
+    </form>
+    <a href="{% url 'qprofile' %}">Back</a>
 </body>
 </html>

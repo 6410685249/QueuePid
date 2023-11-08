@@ -8,10 +8,11 @@
 <body>
     <h1>Profile</h1>
     <h2>Username: {{ queueman.username }}</h2>
-    <h2>Phone: {{ queueman.telephone }}</h2>
+    <h2>Phone: {{ queueman.phone_number }}</h2>
     <h2>Line-ID: {{ queueman.line_id }}</h2>
 
-    <a href="{% url 'qedit' %}">Edit Profile</a>
     <a href="{% url 'qhome' %}">Home</a>
+    <a href="{% url 'qedit' %}">Edit Profile</a>
+    <a href="{% url 'qpassword' %}">Change Password</a>
 </body>
 </html>
