@@ -13,7 +13,7 @@ body {
 
 nav {
     background-color: #00095C;
-    padding: 15px;
+    padding: 20px;
 }
 
 nav a {
@@ -35,6 +35,7 @@ article {
 .logo {
     height: 80px;
     width: auto;
+    cursor: pointer;
 }
 
 .tagline {
