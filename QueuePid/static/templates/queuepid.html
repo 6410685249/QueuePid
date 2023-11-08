@@ -9,21 +9,13 @@
     <nav>
         <table>
             <tr>
-                <td>
+                <th>
                     <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
-                </td>
+                </th>
                 <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                    <h3><a href="#"> about </a></h3>
-                </td>
-                <td>
-                    <h3><a href="{% url 'login' %}"> sign in </a></h3>
-                </td>
-                <td>
-                    <h3><a href="{% url 'signup' %}"> sign up </a></h3>
+                    <a href="#" id="about"> about </a>
+                    <a href="{% url 'login' %}" id="signin"> sign in</a>
+                    <a href="{% url 'signup' %}" id="signup"> sign up </a>
                 </td>
             </tr>
         </table>

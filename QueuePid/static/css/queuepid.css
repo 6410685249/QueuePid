@@ -51,3 +51,60 @@ article {
 p {
     line-height: 1.5;
 }
+
+#about {
+    margin-left: 0;
+}
+
+#signin {
+    border-style: solid;
+    border-color: #F0B65F;
+    padding: 10px;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+}
+
+#signup {
+    background-color: #F0B65F;
+    padding: 13px;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+    color: black;
+    display: inline-flex;
+}
+
+a {
+    font-size: 1.17em;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+#signup:hover {
+    color: white;
+}
+
+#signin:hover {
+    border-color: white;
+    color: #F0B65F;
+}
+
+#about:hover {
+    color: #F0B65F;
+}
+
+table{
+    width: 100%;
+}
+
+th{
+    width: auto;
+    text-align: left;
+}
+
+td{
+    width: 90%;
+    text-align: right;
+}
