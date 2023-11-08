@@ -8,7 +8,7 @@ class User_info(models.Model):
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
     email = models.EmailField(unique=True)
-    type = models.CharField(max_length = 10,default='customer')
+    # type = models.CharField(max_length = 10,default='customer')
     credit = models.PositiveIntegerField(default=0)
 
     def __str__(self) -> str:

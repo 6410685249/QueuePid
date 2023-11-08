@@ -8,12 +8,12 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from .models import User_info
 def signup(request):
-    print('In signup')
+    # print('In signup')
     if request.method == 'POST':
-        print("in post")
+        # print("in post")
         form = RegisterForm(request.POST)
         if form.is_valid():
-            print('form valid')
+            # print('form valid')
             user = form.save()
             print(form.cleaned_data)
             user_info = User_info(
@@ -24,7 +24,8 @@ def signup(request):
                 email=form.cleaned_data['email'],
             )
             user_info.save()
-            # print(form.cleaned_data)
+            group = Group.objects.get(name='Customer')
+            user.groups.add(group)
             login(request, user)
             return redirect(reverse('restaurant_list'))
     else:
