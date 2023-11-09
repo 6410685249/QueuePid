@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}
+    Home
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+
     <h1>Hi {{ queueman.username }}</h1>
-    
     <nav>
         <a href="{% url 'qwallet' %}">Wallet</a>
         <a href="{% url 'qhistory' %}">History</a>
         <a href="{% url 'qprofile' %}">Profile</a>
     </nav>
-
     <h3>Your credit remianing: {{ queueman.credit }}</h3>
-
-
-
     <hr>
     <h2>Customer list</h2>
     <ul>
@@ -27,9 +27,7 @@
             </li>
         {% endfor %}
     </ul>
-
     <hr>
-
     <a href="{% url 'logout' %}">Log Out</a>
-</body>
-</html>
+
+{% endblock %}

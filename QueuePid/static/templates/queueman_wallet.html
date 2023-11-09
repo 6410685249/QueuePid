@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallet</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}
+    Wallet
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+
     <h1>Wallet</h1>
     <h2>Your credit remaining: {{ queueman.credit }}</h2>
 
@@ -16,5 +21,5 @@
 
     <br>
     <a href="{% url 'qhome' %}">Home</a>
-</body>
-</html>
+
+{% endblock %}
