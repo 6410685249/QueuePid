@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}
     <title>Sign in to Queuepid</title>
-    {% load static %}
-    {% block css %}
+{% endblock %}
+
+{% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
-    {% endblock %}
-</head>
-<body>
+{% endblock %}
+
+
+{% block body %}
     <div>
         <br><br>
         <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
@@ -27,6 +28,4 @@
     {% if message %}
         <h3>{{ message }}</h3>
     {% endif %}
-
-</body>
-</html>
+{% endblock %}
