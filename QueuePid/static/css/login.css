@@ -26,22 +26,35 @@ div {
     width: auto;
 }
 
-button, input {
+input {
     font-family: "DM sans", sans-serif;
     font-weight: bold;
-}
-
-input {
     width: 300px;
-    height: 30px;
-}
-
-button {
-    width: 100px;
     height: 30px;
 }
 
 a, p{
     font-family: "DM sans", sans-serif;
     color: #ffffff;
+}
+
+a {
+    color: #F0B65F;
+    font-weight: bold;
+}
+
+#button {
+    background-color: #F0B65F;
+    font-weight: bold;
+    width: 100px;
+    height: 30px;
+}
+
+input[type=text], input[type=password]{
+    border: 1px solid #F0B65F;
+    box-sizing: border-box;
+}
+
+button:hover {
+    opacity: 0.82;
 }

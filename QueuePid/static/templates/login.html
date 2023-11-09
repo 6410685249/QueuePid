@@ -6,7 +6,7 @@
     <title>Sign in to Queuepid</title>
     {% load static %}
     {% block css %}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
     {% endblock %}
 </head>
 <body>
@@ -18,7 +18,7 @@
             {% csrf_token %}
             <input type="text" name="username" placeholder="Username"><br><br>
             <input type="password" name="password" placeholder="Password"><br><br>
-            <button type="submit">Log In</button>
+            <input type="submit" value="Sign in" id="button">
         </form>
 
         <p class="btmline">Don't have an account? <a href="{% url 'signup' %}" class="signup">Create your accout.</a></p><br>
