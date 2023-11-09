@@ -1,12 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Queuepid | Let's make value for your time.</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load static %}
+{% block header %} 
+    Queuepid | Let's make value for your time. 
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/about.css' %}" />
+{% endblock %}
+{% block body %}
+    <nav>
+        <table>
+            <tr>
+                <th>
+                    <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
+                </th>
+                <td>
+                    <a href="{% url 'go_to_history_page' %}" id="history"> history </a>
+                    <a href="{% url 'go_to_about_page' %}" id="about"> about </a>
+                    <a href="{% url 'go_to_wallet_page' %}" id="wallet"> wallet </a>
+                    <a href="{% url 'signup' %}" id="signup"> sign up </a>
+                </td>
+            </tr>
+        </table>
+    </nav>
     <H1>Hi {{ request.user.username }}</H1>
+    
     <form action="{% url 'go_to_history_page' %}" method="post">
         {% csrf_token %}
 
@@ -32,5 +50,4 @@
     {% endfor %}
     <a href="{% url 'logout' %}">Log Out</a>
     
-</body>
-</html>
+{% endblock %}
