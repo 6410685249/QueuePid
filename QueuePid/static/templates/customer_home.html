@@ -46,6 +46,7 @@
         {% csrf_token %}
         <input type="submit" name="about" value="account">
     </form>
+    
     {% for name,location in form %}
         <h1>{{name}} {{location}}</h1>
     {% endfor %}
