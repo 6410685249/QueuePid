@@ -1,30 +1,3 @@
-/* import font : Lato Bold 700 */
-@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Lato:wght@700&family=Nunito:wght@600&family=Rubik+Iso&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=DM+Sans:opsz,wght@9..40,100&family=Lato:wght@100;700&family=Nunito:wght@600&family=Rubik+Iso&display=swap');
-
-/* * {
-    background-color: white;
-} */
-
-body {
-    font-family: Lato, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-nav {
-    background-color: #00095C;
-    padding: 20px;
-}
-
-nav a {
-    color: #ffffff;
-    margin-right: 10px;
-    margin-left: 30px;
-    padding-left: 1em;
-    padding-right: 1em;
-}
-
 p {
     line-height: 1.5;
 }
@@ -34,20 +7,6 @@ a {
     font-weight: bold;
     text-decoration: none;
     margin-right: 20px;
-}
-
-table{
-    width: 100%;
-}
-
-th{
-    width: auto;
-    text-align: left;
-}
-
-td{
-    width: 90%;
-    text-align: right;
 }
 
 img {
@@ -72,12 +31,6 @@ div {
 }
 
 /* class */
-.logo {
-    height: 80px;
-    width: auto;
-    cursor: pointer;
-}
-
 .yellow_rectangle {
     background-color: #F0B65F;
     color: black;
@@ -89,40 +42,5 @@ div {
 
 .yellow_rectangle:hover{
     background-color: #00095C;
-    color: #F0B65F;
-}
-
-/* id */
-#about {
-    margin-left: 0;
-}
-
-#signin {
-    border-style: solid;
-    border-color: #F0B65F;
-    padding: 10px;
-    padding-left: 2.5em;
-    padding-right: 2.5em;
-}
-
-#signup {
-    background-color: #F0B65F;
-    padding: 13px;
-    padding-left: 2.5em;
-    padding-right: 2.5em;
-    color: black;
-    display: inline-flex;
-}
-
-#signup:hover {
-    color: white;
-}
-
-#signin:hover {
-    border-color: white;
-    color: #F0B65F;
-}
-
-#about:hover {
     color: #F0B65F;
 }

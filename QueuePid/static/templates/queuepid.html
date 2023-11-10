@@ -8,20 +8,6 @@
 {% endblock %}
 
 {% block body %}
-    <nav>
-        <table>
-            <tr>
-                <th>
-                    <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
-                </th>
-                <td>
-                    <a href="{% url 'about_queuepid' %}" id="about"> about </a>
-                    <a href="{% url 'login' %}" id="signin"> sign in</a>
-                    <a href="{% url 'signup' %}" id="signup"> sign up </a>
-                </td>
-            </tr>
-        </table>
-    </nav>
     <article>
         <h1 class="tagline">Let us help you save your time</h1>
         <h4 class="content">Whether you're working, studying, or resting,

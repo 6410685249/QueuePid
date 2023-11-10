@@ -1,0 +1,82 @@
+/* import font : Lato Bold 700 */
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Lato:wght@700&family=Nunito:wght@600&family=Rubik+Iso&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=DM+Sans:opsz,wght@9..40,100&family=Lato:wght@100;700&family=Nunito:wght@600&family=Rubik+Iso&display=swap');
+
+body {
+    font-family: Lato, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #00095C;
+    padding: 20px;
+}
+
+nav a {
+    color: #ffffff;
+    margin-right: 10px;
+    margin-left: 30px;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 1.17em;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+nav table{
+    width: 100%;
+}
+
+nav th{
+    width: auto;
+    text-align: left;
+}
+
+nav td{
+    width: 90%;
+    text-align: right;
+}
+
+/* class */
+.logo {
+    height: 80px;
+    width: auto;
+    cursor: pointer;
+}
+
+/* id */
+#about {
+    margin-left: 0;
+}
+
+#signin {
+    border-style: solid;
+    border-color: #F0B65F;
+    padding: 10px;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+}
+
+#signup {
+    background-color: #F0B65F;
+    padding: 13px;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+    color: black;
+    display: inline-flex;
+}
+
+#signup:hover {
+    color: white;
+}
+
+#signin:hover {
+    border-color: white;
+    color: #F0B65F;
+}
+
+#about:hover {
+    color: #F0B65F;
+}
