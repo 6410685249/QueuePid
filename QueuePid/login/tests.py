@@ -79,16 +79,13 @@ class LoginViewTest(TestCase):
 
     def test_login_successful_redirect_queueman(self):
         response = self.client.post(self.login_url, {'username': 'queueman123', 'password': 'testpassword1234'})
-        print(response)
         self.assertEqual(response.url, '/queueman/home/')
-
-        # self.assertRedirects(response,reverse('qhome')) แตก
+        self.assertEqual(response.url,reverse('qhome'))
         self.assertEqual(response.status_code, 302)
 
     def test_login_successful_redirect_restaurant_list(self):
         # Provide valid credentials for a user not in the Queueman group
         response = self.client.post(self.login_url, {'username': 'testcustomer', 'password': 'testpassword123'})
-        print(response)
         self.assertRedirects(response, reverse('restaurant_list'))
         self.assertEqual(response.status_code, 302)
 
@@ -96,6 +93,13 @@ class LoginViewTest(TestCase):
         response = self.client.post(self.login_url, {'username': 'invaliduser', 'password': 'invalidpassword'})
         self.assertTemplateUsed(response, 'login.html')
         self.assertContains(response, 'Invalid credentials!')
+
+    def test_str_representation(self):
+        user = User.objects.create(username='testuser', password='testpassword')
+        user_info = User_info.objects.create(username=user, telephone='1234567890', name='John', surname='Doe', email='john@example.com', credit=100)
+
+        expected_str = f"{user.username} John Doe john@example.com 100"
+        self.assertEqual(str(user_info), expected_str)
 
 class LogoutViewTest(TestCase):
     def setUp(self):

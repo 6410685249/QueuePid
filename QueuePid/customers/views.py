@@ -39,6 +39,7 @@ def edit_page(request):
 
 def success_edit(request):
     if request.method == 'POST':
+
         user_info = User_info.objects.get(username=request.user)
         user_info.username.username = request.POST['username']
         user_info.username.save()

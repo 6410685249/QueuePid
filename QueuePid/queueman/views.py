@@ -11,7 +11,6 @@ from django.contrib.auth import update_session_auth_hash
 def qhome(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    
     clist = User_info.objects.all()
     queueman = Queueman.objects.get(username = request.user.id)
     return render(request, 'queueman_home.html',{

@@ -8,14 +8,10 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from .models import User_info
 def signup(request):
-    # print('In signup')
     if request.method == 'POST':
-        # print("in post")
         form = RegisterForm(request.POST)
         if form.is_valid():
-            # print('form valid')
             user = form.save()
-            print(form.cleaned_data)
             user_info = User_info(
                 username=user,
                 telephone=form.cleaned_data['telephone'],
