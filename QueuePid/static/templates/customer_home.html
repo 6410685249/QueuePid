@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/about.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/customer_home.css' %}" />
 {% endblock %}
 {% block body %}
     <nav>
@@ -18,13 +18,14 @@
                     <a href="{% url 'go_to_history_page' %}" id="history"> history </a>
                     <a href="{% url 'go_to_about_page' %}" id="about"> about </a>
                     <a href="{% url 'go_to_wallet_page' %}" id="wallet"> wallet </a>
-                    <a href="{% url 'signup' %}" id="signup"> sign up </a>
+                    <a href="{% url 'go_to_edit_profile_page' %}" id="editprof"> #profileimg </a>
                 </td>
             </tr>
         </table>
     </nav>
     <H1>Hi {{ request.user.username }}</H1>
-    
+    <!-- Display profile img, Name, Username and credit here -->
+    <!-- Backend please take all of this form into nav bar -->
     <form action="{% url 'go_to_history_page' %}" method="post">
         {% csrf_token %}
 
@@ -48,6 +49,8 @@
     {% for name,location in form %}
         <h1>{{name}} {{location}}</h1>
     {% endfor %}
+
+    <!-- Take Logout out : It's should be at Edit profile page only! -->
     <a href="{% url 'logout' %}">Log Out</a>
     
 {% endblock %}
