@@ -1,17 +1,15 @@
+{% extends 'layout.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+{% block header %}About Queuepid{% endblock %}
+
+{% block css %}
     <link rel="stylesheet" href="{% static 'css/about_queuepid.css' %}" />
-</head>
+{% endblock %}
 
-<body>
-    <a href="{% url 'restaurant_list' %}" id="about"> back </a>
+{% block body %}
     <div class="container">
+        <a href="{% url 'restaurant_list' %}" id="about"> back </a><br>
         <div>
             <img src="{% static 'img/background.jpg' %}" alt="">
         </div>
@@ -39,6 +37,4 @@
             </ol>
         </div>
     </div>
-</body>
-
-</html>
+{% endblock %}
