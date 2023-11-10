@@ -1,49 +1,81 @@
 {% extends 'layout.html' %}
 {% block title %} Sign up to Queuepid. {% endblock %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/signup.css' %}" />
+{% endblock %}
 {% block body %}
-<h1>Create new account</h1>
-<p>It's quick and easy</p><br>
-<form action = "{% url 'signup' %}" method="post">
+
+{% block navigation %}{% endblock %}
+
+<a href="{% url 'restaurant_list' %}" ><img src='{% static 'img/logo.png' %}' alt="logo" class='logo'></a>
+
+<div class='container'>
+    <h1>Create new account</h1>
+    <p>It's quick and easy!</p><br>
+
+    <form action = "{% url 'signup' %}" method="post">
     {% csrf_token %}
     
-    {{ form.name.label_tag }}
-    {{ form.name }}
-    {{ form.name.errors }}
-    <br><br>
+        <div class='grid-container'>
+            <div class='name-grid'>
+                {% comment %} {{ form.name.label_tag }} {% endcomment %}
+                <input type='text' id='name' name='name' placeholder='First Name' class='fname'>
+                {{ form.name.errors }}
+            </div>
 
-    {{ form.surname.label_tag }}
-    {{ form.surname }}
-    {{ form.surname.errors }}
-    <br><br>
-    
-    {{ form.username.label_tag }}
-    {{ form.username }}
-    {{ form.username.errors }}
-    <br><br>
-    
-    {{ form.password1.label_tag }}
-    {{ form.password1 }}
-    {{ form.password1.errors }}
-    <br><br>
-    
-    {{ form.password2.label_tag }}
-    {{ form.password2 }}
-    {{ form.password2.errors }}
-    <br><br>
-    
-    {{ form.telephone.label_tag }}
-    {{ form.telephone }}
-    {{ form.telephone.errors }}
-    <br><br>
-    
-    {{ form.email.label_tag }}
-    {{ form.email }}
-    {{ form.email.errors }}
-    <br><br>
-    
-    <button type="submit">Sign Up</button><br>
-    
-</form>
-<a href="{% url 'login' %}">Sign in your accout.</a>
+            <div class='name-grid'>
+                {% comment %} {{ form.surname.label_tag }} {% endcomment %}
+                <input type='text' id='surname' name='surname' placeholder='Last Name'>
+                {{ form.surname.errors }}
+            </div>
+
+            <div class='fullspan-grid'>
+                {% comment %} {{ form.username.label_tag }} {% endcomment %}
+                <input type='text' id='username' name='username' placeholder='Username'>
+                {{ form.username.errors }}
+            </div>
+
+            <div class='fullspan-grid'>
+                {% comment %} {{ form.password1.label_tag }} {% endcomment %}
+                <input type='password' id='password1' name='password1' placeholder='New Password'>
+                {{ form.password1.errors }}
+            </div>
+
+            <div class='fullspan-grid'>
+                <ul class='strong-password-list'>
+                    <li>Your password can't be too similar to your other personal information.</li>
+                    <li>Your password must contain at least 8 characters.</li>
+                    <li>Your password can't be a commonly used password.</li>
+                    <li>Your password can't be entirely numeric.</li>
+                </ul>
+            </div>
+
+            <div class='fullspan-grid'>
+                {% comment %} {{ form.password2.label_tag }} {% endcomment %}
+                <input type='password' id='password2' name='password2' placeholder='Confirm Password'>
+                {{ form.password2.errors }}
+            </div>
+
+            <div class='fullspan-grid'>
+                {% comment %} {{ form.telephone.label_tag }} {% endcomment %}
+                <input type="tel" name="telephone" placeholder="Telephone">
+                {{ form.telephone.errors }}
+            </div>
+
+            <div class='fullspan-grid'>
+                {% comment %} {{ form.email.label_tag }} {% endcomment %}
+                <input type='email' id='email' name='email' placeholder='E-mail'>
+                {{ form.email.errors }}
+            </div>
+        </div>
+
+        <button type="submit" class='button'>Sign Up</button><br>
+
+    </form>
+    <a href="{% url 'login' %}" class='signin'>Already have an account?</a>
+</div>
+
+{% comment %} <p></p> {% endcomment %}
 
 {% endblock %}
