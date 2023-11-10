@@ -23,6 +23,7 @@ def signup(request):
                 surname=form.cleaned_data['surname'],
                 email=form.cleaned_data['email'],
             )
+
             user_info.save()
             group = Group.objects.get(name='Customer')
             user.groups.add(group)
