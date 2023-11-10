@@ -1,13 +1,34 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block header %}  {% endblock %}</title>
-    {% block css %}
-    {% endblock %}
+    <title>{% block header %} about {% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/navigation.css' %}" />
+    {% block css %}{% endblock %}
+
 </head>
 <body>
+    {% block navigation %}
+        <nav>
+            <table>
+                <tr>
+                    <th>
+                        <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
+                    </th>
+                    <td>
+                        <a href="{% url 'about_queuepid' %}" id="about"> about </a>
+                        <a href="{% url 'login' %}" id="signin"> sign in</a>
+                        <a href="{% url 'signup' %}" id="signup"> sign up </a>
+                    </td>
+                </tr>
+            </table>
+        </nav>
+    {% endblock %}
+
     {% block body %}
     {% endblock %}
 </body>
