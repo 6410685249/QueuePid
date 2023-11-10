@@ -2,18 +2,16 @@
 {% block body %}
     <h1>edit profile</h1>
 
-    <form action="{% url 'in_success_edit_back_account' %}" method="post">
+    <form action="{% url 'success_edit' %}" method="post">
         {% csrf_token %}
         <h1>Your username: <input type="text" name="username" value="{{ user_profile.username }}"></h1>
         <h1>Your name: <input type="text" name="name" value="{{ user_profile.name }}"></h1>
         <h1>Your surname:     <input type="text" name="surname"  value="{{ user_profile.surname }}"></h1>
         <h1>Your email: <input type="text" name="email" value="{{ user_profile.email }}"></h1>
         <h1>Your telephone: <input type="text" name="tele_phone"  value="{{ user_profile.telephone }}"></h1>
-        <input type="submit" name="history" value="success">   
+        <a ><button>success</button></a>
     </form>
 
-    <form action="{% url 'in_edit_back_account' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" name="history" value="cancle">
-    </form>
+    <a href="{% url 'account_page' %}"><button>cancle</button></a>
+
 {% endblock %}

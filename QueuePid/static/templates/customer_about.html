@@ -33,11 +33,8 @@
         
     <a href="https://www.pivotaltracker.com/n/projects/2682620">Pivotal</a>
     <a href="https://github.com/6410685249/QueuePid">Github Repository</a>
-    <form action="{% url 'in_about_back_to_home' %}" method="post">
-        {% csrf_token %}
+    <a href="{% url 'acount_back' %}" id="about"> back </a>
 
-        <input type="submit" name="history" value="back to home">
-    </form>
 </body>
 
 </html>

@@ -5,18 +5,9 @@
     <h1>Your name: {{ user.name }} {{ user.surname }}</h1>
     <h1>Your email: {{ user.email }}</h1>
     <h1>Your credit: {{ user.credit }}</h1>
-    <form action="{% url 'go_to_edit_profile_page' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" name="account" value="edit profile">    
-    </form>
+    
+    <a href="{% url 'restaurant_list' %}"><button>back</button></a>
+    <a href="{% url 'edit_page' %}"><button>edit</button></a>
+    <a href="{% url 'change_password' %}"><button>change password</button></a>
 
-    <form action="{% url 'go_to_change_password_page' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" name="account" value="chage password">
-    </form>
-
-    <form action="{% url 'in_account_back_to_home' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" name="account" value="back to home">
-    </form>
 {% endblock %}

@@ -15,10 +15,11 @@
                     <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
                 </th>
                 <td>
-                    <a href="{% url 'go_to_history_page' %}" id="history"> history </a>
-                    <a href="{% url 'go_to_about_page' %}" id="about"> about </a>
-                    <a href="{% url 'go_to_wallet_page' %}" id="wallet"> wallet </a>
-                    <a href="{% url 'go_to_edit_profile_page' %}" id="editprof"> #profileimg </a>
+                    <a href="{% url 'about_page' %}" id="about"> about </a>
+                    <a href="{% url 'wallet_page' %}" id="about"> wallet </a>
+                    <a href="{% url 'account_page' %}" id="about"> account </a>
+                    <a href="{% url 'history' %}" id="about"> history </a>
+
                 </td>
             </tr>
         </table>
@@ -26,26 +27,7 @@
     <H1>Hi {{ request.user.username }}</H1>
     <!-- Display profile img, Name, Username and credit here -->
     <!-- Backend please take all of this form into nav bar -->
-    <form action="{% url 'go_to_history_page' %}" method="post">
-        {% csrf_token %}
 
-        <input type="submit" name="history" value="history">
-    </form>
-
-    <form action="{% url 'go_to_about_page' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" name="about" value="about">
-    </form>
-
-    <form action="{% url 'go_to_wallet_page' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" name="about" value="wallet">
-    </form>
-
-    <form action="{% url 'go_to_account_page' %}" method="post">
-        {% csrf_token %}
-        <input type="submit" name="about" value="account">
-    </form>
     
     {% for name,location in form %}
         <h1>{{name}} {{location}}</h1>
