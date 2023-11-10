@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=DM+Sans:opsz,wght@9..40,100&family=Lato:wght@100;700&family=Nunito:wght@600&family=Rubik+Iso&display=swap');
 
 body {
     font-family: Lato, sans-serif;
 }
 
 p {
-    line-height: 1.5;
+    font-family: "DM sans";
 }
 
 a {
@@ -17,7 +16,7 @@ a {
 
 img {
     height: auto;
-    width: 500px;
+    width: 600px;
 }
 
 /* container */
