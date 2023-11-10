@@ -28,11 +28,7 @@ def account(request): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     user = User_info.objects.get(username=request.user)
-    
     return render(request,'customer_account.html',{'user':user})
-def account_page(request):
-    return account(request)
-
 
 def edit_page(request):
     # Get the current user's profile (replace with your logic to get the user's profile)
@@ -43,12 +39,9 @@ def edit_page(request):
 
 def success_edit(request):
     if request.method == 'POST':
-
-
         user_info = User_info.objects.get(username=request.user)
         user_info.username.username = request.POST['username']
         user_info.username.save()
-
         user_info.name = request.POST['name']
         user_info.surname = request.POST['surname']
         user_info.email = request.POST['email']
