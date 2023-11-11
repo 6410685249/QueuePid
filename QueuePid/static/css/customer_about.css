@@ -1,22 +1,22 @@
+
 body {
     font-family: Lato, sans-serif;
 }
 
 p {
-    line-height: 1.5;
-    font-family: DM sans;
+    font-family: "DM sans";
 }
 
 a {
     font-size: 1.17em;
+    font-weight: bold;
     text-decoration: none;
     margin-right: 20px;
-    font-family: DM sans;
 }
 
 img {
     height: auto;
-    width: 500px;
+    width: 600px;
 }
 
 /* container */
@@ -37,7 +37,6 @@ div {
 
 /* class */
 .yellow_rectangle {
-    font-family: Lato, sans-serif;
     background-color: #F0B65F;
     color: black;
     display: inline-flex;
