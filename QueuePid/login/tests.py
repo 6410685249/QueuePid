@@ -40,7 +40,7 @@ class SignUpViewTest(TestCase):
         # Check if the user is in the 'Customer' group
         group = Group.objects.get(name='Customer')
         self.assertTrue(user.groups.filter(name=group.name).exists())
-        self.assertRedirects(response, reverse('restaurant_list'))
+        self.assertRedirects(response, reverse('login'))
 
     def test_signup_invalid_data(self):
         # Test with invalid data, for example, missing required fields
@@ -54,6 +54,30 @@ class SignUpViewTest(TestCase):
         self.assertTrue('password1' in form_errors)
         self.assertTrue('telephone' in form_errors)
         # Add more checks for other form fields
+
+    def test_sigup_with_duplicate_email(self): 
+        #Create test user
+        user = User.objects.create_user(username='testuser', password='testpassword')
+        User_info.objects.create(
+            username=user,
+            telephone='1234567890',
+            name='John',
+            surname='Doe',
+            email='existing@example.com',
+        )
+        #Use duplicate email with test user
+        data = {
+            'username': 'newuser',
+            'password1': 'testpassword123',
+            'password2': 'testpassword123',
+            'telephone': '1234567890',
+            'name': 'John',
+            'surname': 'Doe',
+            'email': 'existing@example.com',
+        }
+        response = self.client.post(self.signup_url, data)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'this email has already been used')
 
     def test_signup_get_request(self):
         response = self.client.get(self.signup_url)

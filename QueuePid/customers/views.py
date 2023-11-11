@@ -66,7 +66,7 @@ def success_edit(request):
             return edit_page(request,message='username already use')
 
         if ((not is_valid_email(request.POST['email'])) or (request.POST['email'] in all_emails)):
-            return edit_page(request,message='email already use')
+            return edit_page(request,message='this email has already been used')
 
         user_info.username.username = request.POST['username']
         user_info.username.save()
