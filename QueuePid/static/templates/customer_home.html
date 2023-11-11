@@ -10,7 +10,7 @@
 
 {% block body %}
     {% block navigation %}{% endblock %}
-    
+
     {% include 'nav_cus.inc.html' %}
 
 
@@ -21,7 +21,5 @@
     {% for name,location in form %}
         <h1>{{name}} {{location}}</h1>
     {% endfor %}
-
-    <a href="{% url 'logout' %}">Log Out</a>
     
 {% endblock %}
