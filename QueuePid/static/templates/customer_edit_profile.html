@@ -11,7 +11,9 @@
         <h1>Your telephone: <input type="text" name="tele_phone"  value="{{ user_profile.telephone }}"></h1>
         <a ><button>success</button></a>
     </form>
-
+    {% if message != "None"%}
+        {{message}}
+    {% endif %}
     <a href="{% url 'account' %}"><button>cancle</button></a>
 
 {% endblock %}
