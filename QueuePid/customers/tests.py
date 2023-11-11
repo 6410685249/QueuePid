@@ -19,8 +19,10 @@ class ListRestaurantViewTest(TestCase):
         self.list_restaurant_url = reverse('restaurant_list')
         self.client = Client()
         self.client.login(username='testcustomer', password='testpassword123')
-        
+        # 
+
     def test_list_restaurant_authenticated_user(self):
+        user_info = User_info.objects.create(username=self.customer,telephone='0985936988',name='kiw',surname='check',email='peerapat@gmail.com')
         Restaurant.objects.create(name='Restaurant1',phone_number='111',location='Location1',line_id='line1')
         Restaurant.objects.create(name='Restaurant2',phone_number='222',location='Location2',line_id='line2')
         response = self.client.get(self.list_restaurant_url)
@@ -28,6 +30,7 @@ class ListRestaurantViewTest(TestCase):
         self.assertTemplateUsed(response, 'customer_home.html')
         self.assertIn(('Restaurant1','Location1'), response.context['form'])
         self.assertIn(('Restaurant2','Location2'), response.context['form'])
+        self.assertIn(user_info, response.context['user'])
 
     def test_list_restaurant_unauthenticated_user(self):
         self.client.logout()
