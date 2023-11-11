@@ -30,7 +30,8 @@ class ListRestaurantViewTest(TestCase):
         self.assertTemplateUsed(response, 'customer_home.html')
         self.assertIn(('Restaurant1','Location1'), response.context['form'])
         self.assertIn(('Restaurant2','Location2'), response.context['form'])
-        self.assertIn(user_info, response.context['user'])
+
+        self.assertEqual(user_info, response.context['user'])
 
     def test_list_restaurant_unauthenticated_user(self):
         self.client.logout()
