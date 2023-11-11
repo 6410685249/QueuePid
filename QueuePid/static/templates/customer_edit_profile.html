@@ -1,5 +1,12 @@
 {% extends 'layout.html' %}
+
+{% block header %} Edit Account{% endblock %}
+
 {% block body %}
+    {% block navigation %}{% endblock %}
+
+    {% include 'nav_cus.inc.html' %}
+
     <h1>edit profile</h1>
 
     <form action="{% url 'success_edit' %}" method="post">
@@ -11,7 +18,9 @@
         <h1>Your telephone: <input type="text" name="tele_phone"  value="{{ user_profile.telephone }}"></h1>
         <a ><button>success</button></a>
     </form>
-
+    {% if message != "None"%}
+        {{message}}
+    {% endif %}
     <a href="{% url 'account' %}"><button>cancle</button></a>
 
 {% endblock %}

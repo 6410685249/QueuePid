@@ -8,6 +8,10 @@
 {% endblock %}
 
 {% block body %}
+    {% block navigation %}{% endblock %}
+
+    {% include 'nav_cus.inc.html' %}
+
     <div class="container">
         <a href="{% url 'restaurant_list' %}" id="about"> back </a><br>
         <div>

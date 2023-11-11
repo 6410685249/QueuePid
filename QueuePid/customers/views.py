@@ -8,6 +8,17 @@ from django.shortcuts import render, redirect
 from .models import Restaurant,Historically
 from login.models import User_info
 from login.views import logout_view
+import re
+
+def is_valid_email(email):
+    # Define the regular expression pattern for a simple email format
+    pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    
+    # Use re.match to check if the email matches the pattern
+    match = re.match(pattern, email)
+    
+    # Return True if there is a match, indicating a valid email format
+    return bool(match)
 
 def list_restaurant(request):
     if not request.user.is_authenticated:
@@ -30,17 +41,33 @@ def account(request): # render to html
     user = User_info.objects.get(username=request.user)
     return render(request,'customer_account.html',{'user':user})
 
-def edit_page(request):
+def edit_page(request,message = "None"):
     # Get the current user's profile (replace with your logic to get the user's profile)
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     user_profile = User_info.objects.get(username=request.user)  
-    return render(request,'customer_edit_profile.html',{'user_profile': user_profile})
+    print(message)
+    return render(request,'customer_edit_profile.html',{'user_profile': user_profile,'message':message})
 
 def success_edit(request):
     if request.method == 'POST':
-
         user_info = User_info.objects.get(username=request.user)
+        all_user_info_instances = User_info.objects.all()
+        all_usernames = []
+        all_emails = []
+    
+        for i in all_user_info_instances:
+            if i.username.username != user_info.username.username :
+                all_usernames.append(i.username.username)
+            if i.email != user_info.email:
+                all_emails.append(i.email)
+
+        if (request.POST['username'] in all_usernames):
+            return edit_page(request,message='username already use')
+
+        if ((not is_valid_email(request.POST['email'])) or (request.POST['email'] in all_emails)):
+            return edit_page(request,message='email already use')
+
         user_info.username.username = request.POST['username']
         user_info.username.save()
         user_info.name = request.POST['name']

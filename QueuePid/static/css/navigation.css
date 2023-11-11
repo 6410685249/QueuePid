@@ -40,11 +40,19 @@ nav td{
     text-align: right;
 }
 
+nav a:hover {
+    color: #F0B65F;
+}
+
 /* class */
 .logo {
     height: 80px;
     width: auto;
     cursor: pointer;
+}
+
+.link {
+    margin: 0px;
 }
 
 /* id */
@@ -69,15 +77,15 @@ nav td{
     display: inline-flex;
 }
 
+#logout:hover {
+    color:rgb(189, 90, 90)
+}
+
 #signup:hover {
     color: white;
 }
 
 #signin:hover {
     border-color: white;
-    color: #F0B65F;
-}
-
-#about:hover {
     color: #F0B65F;
 }
