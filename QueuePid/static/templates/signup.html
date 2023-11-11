@@ -20,25 +20,25 @@
         <div class='grid-container'>
             <div class='name-grid'>
                 {% comment %} {{ form.name.label_tag }} {% endcomment %}
-                <input type='text' id='name' name='name' placeholder='First Name' class='fname'>
-                {{ form.name.errors }}
+                <input type='text' id='name' name='name' placeholder='First Name' class='fname' required>
+                {% comment %} {{ form.name.errors }} {% endcomment %}
             </div>
 
             <div class='name-grid'>
                 {% comment %} {{ form.surname.label_tag }} {% endcomment %}
-                <input type='text' id='surname' name='surname' placeholder='Last Name'>
-                {{ form.surname.errors }}
+                <input type='text' id='surname' name='surname' placeholder='Last Name' required>
+                {% comment %} {{ form.surname.errors }} {% endcomment %}
             </div>
 
             <div class='fullspan-grid'>
                 {% comment %} {{ form.username.label_tag }} {% endcomment %}
-                <input type='text' id='username' name='username' placeholder='Username'>
-                {{ form.username.errors }}
+                <input type='text' id='username' name='username' placeholder='Username' required>
+                {% comment %} {{ form.username.errors }} {% endcomment %}
             </div>
 
             <div class='fullspan-grid'>
                 {% comment %} {{ form.password1.label_tag }} {% endcomment %}
-                <input type='password' id='password1' name='password1' placeholder='New Password'>
+                <input type='password' id='password1' name='password1' placeholder='New Password' required>
                 {{ form.password1.errors }}
             </div>
 
@@ -53,21 +53,26 @@
 
             <div class='fullspan-grid'>
                 {% comment %} {{ form.password2.label_tag }} {% endcomment %}
-                <input type='password' id='password2' name='password2' placeholder='Confirm Password'>
-                {{ form.password2.errors }}
+                <input type='password' id='password2' name='password2' placeholder='Confirm Password' required>
+                
             </div>
 
             <div class='fullspan-grid'>
                 {% comment %} {{ form.telephone.label_tag }} {% endcomment %}
-                <input type="tel" name="telephone" placeholder="Telephone">
-                {{ form.telephone.errors }}
+                <input type="tel" name="telephone" placeholder="Tel No." required>
             </div>
 
             <div class='fullspan-grid'>
                 {% comment %} {{ form.email.label_tag }} {% endcomment %}
-                <input type='email' id='email' name='email' placeholder='E-mail'>
-                {{ form.email.errors }}
+                <input type='email' id='email' name='email' placeholder='E-mail' required>
             </div>
+
+        </div>
+
+        <div class='error'>
+            {{ form.telephone.errors }}
+            {{ form.password2.errors }}
+            {{ form.email.errors }}
         </div>
 
         <button type="submit" class='button'>Sign Up</button><br>
@@ -75,7 +80,5 @@
     </form>
     <a href="{% url 'login' %}" class='signin'>Already have an account?</a>
 </div>
-
-{% comment %} <p></p> {% endcomment %}
 
 {% endblock %}
