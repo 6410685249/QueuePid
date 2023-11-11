@@ -1,26 +1,48 @@
 {% extends 'layout.html' %}
+{% load static %}
 
-{% block header %} Edit Account{% endblock %}
+{% block header %} Edit Account {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/customer_edit.css' %}" />
+{% endblock %}
 
 {% block body %}
     {% block navigation %}{% endblock %}
 
     {% include 'nav_cus.inc.html' %}
 
-    <h1>edit profile</h1>
-
+    <a href="{% url 'account' %}"> < back </a>
+    
     <form action="{% url 'success_edit' %}" method="post">
         {% csrf_token %}
-        <h1>Your username: <input type="text" name="username" value="{{ user_profile.username }}"></h1>
-        <h1>Your name: <input type="text" name="name" value="{{ user_profile.name }}"></h1>
-        <h1>Your surname:     <input type="text" name="surname"  value="{{ user_profile.surname }}"></h1>
-        <h1>Your email: <input type="text" name="email" value="{{ user_profile.email }}"></h1>
-        <h1>Your telephone: <input type="text" name="tele_phone"  value="{{ user_profile.telephone }}"></h1>
-        <a ><button>success</button></a>
+        <div class="container">
+            <div class="profile-area">
+                <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
+            </div>
+            <div class="account-area">
+                <h3>Edit Account</h3>
+                <div class="edit-area">
+                    <p>Your username:</p>
+                    <p><input type="text" name="username" value="{{ user_profile.username }}"></p>
+                    <p>Your name:</p>
+                    <p><input type="text" name="name" value="{{ user_profile.name }}"></p>
+                    <p>Your surname:</p>
+                    <p><input type="text" name="surname"  value="{{ user_profile.surname }}"></p>
+                    <p>Your email:</p>
+                    <p><input type="text" name="email" value="{{ user_profile.email }}"></p>
+                    <p>Your telephone:</p>
+                    <p><input type="text" name="tele_phone"  value="{{ user_profile.telephone }}"></p>
+                    <div class="button-area">
+                        <button>Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
     {% if message != "None"%}
         {{message}}
     {% endif %}
-    <a href="{% url 'account' %}"><button>cancle</button></a>
+
 
 {% endblock %}
