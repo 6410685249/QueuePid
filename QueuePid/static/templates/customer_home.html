@@ -13,10 +13,10 @@
 
     {% include 'nav_cus.inc.html' %}
 
-
-    <H1>Hi {{ request.user.username }}</H1>
+    <img src='{% static 'img/default_avartar.png' %}'>
+    <H1>Hi {{ request.user.name }} {{ request.user.surname }}</H1>
     <!-- Display profile img, Name, Username and credit here -->
-
+    {{user.username}}
     
     {% for name,location in form %}
         <h1>{{name}} {{location}}</h1>
