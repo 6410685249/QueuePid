@@ -19,8 +19,10 @@ class ListRestaurantViewTest(TestCase):
         self.list_restaurant_url = reverse('restaurant_list')
         self.client = Client()
         self.client.login(username='testcustomer', password='testpassword123')
-        
+        # 
+
     def test_list_restaurant_authenticated_user(self):
+        user_info = User_info.objects.create(username=self.customer,telephone='0985936988',name='kiw',surname='check',email='peerapat@gmail.com')
         Restaurant.objects.create(name='Restaurant1',phone_number='111',location='Location1',line_id='line1')
         Restaurant.objects.create(name='Restaurant2',phone_number='222',location='Location2',line_id='line2')
         response = self.client.get(self.list_restaurant_url)
@@ -28,6 +30,8 @@ class ListRestaurantViewTest(TestCase):
         self.assertTemplateUsed(response, 'customer_home.html')
         self.assertIn(('Restaurant1','Location1'), response.context['form'])
         self.assertIn(('Restaurant2','Location2'), response.context['form'])
+
+        self.assertEqual(user_info, response.context['user'])
 
     def test_list_restaurant_unauthenticated_user(self):
         self.client.logout()
@@ -102,6 +106,87 @@ class ListRestaurantViewTest(TestCase):
         self.assertEqual(updated_user_info.telephone, '123456789')
         self.assertEqual(response.status_code, 200)
     
+    def test_success_edit_post_email_exists(self):
+        existing_user = User.objects.create_user(username='existinguser', password='testpassword')
+        existing_user_info = User_info.objects.create(
+            username=existing_user,
+            name='Existing',
+            surname='User',
+            email='existing@example.com',
+            telephone='1234567890',
+        )
+        test_user = User.objects.create_user(username='testuser', password='testpassword')
+        test_user_info = User_info.objects.create(
+            username=test_user,
+            name='test',
+            surname='User',
+            email='test@example.com',
+            telephone='1234567890',
+        )
+        data = {
+            'username': 'testuser',
+            'name': 'name',
+            'surname': 'surname',
+            'email': 'existing@example.com',
+            'tele_phone': '123456789',
+        }
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.post(reverse('success_edit'), data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response,'this email has already been used')
+
+    def test_success_edit_post_username_exists(self):
+        existing_user = User.objects.create_user(username='existinguser', password='testpassword')
+        existing_user_info = User_info.objects.create(
+            username=existing_user,
+            name='Existing',
+            surname='User',
+            email='existing@example.com',
+            telephone='1234567890',
+        )
+        test_user = User.objects.create_user(username='testuser', password='testpassword')
+        test_user_info = User_info.objects.create(
+            username=test_user,
+            name='test',
+            surname='User',
+            email='test@example.com',
+            telephone='1234567890',
+        )
+        data = {
+            'username': 'existinguser',
+            'name': 'name',
+            'surname': 'surname',
+            'email': 'test@example.com',
+            'tele_phone': '123456789',
+        }
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.post(reverse('success_edit'), data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response,'username already use')
+
+    def test_edit_page_authenticated(self):
+        test_user = User.objects.create_user(username='testuser', password='testpassword')
+        user_info = User_info.objects.create(
+            username=test_user,
+            name='John',
+            surname='Doe',
+            email='john@example.com',
+            telephone='1234567890',
+        )
+        self.client.login(username='testuser', password='testpassword')
+        response = self.client.get(reverse('edit_page'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'customer_edit_profile.html')
+        self.assertTrue('user_profile' in response.context)
+        self.assertEqual(response.context['message'], "None")
+
+    def test_edit_page_unauthenticated(self):
+        self.client.logout()
+        response = self.client.get(reverse('edit_page'))
+        self.assertRedirects(response, reverse('login'))
+        self.assertEqual(response.status_code, 302)
+
+
     def test_success_edit_witout_post(self):
         user_info = User_info.objects.create(username=self.customer,telephone='1234',name='peerapat',surname='ngamsanga',email='example@gmail.com')
         response = self.client.get(reverse('success_edit'))
