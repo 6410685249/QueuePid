@@ -7,23 +7,13 @@
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/customer_home.css' %}" />
 {% endblock %}
-{% block body %}
-    <nav>
-        <table>
-            <tr>
-                <th>
-                    <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
-                </th>
-                <td>
-                    <a href="{% url 'about' %}" id="about"> about </a>
-                    <a href="{% url 'wallet' %}" id="about"> wallet </a>
-                    <a href="{% url 'account' %}" id="about"> account </a>
-                    <a href="{% url 'history' %}" id="about"> history </a>
 
-                </td>
-            </tr>
-        </table>
-    </nav>
+{% block body %}
+    {% block navigation %}{% endblock %}
+    
+    {% include 'nav_cus.inc.html' %}
+
+
     <H1>Hi {{ request.user.username }}</H1>
     <!-- Display profile img, Name, Username and credit here -->
 

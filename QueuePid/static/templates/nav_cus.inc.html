@@ -1,0 +1,17 @@
+{% load static %}
+<nav>
+    <table>
+        <tr>
+            <th>
+                <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
+            </th>
+            <td>
+                <a href="{% url 'about' %}" id="about"> about </a>
+                <a href="{% url 'wallet' %}" id="about"> wallet </a>
+                <a href="{% url 'account' %}" id="about"> account </a>
+                <a href="{% url 'history' %}" id="about"> history </a>
+
+            </td>
+        </tr>
+    </table>
+</nav>
