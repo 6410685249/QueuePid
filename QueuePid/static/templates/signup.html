@@ -67,6 +67,9 @@
                 {% comment %} {{ form.email.label_tag }} {% endcomment %}
                 <input type='email' id='email' name='email' placeholder='E-mail'>
                 {{ form.email.errors }}
+                {% if email_unique%}
+                    {{email_unique}}
+                {% endif %}
             </div>
         </div>
 
