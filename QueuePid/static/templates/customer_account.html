@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 {% block body %}
+    {% block navigation %}{% endblock %}
+
+    {% include 'nav_cus.inc.html' %}
+
     <h1>account</h1>
     <h1>Your username: {{ user.username }}</h1>
     <h1>Your name: {{ user.name }} {{ user.surname }}</h1>

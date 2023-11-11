@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 {% block body %}
+    {% block navigation %}{% endblock %}
+
+    {% include 'nav_cus.inc.html' %}
+    
     <h1>wallet</h1>
     <a href="{% url 'restaurant_list' %}" > back </a>
 
