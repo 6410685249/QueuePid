@@ -10,7 +10,10 @@ from .models import User_info
 def signup(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
+        all_emails = User_info.objects.values_list('email', flat=True)
         if form.is_valid():
+            if (form.cleaned_data['email'] in list(all_emails)):
+                    return render(request, 'signup.html', {'email_unique':'this emal has already use'})
             user = form.save()
             user_info = User_info(
                 username=user,
@@ -19,12 +22,11 @@ def signup(request):
                 surname=form.cleaned_data['surname'],
                 email=form.cleaned_data['email'],
             )
-
             user_info.save()
             group = Group.objects.get(name='Customer')
             user.groups.add(group)
             login(request, user)
-            return redirect(reverse('restaurant_list'))
+            return redirect(reverse('login'))
     else:
         form = RegisterForm()
     return render(request, 'signup.html', {'form': form})
