@@ -46,7 +46,6 @@ def edit_page(request,message = "None"):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     user_profile = User_info.objects.get(username=request.user)  
-    print(message)
     return render(request,'customer_edit_profile.html',{'user_profile': user_profile,'message':message})
 
 def success_edit(request):
@@ -65,8 +64,11 @@ def success_edit(request):
         if (request.POST['username'] in all_usernames):
             return edit_page(request,message='username already use')
 
-        if ((not is_valid_email(request.POST['email'])) or (request.POST['email'] in all_emails)):
-            return edit_page(request,message='email already use')
+        if (not is_valid_email(request.POST['email'])) or (request.POST['email'][-1] == '.'):
+            return edit_page(request,message='email wrong format.')
+        
+        if request.POST['email'] in all_emails:
+            return edit_page(request,message='email already use.')
 
         user_info.username.username = request.POST['username']
         user_info.username.save()
