@@ -108,8 +108,15 @@ class LoginViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_login_successful_redirect_restaurant_list(self):
-        # Provide valid credentials for a user not in the Queueman group
-        response = self.client.post(self.login_url, {'username': 'testcustomer', 'password': 'testpassword123'})
+        user = User.objects.create_user(username='testuser', password='testpassword123')
+        User_info.objects.create(
+            username=user,
+            telephone='1234567890',
+            name='John',
+            surname='Doe',
+            email='existing@example.com',
+        )
+        response = self.client.post(self.login_url, {'username': 'testuser', 'password': 'testpassword123'})
         self.assertRedirects(response, reverse('restaurant_list'))
         self.assertEqual(response.status_code, 302)
 
