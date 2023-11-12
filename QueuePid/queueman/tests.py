@@ -119,7 +119,7 @@ class QhomeViewTest(TestCase):
             'password': 'new_password1224',
         }
         response = self.client.post(reverse('qpassword'),data)
-        self.assertRedirects(response,reverse('qprofile'))
+        self.assertRedirects(response,reverse('logout'))
         self.assertEqual(response.status_code,302)
 
 

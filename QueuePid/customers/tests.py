@@ -68,7 +68,8 @@ class ListRestaurantViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_account_authenticated_user(self):
-        user_info = User_info.objects.create(username=self.customer,telephone='1234',name='peerapat',surname='ngamsanga',email='example@gmail.com')
+        user_info = User_info.objects.create(username=self.customer,telephone='1234',\
+                                             name='peerapat',surname='ngamsanga',email='example@gmail.com')
         response = self.client.get(reverse('account'))
         self.assertEqual(user_info, response.context['user'])
         self.assertEqual(response.status_code, 200)
@@ -81,14 +82,16 @@ class ListRestaurantViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_edit_page_authenticated_user(self):
-        user_info = User_info.objects.create(username=self.customer,telephone='1234',name='peerapat',surname='ngamsanga',email='example@gmail.com')
+        user_info = User_info.objects.create(username=self.customer,telephone='1234',\
+                                             name='peerapat',surname='ngamsanga',email='example@gmail.com')
         response = self.client.get(reverse('edit_page'))
         self.assertEqual(user_info, response.context['user_profile'])
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'customer_edit_profile.html')
 
     def test_success_edit_post_request(self):
-        user_info = User_info.objects.create(username=self.customer,telephone='1234',name='peerapat',surname='ngamsanga',email='example@gmail.com')
+        user_info = User_info.objects.create(username=self.customer,telephone='1234', \
+                                             name='peerapat',surname='ngamsanga',email='example@gmail.com')
         data = {
             'username': 'new_username',
             'name': 'name',
@@ -188,7 +191,8 @@ class ListRestaurantViewTest(TestCase):
 
 
     def test_success_edit_witout_post(self):
-        user_info = User_info.objects.create(username=self.customer,telephone='1234',name='peerapat',surname='ngamsanga',email='example@gmail.com')
+        user_info = User_info.objects.create(username=self.customer,\
+                    telephone='1234',name='peerapat',surname='ngamsanga',email='example@gmail.com')
         response = self.client.get(reverse('success_edit'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'customer_edit_profile.html') 
@@ -210,7 +214,7 @@ class ListRestaurantViewTest(TestCase):
         }
         response = self.client.post(reverse('success_password'), data)
         self.assertEqual(response.status_code, 200)
-        # Check if the user's password is updated
+        
     def test_success_password_get(self):
         response = self.client.get(reverse('success_password'))
         self.assertEqual(response.status_code, 200)
@@ -222,8 +226,12 @@ class ListRestaurantViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_history_authenticated_user(self):
-        h1 = Historically.objects.create(username=self.customer.username,restaurant='rest1',cost=200,queeuManName='man1',date='2023-11-07',phone_number_QueueMan='0987654321',phone_number_customer='12345467')
-        h2 = Historically.objects.create(username=self.customer.username,restaurant='rest2',cost=300,queeuManName='man2',date='2023-11-07',phone_number_QueueMan='0987654321',phone_number_customer='12345467')
+        h1 = Historically.objects.create(username=self.customer.username, \
+            restaurant='rest1',cost=200,queeuManName='man1',date='2023-11-07', \
+            phone_number_QueueMan='0987654321',phone_number_customer='12345467')
+        h2 = Historically.objects.create(username=self.customer.username, \
+            restaurant='rest2',cost=300,queeuManName='man2',date='2023-11-07', \
+            phone_number_QueueMan='0987654321',phone_number_customer='12345467')
         response = self.client.get(reverse('history'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'customer_history.html')

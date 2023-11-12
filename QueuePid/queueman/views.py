@@ -73,6 +73,6 @@ def change_password(request):
         queueman.set_password(new_password)
         queueman.save()
         update_session_auth_hash(request,queueman)
-        return HttpResponseRedirect(reverse('qprofile'))
+        return HttpResponseRedirect(reverse('logout'))
     
     return render(request,'queueman_change_password.html')
