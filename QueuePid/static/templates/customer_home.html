@@ -13,13 +13,18 @@
 
     {% include 'nav_cus.inc.html' %}
 
-    <img src='{% static 'img/default_avartar.png' %}'>
-    <H1>Hi {{ request.user.name }} {{ request.user.surname }}</H1>
-    <!-- Display profile img, Name, Username and credit here -->
-    {{user.username}}
-    
-    {% for name,location in form %}
-        <h1>{{name}} {{location}}</h1>
-    {% endfor %}
-    
+    <div class='head'>
+        <h1 class='header-font-size'>Hi! {{ user.username.username }} |</h1>
+        <h2 class='header2-font-size'> Enjoy with your meal~</h2>
+    </div>
+
+    <div class='grid-container'>    
+        {% for name,location in form %}
+        <div>
+            <img src="{% static 'img/default_avatar.png' %}">
+            <p>{{name}}</p> <br> <p>{{location}}</p>
+        </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}
