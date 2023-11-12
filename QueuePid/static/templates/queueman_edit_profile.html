@@ -10,6 +10,8 @@
 {% endblock %}
 
 {% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_queue.inc.html' %}
     <h1>Edit Profile</h1>
     <form method="post">
         {% csrf_token %}

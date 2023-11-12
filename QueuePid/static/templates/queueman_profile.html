@@ -10,6 +10,8 @@
 {% endblock %}
 
 {% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_queue.inc.html' %}
 
     <h1>Profile</h1>
     <h2>Username: {{ queueman.username }}</h2>

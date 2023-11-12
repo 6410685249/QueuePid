@@ -10,6 +10,8 @@
 {% endblock %}
 
 {% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_queue.inc.html' %}
 
     <h1>Wallet</h1>
     <h2>Your credit remaining: {{ queueman.credit }}</h2>

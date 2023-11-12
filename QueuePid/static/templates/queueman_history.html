@@ -10,7 +10,8 @@
 {% endblock %}
 
 {% block body %}
-
+    {% block navigation %}{% endblock %}
+    {% include 'nav_queue.inc.html' %}
     <h1>History Page</h1>
     <a href="{% url 'qhome' %}">Home</a>
 
