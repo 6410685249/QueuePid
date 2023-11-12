@@ -4,7 +4,7 @@
 {% block header %} Edit Account {% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/customer_edit.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
 {% endblock %}
 
 {% block body %}
@@ -16,29 +16,32 @@
     
     <form action="{% url 'success_edit' %}" method="post">
         {% csrf_token %}
+
         <div class="container">
             <div class="profile-area">
                 <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
             </div>
+
             <div class="account-area">
                 <h3>Edit Account</h3>
                 <div class="edit-area">
-                    <p>Your username:</p>
+                    <p>Username:</p>
                     <p><input type="text" name="username" value="{{ user_profile.username }}"></p>
-                    <p>Your name:</p>
+                    <p>Name:</p>
                     <p><input type="text" name="name" value="{{ user_profile.name }}"></p>
-                    <p>Your surname:</p>
+                    <p>Surname:</p>
                     <p><input type="text" name="surname"  value="{{ user_profile.surname }}"></p>
-                    <p>Your email:</p>
+                    <p>E-mail:</p>
                     <p><input type="text" name="email" value="{{ user_profile.email }}"></p>
-                    <p>Your telephone:</p>
+                    <p>Phone Number:</p>
                     <p><input type="text" name="tele_phone"  value="{{ user_profile.telephone }}"></p>
                     <div class="button-area">
-                        <button>Update</button>
+                        <button type="submit">Save changes</button>
                     </div>
                 </div>
             </div>
         </div>
+
     </form>
     {% if message != "None"%}
         {{message}}
