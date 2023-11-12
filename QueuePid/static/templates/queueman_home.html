@@ -6,28 +6,36 @@
 {% endblock %}
 
 {% block css %}
-
+<link rel="stylesheet" href="{% static 'css/queue_home.css' %}" />
 {% endblock %}
 
 {% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_queue.inc.html' %}
 
-    <h1>Hi {{ queueman.username }}</h1>
-    <nav>
-        <a href="{% url 'qwallet' %}">Wallet</a>
-        <a href="{% url 'qhistory' %}">History</a>
-        <a href="{% url 'qprofile' %}">Profile</a>
-    </nav>
-    <h3>Your credit remianing: {{ queueman.credit }}</h3>
-    <hr>
-    <h2>Customer list</h2>
-    <ul>
+    <div class="container">
+        <div class="profile-area">
+            <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
+        </div>
+        <div class="account-area">
+            <h2>Username: {{ queueman.username }}</h2>
+            <p>Your credit remianing: {{ queueman.credit }}</p>
+        </div>
+    </div>
+
+    <h3>Customer list</h3>
+    <table>
         {% for customer in clist %}
-            <li>
-                <p> {{ customer.username }} </p>
-            </li>
+            <td class="container">
+                <div class="profile-area">
+                    <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
+                </div>
+                <div>
+                    <p> Username: {{ customer.username }} </p>
+                    <p> Mobile phone: {{ customer.telephone }}</p>
+                </div>
+            </td>
         {% endfor %}
-    </ul>
-    <hr>
-    <a href="{% url 'logout' %}">Log Out</a>
+    </table>
 
 {% endblock %}
