@@ -13,7 +13,7 @@ def signup(request):
         all_emails = User_info.objects.values_list('email', flat=True)
         if form.is_valid():
             if (form.cleaned_data['email'] in list(all_emails)):
-                    return render(request, 'signup.html', {'email_unique':'this emal has already use'})
+                    return render(request, 'signup.html', {'email_unique':'this email has already been used'})
             user = form.save()
             user_info = User_info(
                 username=user,
