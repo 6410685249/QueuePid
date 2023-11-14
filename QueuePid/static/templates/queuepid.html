@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block header %} 
+    Queuepid | Let's make value for your time. 
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/queuepid.css' %}" />
+{% endblock %}
+
+{% block body %}
+    <article>
+        <h1 class="tagline">Let us help you save your time</h1>
+        <h4 class="content">Whether you're working, studying, or resting,
+            we can wait for the restaurant queue for you.</h4>
+    </article>
+
+{% endblock %}

@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import Queueman
+from .models import User_info
 # Register your models here.
-
-admin.site.register(Queueman)
+admin.site.register(User_info)

@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}
+    Wallet
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_queue.inc.html' %}
+
+    <h1>Wallet</h1>
+    <h2>Your credit remaining: {{ queueman.credit }}</h2>
+
+    <nav>
+        <a href="">Topup</a>
+        <a href="">Witdraw</a>
+    </nav>
+
+    <br>
+    <a href="{% url 'qhome' %}">Home</a>
+
+{% endblock %}

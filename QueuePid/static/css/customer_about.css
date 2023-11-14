@@ -1,0 +1,51 @@
+
+body {
+    font-family: Lato, sans-serif;
+}
+
+p {
+    font-family: "DM sans";
+}
+
+a {
+    font-size: 1.17em;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+img {
+    height: auto;
+    width: 600px;
+}
+
+/* container */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 1%;
+    padding-left: 0px;
+    padding-bottom: 20px;
+    margin-top: 80px;
+}
+
+div {
+    align-items: center;
+    font-weight: bold;
+}
+
+/* class */
+.yellow_rectangle {
+    background-color: #F0B65F;
+    color: black;
+    display: inline-flex;
+    padding: 10px;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+}
+
+.yellow_rectangle:hover{
+    background-color: #00095C;
+    color: #F0B65F;
+}

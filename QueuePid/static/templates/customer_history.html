@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block body %}
+    {% block navigation %}{% endblock %}
+
+    {% include 'nav_cus.inc.html' %}
+
+    {% for i in history %}
+    <h1>{{i.date}} {{i.queeuManName}} {{i.restaurant}} {{i.cost}} {{i.phone_number_QueueMan}}</h1>
+    {% endfor %}
+    <a href="{% url 'restaurant_list' %}" > back </a>
+
+{% endblock %}

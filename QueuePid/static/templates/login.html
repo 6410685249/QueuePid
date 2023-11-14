@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %} Sign in to Queuepid {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}" />
+{% endblock %}
+
+{% block navigation %} {% endblock %}
+{% block body %}
+    <div>
+        <br><br>
+        <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
+        <h1>Sign in to Queuepid</h1>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username"><br><br>
+            <input type="password" name="password" placeholder="Password"><br><br>
+            <input type="submit" value="Sign in" id="button">
+        </form>
+
+        {% if message %}
+                <p style='font-weight:bold;'>{{ message }}</p>
+        {% endif %}
+
+        <p class="btmline">Don't have an account? <a href="{% url 'signup' %}" class="signup">Create your accout.</a></p><br>
+    </div>
+{% endblock %}

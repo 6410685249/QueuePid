@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %} Account {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+{% endblock %}
+
+{% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_cus.inc.html' %}
+
+    <a href="{% url 'restaurant_list' %}"> < back </a>
+
+    <div class="container">
+
+        <div class="profile-area">
+            <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
+        </div>
+
+        <div class="account-area">
+            <h3>Account</h3>
+            <p>Username: {{ user.username }}</p>
+            <p>Name: {{ user.name }} {{ user.surname }}</p>
+            <p>E-mail: {{ user.email }}</p>
+            <p>Phone Number: {{ user.telephone }}</p>
+            <p>Credit: {{ user.credit }}</p>
+        </div>
+        
+        <div class="path-area">
+            <a href="{% url 'edit_page' %}"><button>edit</button></a>
+            <a href="{% url 'change_password' %}"><button>change password</button></a>
+        </div>
+
+    </div>
+{% endblock %}

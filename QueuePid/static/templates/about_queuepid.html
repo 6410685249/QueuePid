@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}About Queuepid{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/about_queuepid.css' %}" />
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div>
+        <img src="{% static 'img/background.jpg' %}" alt="">
+    </div>
+    <div>
+        <h2> About Queuepid </h2>
+        <p> Queuepid is website application which help you save your time by waiting in restaurant queue. </p>
+        <a href="{% url 'queuepid' %}" class="yellow_rectangle"> home </a>
+        <a href="{% url 'more_about_us' %}" class="yellow_rectangle"> more </a>
+    </div>
+</div>
+{% endblock %}

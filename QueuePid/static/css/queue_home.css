@@ -1,0 +1,68 @@
+/* container */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+            "text1 text2";
+    margin: auto;
+    margin-left: 20%;
+    gap: 5%;
+}
+
+.profile-area {
+    grid-area: text1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-area {
+    grid-area: text2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* css */
+body {
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+}
+
+img {
+    height: 10em;
+    width: auto;
+}
+
+h3 {
+    margin-left: 10%;
+    margin-top: 50px;
+}
+
+nav {
+    margin-bottom: 50px;
+}
+
+/* table */
+
+nav ~ table {
+    width: 60%;
+    margin-left: 10%;
+}
+
+nav ~ table .container {
+    margin-left: 0;
+    gap: 10px;
+}
+
+nav ~ table div img {
+    height: 5em;
+    width: auto;
+}
+
+nav ~ table td {
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-style: none outset outset outset;
+}

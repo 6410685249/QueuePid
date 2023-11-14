@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}
+    Profile
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}" />
+{% endblock %}
+
+{% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_queue.inc.html' %}
+
+    <a href="{% url 'qhome' %}"> < back </a>
+
+    <div class="container">
+
+        <div class="profile-area">
+            <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
+        </div>
+
+        <div class="account-area">
+            <h3>Account</h3>
+            <p>Username: {{ queueman.username }}</p>
+            <p>Name: {{ queueman.name }} {{ user.surname }}</p>
+            <p>E-mail: {{ queueman.email }}</p>
+            <p>Line-id: {{ queueman.line_id }} </p>
+            <p>Phone Number: {{ queueman.phone_number }} </p>
+            <p>Credits: {{ queueman.credit }}</p>
+        </div>
+
+        <div class="path-area">
+            {% comment %} <a href="{% url 'qhome' %}">Home</a> {% endcomment %}
+            <a href="{% url 'qedit' %}">Edit Profile</a>
+            <a href="{% url 'qpassword' %}">Change Password</a>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}About Queuepid{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/about_queuepid.css' %}" />
+{% endblock %}
+
+{% block body %}
+    {% block navigation %}{% endblock %}
+
+    {% include 'nav_cus.inc.html' %}
+
+    <div class="container">
+        <a href="{% url 'restaurant_list' %}" id="about"> back </a><br>
+        <div>
+            <img src="{% static 'img/background.jpg' %}" alt="">
+        </div>
+        <div>
+            <h1> About Queuepid </h1>
+            <p> Our goal is to create a website that provides restaurant reservation services
+                for people who do not have free time or do not want to queue in front of the restaurant.</p>
+            <p> Nowadays, many restaurants are widely popular. This requires a lot of time waiting
+                and queuing to use the service. It makes many customers feel like they're wasting their time
+                and want to use this time waiting in queue to do other personal business</p>
+            <p> In our vision, this website is the helper to help you save your time by waiting
+                in a restaurant queue instead you while you are using your valuable time. </p>
+            
+            <a href="https://www.pivotaltracker.com/n/projects/2682620" class="yellow_rectangle">Pivotal</a>
+            <a href="https://github.com/6410685249/QueuePid" class="yellow_rectangle">Github Repository</a>
+
+            <H2>Website Developer</H2>
+            
+            <ol>
+                <a>6410615097 Peekkan Pienkan</a><br>
+                <a>6410685041 Chalisa Thammaraj</a><br>
+                <a>6410685165 Thanadon Boontawee</a><br>
+                <a>6410685223 Peerapat Ngamsanga</a><br>
+                <a>6410685249 Siriphatson Sringamphong</a><br>
+            </ol>
+        </div>
+    </div>
+{% endblock %}
