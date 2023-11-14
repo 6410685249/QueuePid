@@ -9,6 +9,9 @@ from .models import Restaurant,Historically
 from login.models import User_info
 from login.views import logout_view
 import re
+import smtplib
+import getpass
+import random 
 
 def is_valid_email(email):
     # Define the regular expression pattern for a simple email format
@@ -42,6 +45,8 @@ def account(request): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     user = User_info.objects.get(username=request.user)
+    print(str(user.email))
+    print(type(user.email))
     return render(request,'customer_account.html',{'user':user})
 
 def edit_page(request,message = "None"):
@@ -102,3 +107,41 @@ def history(request): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     return render(request,'customer_history.html',{'history': [i for i in Historically.objects.filter(username=request.user)]})
+
+def verify_gmail(request, message="None"):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+
+    user = User_info.objects.get(username=request.user)
+
+    # Check if verify_num is already stored in the session
+    if 'verify_num' in request.session:
+        verify_num = request.session['verify_num']
+    else:
+        # Generate a new verify_num if not already in the session
+        verify_num = ''.join([str(random.randint(0, 9)) for i in range(6)])
+        request.session['verify_num'] = verify_num
+
+        # Send the verification email
+        smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
+        smtp_object.ehlo()
+        smtp_object.starttls()
+        email = 'queuepidcorp@gmail.com'
+        password = 'jvqk fwso vgkq jlvp'
+        smtp_object.login(email, password)
+        msg = 'Subject: ' + 'verify number' + '\n' + verify_num
+        smtp_object.sendmail(email, user.email, msg)
+        smtp_object.quit()
+
+    if request.method == 'POST':
+        entered_verify_num = str(request.POST.get('verify_number', ''))
+
+        if entered_verify_num == verify_num:
+            user.verify_gmail = True
+            user.save()
+            del request.session['verify_num']  # Remove stored verify_num from session
+            return account(request)
+        else:
+            return verify_gmail(request, message="verify_number mismatch")
+
+    return render(request, 'customer_verifygmail.html', {'message': message})

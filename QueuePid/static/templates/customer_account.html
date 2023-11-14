@@ -18,12 +18,16 @@
         <div class="profile-area">
             <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
         </div>
-
         <div class="account-area">
             <h3>Account</h3>
             <p>Username: {{ user.username }}</p>
             <p>Name: {{ user.name }} {{ user.surname }}</p>
-            <p>E-mail: {{ user.email }}</p>
+            {% if user.verify_gmail == False %}
+                <p>E-mail: {{ user.email }}  Gmail didn't verify please verify gmail</p>
+            {% else %}
+                <p>E-mail: {{ user.email }}</p>
+            {% endif %}
+
             <p>Phone Number: {{ user.telephone }}</p>
             <p>Credit: {{ user.credit }}</p>
         </div>
@@ -31,6 +35,10 @@
         <div class="path-area">
             <a href="{% url 'edit_page' %}"><button>edit</button></a>
             <a href="{% url 'change_password' %}"><button>change password</button></a>
+            {% if user.verify_gmail == False %}
+                <a href="{% url 'verify_gmail' %}"><button>verify gmail</button></a>
+
+            {% endif %}            
         </div>
 
     </div>

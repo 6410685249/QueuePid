@@ -10,6 +10,6 @@ class User_info(models.Model):
     email = models.EmailField(unique=True)
     # type = models.CharField(max_length = 10,default='customer')
     credit = models.PositiveIntegerField(default=0)
-
+    verify_gmail = models.BooleanField(default=False)
     def __str__(self) -> str:
         return f"{self.username} {self.name} {self.surname} {self.email} {self.credit}"
