@@ -21,8 +21,11 @@
     <div class='grid-container'>    
         {% for name,location in form %}
         <div>
-            <img src="{% static 'img/default_avatar.png' %}">
-            <p>{{name}}</p> <br> <p>{{location}}</p>
+            <a href="{% url 'restaurant_list' %}" >  
+                <img src="{% static 'img/default_avatar.png' %}">
+                <p>{{name}}</p> <br> <p>{{location}}</p>
+            </a>
+
         </div>
         {% endfor %}
     </div>
