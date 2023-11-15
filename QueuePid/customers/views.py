@@ -1,16 +1,12 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth import authenticate, login, logout
-# Create your views here.
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
-# Create your views here.
+from django.shortcuts import render
 from .models import Restaurant,Historically
 from login.models import User_info
 from login.views import logout_view
 import re
 import smtplib
-import getpass
 import random 
 from operation.views import booking
 def is_valid_email(email):
@@ -58,15 +54,11 @@ def edit_page(request,message = "None"):
 def success_edit(request):
     if request.method == 'POST':
         user_info = User_info.objects.get(username=request.user)
-        all_user_info_instances = User_info.objects.all()
-        all_usernames = []
-        all_emails = []
-    
-        for i in all_user_info_instances:
-            if i.username.username != user_info.username.username :
-                all_usernames.append(i.username.username)
-            if i.email != user_info.email:
-                all_emails.append(i.email)
+        all_usernames = list(User.objects.values_list('username',flat=True))
+        all_emails = list(User_info.objects.values_list('email',flat=True))
+        
+        all_usernames.remove(user_info.username.username)
+        all_emails.remove(user_info.email)
 
         if (request.POST['username'] in all_usernames):
             return edit_page(request,message='username already use')
