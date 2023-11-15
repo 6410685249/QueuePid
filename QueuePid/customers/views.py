@@ -12,7 +12,7 @@ import re
 import smtplib
 import getpass
 import random 
-
+from operation.views import booking
 def is_valid_email(email):
     # Define the regular expression pattern for a simple email format
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -26,9 +26,9 @@ def is_valid_email(email):
 def list_restaurant(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-
+    if request.method == 'POST':
+        return booking(request,request.POST['restaurant_name'])
     user = User_info.objects.get(username = request.user)
-
     return render(request, 'customer_home.html', {'form': [(i.name,i.location) for i in Restaurant.objects.all()],'user':user})
 
 def about(request): # render to html
@@ -146,8 +146,3 @@ def verify_gmail(request, message="None"):
     return render(request, 'customer_verifygmail.html', {'message': message})
 
 
-def booking(request, restaurant):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('login'))
-
-    return render(request, 'customer_booking.html')

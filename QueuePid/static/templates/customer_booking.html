@@ -8,10 +8,15 @@
 <body>
     SHOW MUST GO ON
     <a href="{% url 'restaurant_list' %}"> < back </a>
+    <h1>{{restaurant}}</h1>
     <h1>Price Rate</h1>
         <h1>First 30 min      60 bath</h1>
         <h1>Every next 10 min 25 bath</h1>
-        <h1>number of <input type="text" name="number" placeholder="number of your group"><br><br></h1>
-
+        <form action="{% url 'get_number_of_customer' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="restaurant_name" value="{{restaurant}}" >
+            <h1>number of <input type="text" name="number" placeholder="number of your group"><br><br></h1>
+            <button type="submit">Save changes</button>
+        </form>
 </body>
 </html>

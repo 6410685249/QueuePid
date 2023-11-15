@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'login',
     'customers',
     'queueman',
+    'operation',
 ]
 
 MIDDLEWARE = [

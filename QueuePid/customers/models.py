@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Restaurant(models.Model):
 
-    name = models.CharField(max_length=30,unique=True)
+    name = models.CharField(max_length=30,unique=True,primary_key=True)
     phone_number = models.CharField(max_length=30,unique=True)
     line_id = models.CharField(max_length=30,unique=True)
     location = models.CharField(max_length=30,unique=True)

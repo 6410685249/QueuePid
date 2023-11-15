@@ -23,4 +23,5 @@ urlpatterns = [
     path('',include('login.urls')),
     path('',include('customers.urls')),
     path('queueman/',include('queueman.urls')),
+    path('',include('operation.urls')),
 ]

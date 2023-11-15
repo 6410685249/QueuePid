@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from login.models import User_info 
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Review(models.Model):
@@ -20,12 +22,12 @@ class Review(models.Model):
         return f"{self.queueman_username} {self.customer_username} {self.comment} {self.star}"
     
 class Booking(models.Model):
-    queueman_username = models.CharField(max_length=30)
+    customer_username = models.OneToOneField(User,on_delete=models.CASCADE)
     restaurant = models.CharField(max_length=30)
     number_of_customer = models.CharField(max_length=30)
     
     def __str__(self) -> str:
-        return f"{self.queueman_username} {self.restaurant} {self.number_of_customer} "
+        return f"{self.customer_username} {self.restaurant} {self.number_of_customer} "
 
 class Operation(models.Model):
 
