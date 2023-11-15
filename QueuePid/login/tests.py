@@ -15,6 +15,9 @@ class SignUpViewTest(TestCase):
         self.signup_url = reverse('signup')
 
     def test_signup_valid_data(self):
+        """
+        test 
+        """
         data = {
             'username': 'testuser',
             'password1': 'testpassword123',
@@ -24,20 +27,17 @@ class SignUpViewTest(TestCase):
             'surname': 'User',
             'email': 'testuser@example.com',
         }
-
         response = self.client.post(self.signup_url, data)
-        self.assertEqual(response.status_code, 302)  # Check if the user is redirected after successful signup
+        self.assertEqual(response.status_code, 302)  
 
         user = User.objects.get(username='testuser')
-        self.assertTrue(user.check_password('testpassword123'))  # Check if the password is correctly set
+        self.assertTrue(user.check_password('testpassword123'))  
 
         user_info = User_info.objects.get(username=user)
         self.assertEqual(user_info.telephone, '1234567890')
         self.assertEqual(user_info.name, 'Test')
         self.assertEqual(user_info.surname, 'User')
         self.assertEqual(user_info.email, 'testuser@example.com')
-
-        # Check if the user is in the 'Customer' group
         group = Group.objects.get(name='Customer')
         self.assertTrue(user.groups.filter(name=group.name).exists())
         self.assertRedirects(response, reverse('login'))

@@ -12,5 +12,6 @@ urlpatterns = [
     path('customer_home/account/success_password',views.success_password,name='success_password'),
     path('customer_home/history',views.history,name='history'),
     path('customer_home/verify_gmail',views.verify_gmail,name='verify_gmail'),
+    path('customer_home/booking',views.booking,name='booking'),
 
 ]
