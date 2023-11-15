@@ -45,8 +45,7 @@ def account(request): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     user = User_info.objects.get(username=request.user)
-    print(str(user.email))
-    print(type(user.email))
+
     return render(request,'customer_account.html',{'user':user})
 
 def edit_page(request,message = "None"):
