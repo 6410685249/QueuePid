@@ -35,7 +35,17 @@
         // Start the timer when the page loads
         window.onload = startTimer;
     </script>
+    {% if group %}
+    <h1>LOOKING FOR QUEUEMAN</h1>
+    {% endif %}
     
-
+    <h1>ON THE WAY</h1>
+    <h1>IN QUEUE</h1>
+    
+    {% if group %}
+        <h1>FINISH</h1>
+    {% else %}
+        <h1>FINISH</h1>
+    {% endif %}
 </body>
 </html>

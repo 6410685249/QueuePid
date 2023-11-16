@@ -20,17 +20,15 @@ def booking(request, restaurant_name):
 def customer_status(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login')) 
-    print(request.user.username)
+    print(request.user)
     operate = Operation.objects.get(customer_username = request.user.username)
+    group = request.user.groups.filter(name='Customer').exists()
     timezone_now = timezone.now()
     time_diff = timezone_now - operate.date
-    print(operate.date)
-    print(timezone_now)
-    print(time_diff)
-    print(time_diff.seconds // 60)
-    print(time_diff.seconds // 60 // 60)
-    print(type(time_diff))
-    return render(request,'customer_status.html',{'operation':operate,'time_diff':time_diff,'minute_diff': time_diff.seconds // 60,'hour_diff': time_diff.seconds // 60//60})
+
+    return render(request,'customer_status.html',{'operation':operate,'time_diff':time_diff,'minute_diff': time_diff.seconds // 60,'hour_diff': time_diff.seconds // 60//60, \
+                                                  'group':group
+                                                  })
 
 def get_number_of_customer(request):
 
@@ -43,18 +41,3 @@ def get_number_of_customer(request):
         user.save()
 
         return render(request,'customer_status.html')
-    
-def capture_time(request):
-    # Get the current time from the AJAX request data
-    data = request.body.decode('utf-8')
-    current_time = json.loads(data).get('current_time')
-
-    # Process the captured time as needed
-    print('Captured Time:', current_time)
-
-    # Respond with a success message
-    return JsonResponse({'message': 'Time captured successfully'}) 
-
-# def get_timer(request):
-#     global total_seconds
-#     return JsonResponse({'total_seconds': total_seconds})
