@@ -25,7 +25,7 @@ class Booking(models.Model):
     customer_username = models.OneToOneField(User,on_delete=models.CASCADE)
     restaurant = models.CharField(max_length=30)
     number_of_customer = models.CharField(max_length=30)
-    queueman_username = models.OneToOneField
+
 
     def __str__(self) -> str:
         return f"{self.customer_username} {self.restaurant} {self.number_of_customer} "

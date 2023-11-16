@@ -5,16 +5,18 @@ from login.models import User_info
 from .models import Queueman
 from django.contrib.auth import update_session_auth_hash
 from django.db.models import Q
-from operation.models import Operation
+from operation.models import *
 from django.utils import timezone
-
+from queueman.models import *
 # Create your views here.
 
 
 def qhome(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    clist = User_info.objects.filter(~Q(book=None))
+    
+    clist = User_info.objects.filter(~Q(book=""))
+    # clist = Booking.objects.all()
     queueman = Queueman.objects.get(username = request.user.id)
 
     if request.method == 'POST':

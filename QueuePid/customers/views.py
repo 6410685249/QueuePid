@@ -25,6 +25,7 @@ def list_restaurant(request):
     if request.method == 'POST':
         return booking(request,request.POST['restaurant_name'])
     user = User_info.objects.get(username = request.user)
+
     return render(request, 'customer_home.html', {'form': [(i.name,i.location) for i in Restaurant.objects.all()],'user':user})
 
 def about(request): # render to html
