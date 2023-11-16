@@ -7,6 +7,48 @@
 </head>
 <body>
     <a href="{% url 'restaurant_list' %}"> < back </a>
+    <h1>{{operation.date}}</h1>
+    <h1>{{operation.date.get}}:{{operation.date.minute}}:{{operation.date.second}}</h1>
+    
+    
+    
+    
+    <div id="timer">00:00:00</div>
+
+    <script>
+        function updateTimer() {
+            // Get the current time
+            var currentTime = new Date();
+    
+            // Get the stored time from the server-side (assuming it's in UTC)
+            var storedTimeUTC = new Date("{{ operation.date}}");
+    
+            // Convert the stored time to Thailand time
+            var storedTimeThailand = storedTimeUTC.toLocaleString('en-US', { timeZone: 'Asia/Bangkok' });
+    
+            // Calculate the time difference in milliseconds
+            var timeDifference = currentTime - storedTimeUTC;
+    
+            // Calculate hours, minutes, and seconds
+            var hours = Math.floor(timeDifference / (1000 * 60 * 60));
+            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    
+            // Format the time as HH:MM:SS
+            var formattedTime = padNumber(hours) + ":" + padNumber(minutes) + ":" + padNumber(seconds);
+    
+            // Update the timer display
+            document.getElementById("timer").innerText = formattedTime + " (Thailand time: " + storedTimeThailand + ")";
+        }
+    
+        function padNumber(num) {
+            return num < 10 ? "0" + num : num;
+        }
+    
+        // Update the timer every second (1000 milliseconds)
+        setInterval(updateTimer, 1000);
+    </script>
+    
 
 </body>
 </html>

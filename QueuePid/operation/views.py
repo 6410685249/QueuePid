@@ -1,13 +1,15 @@
-from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.contrib.auth import authenticate, login, logout
-# Create your views here.
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .models import *
-# Create your views here.
-# Create your views here.
+from login.models import User_info
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from .models import Operations
+total_seconds = 0
+
 def booking(request, restaurant_name):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
@@ -16,16 +18,35 @@ def booking(request, restaurant_name):
 
 def customer_status(request):
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('login'))   
-    return render(request,'customer_status.html')
+        return HttpResponseRedirect(reverse('login')) 
+    print(request.user.username)
+    operate = Operations.objects.get(customer_username = request.user.username)
+
+    return render(request,'customer_status.html',{'operation':operate})
 
 def get_number_of_customer(request):
 
     if request.method == 'POST':
-        print('IN booking')
-        print(request.POST)
+
         book = Booking.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],number_of_customer=request.POST['number'])
-        book.save()
-        user = User_info.objects.get(username = request.user)
+        user = User_info.objects.get(username=request.user)
         user.book = restaurant=request.POST['restaurant_name']
-        return customer_status(request)
+        book.save()
+        user.save()
+
+        return render(request,'customer_status.html')
+    
+def capture_time(request):
+    # Get the current time from the AJAX request data
+    data = request.body.decode('utf-8')
+    current_time = json.loads(data).get('current_time')
+
+    # Process the captured time as needed
+    print('Captured Time:', current_time)
+
+    # Respond with a success message
+    return JsonResponse({'message': 'Time captured successfully'}) 
+
+# def get_timer(request):
+#     global total_seconds
+#     return JsonResponse({'total_seconds': total_seconds})

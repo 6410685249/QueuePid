@@ -4,14 +4,14 @@ from django.shortcuts import render
 from login.models import User_info
 from .models import Queueman
 from django.contrib.auth import update_session_auth_hash
-
+from django.db.models import Q
 # Create your views here.
 
 
 def qhome(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    clist = User_info.objects.all()
+    clist = User_info.objects.filter(~Q(book=None))
     queueman = Queueman.objects.get(username = request.user.id)
     return render(request, 'queueman_home.html',{
                   'clist':clist,
@@ -76,3 +76,10 @@ def change_password(request):
         return HttpResponseRedirect(reverse('logout'))
     
     return render(request,'queueman_change_password.html')
+
+
+def get_queue(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    
+    return render(request,'customer_status.html')

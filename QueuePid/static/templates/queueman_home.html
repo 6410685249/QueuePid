@@ -32,7 +32,8 @@
                 </div>
                 <div>
                     <p> Username: {{ customer.username }} </p>
-                    <p> Mobile phone: {{ customer.telephone }}</p>
+                    <p> Restaurant: {{ customer.book }}</p>
+                    <a href="{% url 'get_queue' %}">Get Queue</a>
                 </div>
             </td>
         {% endfor %}
