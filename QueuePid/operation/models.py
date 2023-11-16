@@ -18,16 +18,15 @@ class Review(models.Model):
         ])
     type = models.ImageField(upload_to='uploads/', null=True,default=None)
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"{self.queueman_username} {self.customer_username} {self.comment} {self.star}"
     
 class Booking(models.Model):
     customer_username = models.OneToOneField(User,on_delete=models.CASCADE)
     restaurant = models.CharField(max_length=30)
     number_of_customer = models.CharField(max_length=30)
-    queueman_username = models.OneToOneField
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"{self.customer_username} {self.restaurant} {self.number_of_customer} "
 
 class Operation(models.Model):
@@ -44,6 +43,6 @@ class Operation(models.Model):
     cancel_by_user = models.BooleanField(default=False)
     update_status = models.CharField(max_length=30)
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"{self.customer_username} {self.restaurant} {self.queueMan_username} "
 

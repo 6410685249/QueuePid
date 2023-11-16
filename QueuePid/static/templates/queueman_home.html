@@ -33,8 +33,8 @@
                 <div>
                     <form action="{% url 'qhome' %}" method="post" id="gq">
                         {% csrf_token %}
-                        <p> Username: {{ customer.username }} </p>
-                        <p> Restaurant: {{ customer.book }}</p>
+                        <p> Username: {{ customer.customer_username }} </p>
+                        <p> Restaurant: {{ customer.restaurant }}</p>
                         <input type="hidden" name="customer" value="{{customer.username}}">
                         <input type="hidden" name="restaurant" value="{{customer.book }}">
                         <a onclick="myFunction()">Get Queue</a>

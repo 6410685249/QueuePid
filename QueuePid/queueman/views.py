@@ -7,6 +7,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.db.models import Q
 from operation.models import Operation
 from django.utils import timezone
+from operation.models import Booking
 
 # Create your views here.
 
@@ -14,8 +15,10 @@ from django.utils import timezone
 def qhome(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    clist = User_info.objects.filter(~Q(book=None))
+    clist = Booking.objects.all()
     queueman = Queueman.objects.get(username = request.user.id)
+    print(clist)
+
 
     if request.method == 'POST':
         return get_queue(request,request.POST['customer'],request.POST['restaurant'])
