@@ -14,6 +14,11 @@ def booking(request, restaurant_name):
 
     return render(request, 'customer_booking.html',{'restaurant':restaurant_name})
 
+def customer_status(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))   
+    return render(request,'customer_status.html')
+
 def get_number_of_customer(request):
 
     if request.method == 'POST':
@@ -21,4 +26,6 @@ def get_number_of_customer(request):
         print(request.POST)
         book = Booking.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],number_of_customer=request.POST['number'])
         book.save()
-        return render(request,'customer_status.html')
+        user = User_info.objects.get(username = request.user)
+        user.book = restaurant=request.POST['restaurant_name']
+        return customer_status(request)
