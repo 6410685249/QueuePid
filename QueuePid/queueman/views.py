@@ -96,6 +96,7 @@ def get_queue(request,customer,restaurant_name):
         return HttpResponseRedirect(reverse('login'))
     user = User.objects.get(username=customer)
     customer_book = Booking.objects.get(customer_username=user)
+    customer_book.delete()
     op = Operation.objects.create(customer_username=customer, restaurant=restaurant_name, queueMan_username = request.user.username, \
                                   cost=0,number_Queue= 10,status= 0,update_status=0,date = timezone.now(),number_of_customer=customer_book.number_of_customer
                                   )
