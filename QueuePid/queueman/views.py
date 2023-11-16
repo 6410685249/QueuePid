@@ -7,19 +7,23 @@ from django.contrib.auth import update_session_auth_hash
 from django.db.models import Q
 from operation.models import *
 from django.utils import timezone
-from queueman.models import *
+from operation.models import Booking
 # Create your views here.
+from queueman.models import *
+from django.contrib.auth.models import User
+
 
 
 def qhome(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    
-    clist = User_info.objects.filter(~Q(book=""))
-    # clist = Booking.objects.all()
+    clist = Booking.objects.all()
     queueman = Queueman.objects.get(username = request.user.id)
 
+    request.user
     if request.method == 'POST':
+        print(request.POST['customer'])
+        print(request.POST['restaurant'])
         return get_queue(request,request.POST['customer'],request.POST['restaurant'])
 
     return render(request, 'queueman_home.html',{
@@ -90,9 +94,10 @@ def change_password(request):
 def get_queue(request,customer,restaurant_name):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    
+    user = User.objects.get(username=customer)
+    customer_book = Booking.objects.get(customer_username=user)
     op = Operation.objects.create(customer_username=customer, restaurant=restaurant_name, queueMan_username = request.user.username, \
-                                  cost=0,number_Queue= 10,status= 0,update_status=0,date = timezone.now() 
+                                  cost=0,number_Queue= 10,status= 0,update_status=0,date = timezone.now(),number_of_customer=customer_book.number_of_customer
                                   )
     op.save()
 
