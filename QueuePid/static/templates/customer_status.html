@@ -8,9 +8,8 @@
 <body>
     <a href="{% url 'restaurant_list' %}"> < back </a>
     <h1>{{operation.date}}</h1>
-    <h1>{{operation.date.get}}:{{operation.date.minute}}:{{operation.date.second}}</h1>
-    
-    
+    <h1>{{operation.date.hour}}:{{operation.date.minute}}:{{operation.date.second}}</h1>
+    <h1>{{timezone_now}}</h1>
     
     
     <div id="timer">00:00:00</div>

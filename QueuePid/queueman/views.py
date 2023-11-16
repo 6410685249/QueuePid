@@ -6,6 +6,8 @@ from .models import Queueman
 from django.contrib.auth import update_session_auth_hash
 from django.db.models import Q
 from operation.models import Operation
+from django.utils import timezone
+
 # Create your views here.
 
 
@@ -87,7 +89,9 @@ def get_queue(request,customer,restaurant_name):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     
-    op = Operation.objects.create(customer_username=customer, restaurant=restaurant_name, queueMan_username = request.user.username)
+    op = Operation.objects.create(customer_username=customer, restaurant=restaurant_name, queueMan_username = request.user.username, \
+                                  cost=0,number_Queue= 10,status= 0,update_status=0,date = timezone.now() 
+                                  )
     op.save()
 
     return render(request,'customer_status.html')

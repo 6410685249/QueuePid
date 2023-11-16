@@ -7,7 +7,8 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from .models import Operations
+from .models import Operation
+from django.utils import timezone
 total_seconds = 0
 
 def booking(request, restaurant_name):
@@ -20,9 +21,12 @@ def customer_status(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login')) 
     print(request.user.username)
-    operate = Operations.objects.get(customer_username = request.user.username)
-
-    return render(request,'customer_status.html',{'operation':operate})
+    operate = Operation.objects.get(customer_username = request.user.username)
+    timezone_now = timezone.now()
+    print(operate.date)
+    print(timezone_now)
+    print(operate.date - timezone_now)
+    return render(request,'customer_status.html',{'operation':operate,'timezone_now':timezone_now})
 
 def get_number_of_customer(request):
 

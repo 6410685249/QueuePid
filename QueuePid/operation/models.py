@@ -30,7 +30,7 @@ class Booking(models.Model):
     def __str__(self) -> str:
         return f"{self.customer_username} {self.restaurant} {self.number_of_customer} "
 
-class Operations(models.Model):
+class Operation(models.Model):
 
     customer_username = models.CharField(max_length=30)
     restaurant = models.CharField(max_length=30)
