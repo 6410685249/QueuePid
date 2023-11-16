@@ -38,7 +38,7 @@ class Operation(models.Model):
     date = models.DateTimeField()
     number_Queue = models.CharField(max_length=30)
     number_of_customer = models.CharField(max_length=30)
-    status = models.CharField(max_length=30)
+    status = models.IntegerField(default=-1)
     cancel_by_queueman = models.BooleanField(default=False)
     cancel_by_user = models.BooleanField(default=False)
     update_status = models.CharField(max_length=30)
