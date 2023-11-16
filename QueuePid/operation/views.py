@@ -25,8 +25,8 @@ def customer_status(request):
     timezone_now = timezone.now()
     print(operate.date)
     print(timezone_now)
-    print(operate.date - timezone_now)
-    return render(request,'customer_status.html',{'operation':operate,'timezone_now':timezone_now})
+    print(type(timezone_now - operate.date))
+    return render(request,'customer_status.html',{'operation':operate,'time_minute':(timezone_now - operate.date)// 60,'time_hour':(timezone_now - operate.date)// 60 // 60})
 
 def get_number_of_customer(request):
 

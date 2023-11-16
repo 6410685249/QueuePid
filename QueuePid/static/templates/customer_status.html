@@ -9,43 +9,30 @@
     <a href="{% url 'restaurant_list' %}"> < back </a>
     <h1>{{operation.date}}</h1>
     <h1>{{operation.date.hour}}:{{operation.date.minute}}:{{operation.date.second}}</h1>
-    <h1>{{timezone_now}}</h1>
+    <h1>{{time_hour}}</h1>
+    <h1>{{time_minute}}</h1>
     
-    
-    <div id="timer">00:00:00</div>
-
+    <label id="minutes">00</label>:<label id="seconds">00</label>
     <script>
-        function updateTimer() {
-            // Get the current time
-            var currentTime = new Date();
-    
-            // Get the stored time from the server-side (assuming it's in UTC)
-            var storedTimeUTC = new Date("{{ operation.date}}");
-    
-            // Convert the stored time to Thailand time
-            var storedTimeThailand = storedTimeUTC.toLocaleString('en-US', { timeZone: 'Asia/Bangkok' });
-    
-            // Calculate the time difference in milliseconds
-            var timeDifference = currentTime - storedTimeUTC;
-    
-            // Calculate hours, minutes, and seconds
-            var hours = Math.floor(timeDifference / (1000 * 60 * 60));
-            var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-    
-            // Format the time as HH:MM:SS
-            var formattedTime = padNumber(hours) + ":" + padNumber(minutes) + ":" + padNumber(seconds);
-    
-            // Update the timer display
-            document.getElementById("timer").innerText = formattedTime + " (Thailand time: " + storedTimeThailand + ")";
+        var minutesLabel = document.getElementById("minutes");
+        var secondsLabel = document.getElementById("seconds");
+        var totalSeconds = 10;
+        setInterval(setTime, 1000);
+
+        function setTime() {
+            ++totalSeconds;
+            secondsLabel.innerHTML = pad(totalSeconds % 60);
+            minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
         }
-    
-        function padNumber(num) {
-            return num < 10 ? "0" + num : num;
+
+        function pad(val) {
+            var valString = val + "";
+            if (valString.length < 2) {
+                return "0" + valString;
+            } else {
+                return valString;
+            }
         }
-    
-        // Update the timer every second (1000 milliseconds)
-        setInterval(updateTimer, 1000);
     </script>
     
 
