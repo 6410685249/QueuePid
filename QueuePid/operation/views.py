@@ -23,10 +23,14 @@ def customer_status(request):
     print(request.user.username)
     operate = Operation.objects.get(customer_username = request.user.username)
     timezone_now = timezone.now()
+    time_diff = timezone_now - operate.date
     print(operate.date)
     print(timezone_now)
-    print(type(timezone_now - operate.date))
-    return render(request,'customer_status.html',{'operation':operate,'time_minute':(timezone_now - operate.date)// 60,'time_hour':(timezone_now - operate.date)// 60 // 60})
+    print(time_diff)
+    print(time_diff.seconds // 60)
+    print(time_diff.seconds // 60 // 60)
+    print(type(time_diff))
+    return render(request,'customer_status.html',{'operation':operate,'time_diff':time_diff,'minute_diff': time_diff.seconds // 60,'hour_diff': time_diff.seconds // 60//60})
 
 def get_number_of_customer(request):
 
