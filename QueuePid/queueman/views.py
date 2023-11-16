@@ -5,6 +5,7 @@ from login.models import User_info
 from .models import Queueman
 from django.contrib.auth import update_session_auth_hash
 from django.db.models import Q
+from operation.models import Operation
 # Create your views here.
 
 
@@ -13,6 +14,10 @@ def qhome(request):
         return HttpResponseRedirect(reverse('login'))
     clist = User_info.objects.filter(~Q(book=None))
     queueman = Queueman.objects.get(username = request.user.id)
+
+    if request.method == 'POST':
+        return get_queue(request,request.POST['customer'],request.POST['restaurant'])
+
     return render(request, 'queueman_home.html',{
                   'clist':clist,
                   'queueman':queueman,
@@ -78,8 +83,11 @@ def change_password(request):
     return render(request,'queueman_change_password.html')
 
 
-def get_queue(request):
+def get_queue(request,customer,restaurant_name):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     
+    op = Operation.objects.create(customer_username=customer, restaurant=restaurant_name, queueMan_username = request.user.username)
+    op.save()
+
     return render(request,'customer_status.html')
