@@ -1,21 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Verify gmail</h1>
-    <h1> we already send number in to your email</h1>
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %} Verify Queuepid Accout {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/customer_verifygmail.css' %}" />
+{% endblock %}
+
+{% block body %}
+{% block navigation %}{% endblock %}
+
+<a href="{% url 'restaurant_list' %}" ><img src='{% static 'img/logo.png' %}' alt="logo" class='logo'></a>
+<div class='container'>
+    <br>
+    <div class='p-back'>
+        <a href="{% url 'account' %}"> < back </a>
+    </div>
+    <h1> Verify Email </h1>
+    <p> To proceed with the email validation, please complete the OTP check below. </p>
     {% if message != "None" %}
         {{message}}
     {% endif %}
     <form action="{% url 'verify_gmail' %}" method="post">
         {% csrf_token %}
         <input type="text" name="verify_number" placeholder="verify number"><br><br>
-        <a href="{% url 'account' %}"><button> success </button></a>
-
+        <a href="{% url 'account' %}"><button type="submit" class='button'>Submit</button></a><br>
     </form>
-</body>
-</html>
+</div>        
+{% endblock %}

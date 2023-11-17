@@ -14,14 +14,32 @@
 
     {% if  operation.status >= 1 %}
         <h1>ON THE WAY</h1>
+        {% if  operation.status == 1 %}
+        <form action="{% url 'qstatus' %}" method="post" id="update">
+            {% csrf_token %}
+            <label for="number_queue">Number of Queue: </label>
+            <input type="number" name="number_queue" id="number_queue" min="0">
+            <a onclick="submit()">In Queue</a>
+        </form>
+        {% endif %}
     {% endif %}
 
 
     {% if operation.status >= 2 %}
         <h1>IN QUEUE</h1>
 
+        <h1>Number of Queue: {{ operation.number_Queue }}</h1>
+
+        {% if operation.number_Queue != 0 %}
+            <form action="{% url 'qstatus' %}" method="post" id="update">
+                {% csrf_token %}
+                <label for="number_queue">Number of Queue: </label>
+                <input type="number" name="number_queue" id="number_queue" min="0" max="{{ operation.number_Queue }}">
+                <a onclick="submit()">Update Queue</a>
+            </form>
+        {% endif %}
+
         <div id="timeDisplay">
-            <!-- Display the initial values from Django variables -->
             {{ hour_diff }} hours {{ minute_diff }} minutes
         </div>
 
@@ -46,21 +64,22 @@
             }
             // Start the timer when the page loads
             window.onload = startTimer;
-        </script>    
+        </script>
+
+        {% if operation.number_Queue == 0 %}
+            <form action="{% url 'qstatus' %}" method="post" id="update">
+                {% csrf_token %}
+                <a onclick="submit()">Finish</a>
+            </form>
+        {% endif %}
+            
     {% endif %}
 
 
-    {% if operation.status >= 3 %}
-            <h1>FINISH</h1>
-            <h1>Total Cost: {{ operation.cost }}</h1>
+    {% if  operation.status >= 3 %}
+        <h1>This is Finish</h1>
     {% endif %}
 
-
-
-    <form action="{% url 'qstatus' %}" method="post" id="update">
-        {% csrf_token %}
-        <a onclick="submit()">next step</a>
-    </form>
 
     <script>
         function submit() { 
