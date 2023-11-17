@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {{operation.restaurant}}
+    <h1>Price Rate</h1>
+    <h1>First 30 min     60 $</h1>
+    <h1>Every Next 10 min 25 $</h1>
+    <h1>total price: {{price}}</h1>
+    <h1>Your credit: {{credit}}</h1>
+    <form action="{% url 'customer_payment' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">PAYMENT</button>
+    </form>
+</body>
+</html>
