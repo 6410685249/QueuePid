@@ -15,10 +15,19 @@
     <h1>Looking for queue</h1>
     <h1>By the way</h1>
     <h1>IN queue</h1>
-    {% if operation.status == 2 %}
+    {% if operation.status >= 2 %}
         <p id="timer" data-start-time="{{ time_diff.seconds }}">00:00:00</p>
     {% else %}
         <h1>00:00:00</h1>
+    {% endif %} 
+        
+    {% if operation.status >= 3 %}
+        <a href="{% url 'customer_payment' %}"> FINISH </a>
+    {% else %}
+        <a> FINISH </a>  
+    {% endif %}    
+
+
     <script>
         function startTimer() {
             var startTime = parseInt(document.getElementById('timer').getAttribute('data-start-time'), 10);
@@ -39,11 +48,5 @@
         // Start the timer when the page loads
         window.onload = startTimer;
     </script>
-        
-    {% if operation.status == 3 %}
-        <a href="{% url 'customer_complete' %}"> FINISH </a>
-    {% else %}
-        <a> FINISH </a>  
-    {% endif %}    
 </body>
 </html>

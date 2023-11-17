@@ -23,17 +23,18 @@
         <div>
             <form id="GFG"  action="{% url 'restaurant_list' %}" method="post">
                 {% csrf_token %}
-
-                <a href="#" onclick="myFunction()" >  
-                    <img src="{% static 'img/default_avatar.png' %}">
-                    <input type="hidden" name="restaurant_name" value="{{name}}" >
-                </a>
-                <p>{{name}}</p> <br> <p>{{location}}</p>
+                {% if book_status != "None" %}
+                    <img src="{% static 'img/default_avatar.png' %}">   
+                {% else %}
+                    <a href="#" onclick="myFunction()" >  
+                        <img src="{% static 'img/default_avatar.png' %}">
+                        <input type="hidden" name="restaurant_name" value="{{name}}" >
+                    </a>
+                {% endif %}
+                    <p>{{name}}</p> <br> <p>{{location}}</p>
                 
-
             </form>
         </div>
-        
         {% endfor %}
     </div>
     {% if user.verify_gmail == False %}
