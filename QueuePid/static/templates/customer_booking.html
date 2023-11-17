@@ -1,28 +1,57 @@
 {% extends 'layout.html' %}
 {% load static %}
 
-{% block header %}Queuepid...{% endblock %}
+{% block header %}Queuepid{% endblock %}
 
 {% block css %}
-    
+<link rel="stylesheet" href="{% static 'css/customer_booking.css' %}" />
 {% endblock %}
 
 {% block body %}
     {% block navigation %}{% endblock %}
-
     {% include 'nav_cus.inc.html' %}
 
-    SHOW MUST GO ON
     <a href="{% url 'restaurant_list' %}"> < back </a>
-    <h1>{{restaurant}}</h1>
-    <h1>Price Rate</h1>
-        <h1>First 30 min      60 bath</h1>
-        <h1>Every next 10 min 25 bath</h1>
+    <div class='grid-container'>    
+        <h1>{{restaurant}}</h1><br>
+        <h3>Price Rate</h3>
         <form action="{% url 'get_number_of_customer' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="restaurant_name" value="{{restaurant}}" >
-            <h1>number of <input type="text" name="number" placeholder="number of your group"><br><br></h1>
-            <button type="submit">Save changes</button>
+        <table>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <p>First 30 min</p>
+                </td>
+                <td>
+                    <p>60 baht</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <p>Every Next 10 min</p>
+                </td>
+                <td>
+                    <p>25 baht</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <p>Number of customer</p>
+                </td>
+                <td>
+                    <p><input type="text" name="number"></p>
+                </td>
+                </form>
+            </tr>
+        </table>
+        <br><button type="submit">Confirm Booking</button><br><br>
         </form>
-        
+    </div>
 {% endblock %}

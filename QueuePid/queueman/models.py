@@ -7,6 +7,7 @@ class Queueman(models.Model):
     line_id = models.CharField(max_length=30)
     star = models.FloatField(default=5)
     credit = models.PositiveIntegerField(default=0)
+    is_have_queue = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.username}'
