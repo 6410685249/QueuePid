@@ -105,14 +105,16 @@ def status(request):
         if operate.status == 2:
             operate.date = timezone.now()
             operate.save()
-            timezone_now = timezone.now()
-            time_diff = timezone_now - operate.date
-            return render(request,'customer_status.html',
+            
+    if operate.date != None:
+        timezone_now = timezone.now()
+        time_diff = timezone_now - operate.date
+        return render(request,'queueman_status.html',
                       {'operation':operate,
                        'time_diff':time_diff,
                        'minute_diff': time_diff.seconds // 60,
                        'hour_diff': time_diff.seconds // 60//60,
-                                                  })
+                        })
 
     return render(request,'queueman_status.html',{
         'operation':operate
