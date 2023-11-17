@@ -80,11 +80,16 @@
         <h1>This is Finish</h1>
     {% endif %}
 
+    <form action="{% url 'qcancel' %}" method="post" id="cancel">
+        {% csrf_token %}
+        <a onclick="submit()">Cancel</a>
+    </form>
+
 
     <script>
         function submit() { 
             document.getElementById("update").submit(); 
-        } 
+        }
     </script>
 
 </body>

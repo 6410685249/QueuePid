@@ -122,9 +122,7 @@ def verify_gmail(request, message="None"):
         verify_num = ''.join([str(random.randint(0, 9)) for i in range(6)])
         request.session['verify_num'] = verify_num
 
-        # Send the verification email
-
-
+        # Send the verification emai
         msg = 'Subject: ' + 'verify number' + '\n' + verify_num
         smtp_object.sendmail(email, user.email, msg)
         smtp_object.quit()

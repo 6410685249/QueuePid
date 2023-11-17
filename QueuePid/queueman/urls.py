@@ -8,5 +8,5 @@ urlpatterns = [
     path('profile/',views.profile,name='qprofile'),
     path('profile/edit',views.edit_profile,name='qedit'),
     path('profile/change-password',views.change_password,name='qpassword'),
-    path('status',views.status,name='qstatus')
+    path('status',views.status,name='qstatus'),
 ]
