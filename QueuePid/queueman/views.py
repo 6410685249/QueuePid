@@ -100,12 +100,21 @@ def status(request):
     operate = Operation.objects.get(queueMan_username = request.user.username)
 
     if request.method == 'POST':
-        operate.status +=1
-        operate.save()
-        if operate.status == 2:
+        if operate.status == 1:
+            operate.status +=1
+            operate.number_Queue = request.POST['number_queue']
             operate.date = timezone.now()
             operate.save()
-            
+            return redirect('qstatus')
+        elif operate.status == 2 and operate.number_Queue !=0:
+            operate.number_Queue = request.POST['number_queue']
+            operate.save()
+            return redirect('qstatus')
+        elif operate.status == 2 and operate.number_Queue ==0:
+            operate.status +=1
+            operate.save()
+            return redirect('qstatus')
+        
     if operate.date != None:
         timezone_now = timezone.now()
         time_diff = timezone_now - operate.date

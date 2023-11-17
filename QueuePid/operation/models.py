@@ -36,7 +36,7 @@ class Operation(models.Model):
     cost = models.CharField(max_length=30)
     queueMan_username = models.CharField(max_length=30)
     date = models.DateTimeField(null=True)
-    number_Queue = models.CharField(max_length=30)
+    number_Queue = models.IntegerField(null=True)
     number_of_customer = models.CharField(max_length=30)
     status = models.IntegerField(default=-1)
     cancel_by_queueman = models.BooleanField(default=False)
