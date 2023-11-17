@@ -22,7 +22,9 @@ def booking(request, restaurant_name):
 def customer_status(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login')) 
+
     operate = Operation.objects.get(customer_username = request.user.username)
+
     timezone_now = timezone.now()
     if operate.date != None:
         time_diff = timezone_now - operate.date
@@ -35,9 +37,9 @@ def customer_status(request):
 
 def get_number_of_customer(request):
     if request.method == 'POST':
-        book = Booking.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],number_of_customer=request.POST['number'])
+        book = Booking.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],number_of_customer=int(request.POST['number']))
         user = User_info.objects.get(username=request.user)
-        operate = Operation.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],status=0,cost=0,number_of_customer=request.POST['number'],update_status="0")
+        operate = Operation.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],status=0,cost=0,number_of_customer=int(request.POST['number']),update_status="0")
         user.book = restaurant=request.POST['restaurant_name']
         book.save()
         user.save()
@@ -86,6 +88,7 @@ def customer_review(request):
                                        star=int(request.POST['rating'][0])) 
         his = Historically.objects.create(username=op.customer_username,restaurant=op.restaurant , \
                                 cost= op.cost,queeuManName=op.queueMan_username,date=op.date,phone_number_QueueMan=customer.telephone,phone_number_customer=queueman.phone_number)
+        queueman.star = (queueman.star + int(request.POST['rating'][0])) / 2 ### 4.5 4 4.25
         customer.book = None
         customer.save()
         op.delete()

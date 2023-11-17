@@ -24,7 +24,7 @@ class Review(models.Model):
 class Booking(models.Model):
     customer_username = models.OneToOneField(User,on_delete=models.CASCADE)
     restaurant = models.CharField(max_length=30)
-    number_of_customer = models.CharField(max_length=30)
+    number_of_customer = models.IntegerField(null=True)
 
     def __str__(self):
         return f"{self.customer_username} {self.restaurant} {self.number_of_customer} "
@@ -37,11 +37,11 @@ class Operation(models.Model):
     queueMan_username = models.CharField(max_length=30)
     date = models.DateTimeField(null=True)
     number_Queue = models.IntegerField(null=True)
-    number_of_customer = models.CharField(max_length=30)
+    number_of_customer = models.IntegerField(null=True)
     status = models.IntegerField(default=-1)
     cancel_by_queueman = models.BooleanField(default=False)
     cancel_by_user = models.BooleanField(default=False)
-    update_status = models.CharField(max_length=30)
+    update_status = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.customer_username} {self.restaurant} {self.queueMan_username} "
