@@ -9,6 +9,14 @@ import re
 import smtplib
 import random 
 from operation.views import booking
+
+smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
+smtp_object.ehlo()
+smtp_object.starttls()
+email = 'queuepidcorp@gmail.com'
+password = 'jvqk fwso vgkq jlvp'
+smtp_object.login(email, password)
+
 def is_valid_email(email):
     # Define the regular expression pattern for a simple email format
     pattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -115,13 +123,9 @@ def verify_gmail(request, message="None"):
         request.session['verify_num'] = verify_num
 
         # Send the verification email
-        smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
-        smtp_object.ehlo()
-        smtp_object.starttls()
-        email = 'queuepidcorp@gmail.com'
-        password = 'jvqk fwso vgkq jlvp'
-        smtp_object.login(email, password)
-        msg = 'Subject: ' + 'OTP' + '\n' + verify_num
+
+
+        msg = 'Subject: ' + 'verify number' + '\n' + verify_num
         smtp_object.sendmail(email, user.email, msg)
         smtp_object.quit()
 
@@ -131,7 +135,7 @@ def verify_gmail(request, message="None"):
         if entered_verify_num == verify_num:
             user.verify_gmail = True
             user.save()
-            del request.session['verify_num']  # Remove stored verify_num from session
+            del request.session['verify_num']  
             return account(request)
         else:
             return verify_gmail(request, message="verify_number mismatch")
