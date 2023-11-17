@@ -122,7 +122,7 @@ def verify_gmail(request, message="None"):
         email = 'queuepidcorp@gmail.com'
         password = 'jvqk fwso vgkq jlvp'
         smtp_object.login(email, password)
-        msg = 'Subject: ' + 'verify number' + '\n' + verify_num
+        msg = 'Subject: ' + 'OTP' + '\n' + verify_num
         smtp_object.sendmail(email, user.email, msg)
         smtp_object.quit()
 
