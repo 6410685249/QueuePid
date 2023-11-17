@@ -35,7 +35,7 @@ class Operation(models.Model):
     restaurant = models.CharField(max_length=30)
     cost = models.CharField(max_length=30)
     queueMan_username = models.CharField(max_length=30)
-    date = models.DateTimeField()
+    date = models.DateTimeField(null=True)
     number_Queue = models.CharField(max_length=30)
     number_of_customer = models.CharField(max_length=30)
     status = models.IntegerField(default=-1)
