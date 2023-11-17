@@ -1,17 +1,15 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render
-from login.models import User_info
+from django.shortcuts import render,redirect
 from .models import Queueman
 from django.contrib.auth import update_session_auth_hash
-from django.db.models import Q
 from operation.models import *
 from django.utils import timezone
 from operation.models import Booking
-# Create your views here.
 from queueman.models import *
 from django.contrib.auth.models import User
-
+from operation.views import customer_status
+# Create your views here.
 
 
 def qhome(request):
@@ -20,12 +18,17 @@ def qhome(request):
     clist = Booking.objects.all()
     queueman = Queueman.objects.get(username = request.user.id)
 
-    request.user
     if request.method == 'POST':
-        print(request.POST['customer'])
-        print(request.POST['restaurant'])
-        return get_queue(request,request.POST['customer'],request.POST['restaurant'])
+        operate = Operation.objects.get(customer_username = request.POST['customer'])
+        user = User.objects.get(username =  request.POST['customer'])
+        customer_book = Booking.objects.get(customer_username=user)
+        customer_book.delete()
+        operate.queueMan_username = request.user.username
+        operate.status += 1
+        operate.save() 
 
+        return redirect('qstatus')
+    
     return render(request, 'queueman_home.html',{
                   'clist':clist,
                   'queueman':queueman,
@@ -91,15 +94,26 @@ def change_password(request):
     return render(request,'queueman_change_password.html')
 
 
-def get_queue(request,customer,restaurant_name):
+def status(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    user = User.objects.get(username=customer)
-    customer_book = Booking.objects.get(customer_username=user)
-    customer_book.delete()
-    op = Operation.objects.create(customer_username=customer, restaurant=restaurant_name, queueMan_username = request.user.username, \
-                                  cost=0,number_Queue= 10,status= 0,update_status=0,date = timezone.now(),number_of_customer=customer_book.number_of_customer
-                                  )
-    op.save()
+    operate = Operation.objects.get(queueMan_username = request.user.username)
 
-    return render(request,'customer_status.html')
+    if request.method == 'POST':
+        operate.status +=1
+        operate.save()
+        if operate.status == 2:
+            operate.date = timezone.now()
+            operate.save()
+            timezone_now = timezone.now()
+            time_diff = timezone_now - operate.date
+            return render(request,'customer_status.html',
+                      {'operation':operate,
+                       'time_diff':time_diff,
+                       'minute_diff': time_diff.seconds // 60,
+                       'hour_diff': time_diff.seconds // 60//60,
+                                                  })
+
+    return render(request,'queueman_status.html',{
+        'operation':operate
+    })

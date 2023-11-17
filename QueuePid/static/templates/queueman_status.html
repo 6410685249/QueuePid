@@ -8,24 +8,25 @@
 <body>
 
 
-    <a href="{% url 'restaurant_list' %}"> < back </a>
+    <a href="{% url 'qhome' %}"> < back </a>
 
 
-    {% if  operation.status >= 0 %}
-        <h1>LOOKING FOR QUEUEMAN</h1>
-    {% endif %}
-    
-    {% if operation.status >= 1 %}
+
+    {% if  operation.status >= 1 %}
         <h1>ON THE WAY</h1>
     {% endif %}
 
+
     {% if operation.status >= 2 %}
         <h1>IN QUEUE</h1>
+
         <div id="timeDisplay">
             <!-- Display the initial values from Django variables -->
             {{ hour_diff }} hours {{ minute_diff }} minutes
         </div>
+
         <p id="timer" data-start-time="{{ time_diff.seconds }}">00:00</p>
+
         <script>
             function startTimer() {
                 var startTime = parseInt(document.getElementById('timer').getAttribute('data-start-time'), 10);
@@ -45,21 +46,27 @@
             }
             // Start the timer when the page loads
             window.onload = startTimer;
-        </script>
+        </script>    
     {% endif %}
 
+
     {% if operation.status >= 3 %}
-        <h1>FINISH</h1>
-        <h1>Total Cost: {{ operation.cost }}</h1>
+            <h1>FINISH</h1>
+            <h1>Total Cost: {{ operation.cost }}</h1>
     {% endif %}
+
+
+
+    <form action="{% url 'qstatus' %}" method="post" id="update">
+        {% csrf_token %}
+        <a onclick="submit()">next step</a>
+    </form>
 
     <script>
         function submit() { 
             document.getElementById("update").submit(); 
         } 
     </script>
-    
-
 
 </body>
 </html>
