@@ -17,17 +17,18 @@
     <h1>IN queue</h1>
     {% if operation.status >= 2 %}
         <p id="timer" data-start-time="{{ time_diff.seconds }}">00:00:00</p>
+        <a href="{% url 'customer_cancel' %}"> cancel </a>
     {% else %}
         <h1>00:00:00</h1>
     {% endif %} 
-        
+    <h1>number of Queue {{operation.number_Queue}}</h1>
     {% if operation.status >= 3 %}
         <a href="{% url 'customer_payment' %}"> FINISH </a>
     {% else %}
         <a> FINISH </a>  
     {% endif %}    
 
-
+    
     <script>
         function startTimer() {
             var startTime = parseInt(document.getElementById('timer').getAttribute('data-start-time'), 10);
