@@ -44,11 +44,6 @@
         <a href="{% url 'verify_gmail' %}">You have not verified your email. Please verify your email to receive notifications.</a>
     {% endif %}
 
-    {% if book_status != "None" %}
-        <a href="{% url 'customer_status' %}"> Status page</a>
-
-    {% endif %}
-
     <script> 
         function myFunction() { 
             document.getElementById("GFG").submit(); 
