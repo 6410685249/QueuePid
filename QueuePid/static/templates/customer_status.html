@@ -28,7 +28,9 @@
                 <p class="timer"> 00:00:00 </p>
                 {% endif %} 
             </div>
-
+            {% if operation.status == 0 %}
+                <a href="{% url 'cancel_book' %}"> cancel book </a>
+            {% endif %}
             <div class="bar">
                 <div class="table1">
                     <table>

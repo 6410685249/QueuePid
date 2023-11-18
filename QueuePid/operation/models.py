@@ -34,7 +34,7 @@ class Operation(models.Model):
     customer_username = models.CharField(max_length=30)
     restaurant = models.CharField(max_length=30)
     cost = models.CharField(max_length=30)
-    queueMan_username = models.CharField(max_length=30)
+    queueMan_username = models.CharField(max_length=30) # " "
     date = models.DateTimeField(null=True)
     number_Queue = models.IntegerField(null=True)
     number_of_customer = models.IntegerField(null=True)
@@ -42,7 +42,7 @@ class Operation(models.Model):
     cancel_by_queueman = models.BooleanField(default=False)
     cancel_by_user = models.BooleanField(default=False)
     update_status = models.BooleanField(default=False)
-    temp = models.CharField(null=True,max_length=30)
+    temp = models.CharField(null=True,max_length=30) # queueman
 
     def __str__(self):
         return f"{self.customer_username} {self.restaurant} {self.queueMan_username} "

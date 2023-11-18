@@ -7,5 +7,6 @@ urlpatterns = [
     path('customer_home/customer_payment',views.customer_payment,name='customer_payment'),
     path('customer_review',views.customer_review,name='customer_review'),
     path('customer_cancel',views.customer_cancel,name='customer_cancel'),
+    path('cancel_book',views.cancel_book,name='cancel_book'),
 
 ]

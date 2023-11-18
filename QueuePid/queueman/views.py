@@ -124,6 +124,8 @@ def status(request):
     alert = 0
 
     if operate.update_status == True:
+        queueman.is_have_queue = False
+        queueman.save()
         operate.delete()
         return redirect('qhome')
 

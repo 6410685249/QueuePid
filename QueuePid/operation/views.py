@@ -24,7 +24,11 @@ def customer_status(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login')) 
     operate = Operation.objects.get(customer_username = request.user.username)
+    user = User.objects.get(username =  operate.customer_username)
+    info = User_info.objects.get(username = user.id)
     if operate.update_status:
+        info.book = None
+        info.save()
         operate.delete() 
         return redirect('restaurant_list')
     timezone_now = timezone.now()
@@ -112,8 +116,24 @@ def customer_cancel(request):
     time_diff = (time_end - time_start).seconds
     minute = time_diff // 60
     user.credit -= 60 + 25*(minute // 25)
-    user.book = None
-    queueman.is_have_queue = False
+    queueman.credit += int((60 + 25*(minute // 25)) / 2)
+
+    user.book = None 
+    operation_user.update_status = True
+
+    operation_user.save()
     user.save()
-      
+    queueman.save()
+
+    return redirect('restaurant_list')
+
+
+def cancel_book(request):
+    operation_user = Operation.objects.get(customer_username=request.user.username)
+    user = User_info.objects.get(username = request.user)
+    book = Booking.objects.get(customer_username= request.user)
+    user.book = None 
+    user.save()
+    book.delete()
+    operation_user.delete()
     return redirect('restaurant_list')
