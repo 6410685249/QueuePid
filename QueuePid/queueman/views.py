@@ -175,7 +175,6 @@ def cancel(request):
     queueman = Queueman.objects.get(username = request.user.id)
     
     operate.update_status = True
-    info.book = None
     queueman.is_have_queue = False
 
     operate.save()
