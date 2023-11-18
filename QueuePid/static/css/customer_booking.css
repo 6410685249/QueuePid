@@ -13,11 +13,11 @@ p {
     text-align: left;
 }
 
-table {
+div table {
     width: 90%;
     text-align: center;
 }
-td {
+div td {
     width: 10%;
     vertical-align: top;
 }
