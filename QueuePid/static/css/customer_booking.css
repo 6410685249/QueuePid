@@ -13,11 +13,11 @@ p {
     text-align: left;
 }
 
-table {
+div table {
     width: 90%;
     text-align: center;
 }
-td {
+div td {
     width: 10%;
     vertical-align: top;
 }
@@ -51,4 +51,18 @@ input {
     font-weight: bold;
     width: 50px;
     height: 20px;
+}
+
+a {
+    color: #00095c;
+    margin: 50px;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 1.17em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav {
+    margin-bottom: 50px;
 }
