@@ -78,8 +78,6 @@ def customer_payment(request):
     return render(request,'customer_payment.html',{'operation':operation_user,'price':60 + 25*(minute // 25),'credit':user.credit,'timing_hr':minute//60,'timing_min':minute%60,'is_hr':is_hr})
 
 
-
-    
 def customer_review(request):
 
     if request.method == "POST":
