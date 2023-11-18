@@ -72,12 +72,6 @@
                         <tr><td>{{ operation.number_Queue }}</td></tr>
                     </table>
                 </div>
-                <div class="table3">
-                    <form action="{% url 'qcancel' %}" method="post" id="cancel">
-                        {% csrf_token %}
-                        <a onclick="cancel()">Cancel</a>
-                    </div>
-                </form>
                 {% endif %}
             </div>
 
@@ -85,14 +79,13 @@
                 {% if operation.status >= 1 %}
                 <h2>ON THE WAY</h2>
                 {% if operation.status == 1 %}
-                <form action="{% url 'qstatus' %}" method="post" id="update">
+                <form action="{% url 'qstatus' %}" method="post" id="update" >
                     {% csrf_token %}
                     <label for="number_queue">Number of Queue: </label>
                     <p>
-                        <input type="number" name="number_queue" id="number_queue" min="0" >
+                        <input type="number" name="number_queue" id="number_queue" min="0" required>
                     </p>    
-                    <a onclick="submit()">In Queue</a>
-                    
+                    <a type="submit" onclick="submit()">In Queue</a>
                 </form>
                 {% endif %}
             {% endif %}
@@ -142,6 +135,11 @@
 
         </section>
     </div>
+
+    <form action="{% url 'qcancel' %}" method="post" id="cancel">
+        {% csrf_token %}
+        <a onclick="cancel()">Cancel</a>
+    </form>
 
 
 {% endblock %}

@@ -128,11 +128,8 @@ def status(request):
         return redirect('qhome')
 
     if request.method == 'POST':
-
-        if ['number_queue'] in request.POST:
-            if request.POST['number_queue'] == '':
-                return redirect('qstatus')
-
+        if 'number_queue' in request.POST and request.POST['number_queue'] == '':
+            return redirect('qstatus')
         if operate.status == 1:
             operate.status +=1
             operate.number_Queue = request.POST['number_queue']
