@@ -1,33 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load static %}
 
+{% block header %}
+    Queuepid queue
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/customer_status.css' %}" />
+{% endblock %}
+
+{% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_cus.inc.html' %}
 
     <a href="{% url 'restaurant_list' %}"> < back </a>
+    
+    <div class="container">
+        <div class="header-area">
+            <h1>{{operation.restaurant}}</h1>
+        </div>
 
- 
-        
-    <h1>Looking for queue</h1>
-    <h1>By the way</h1>
-    <h1>IN queue</h1>
-    {% if operation.status >= 2 %}
-        <p id="timer" data-start-time="{{ time_diff.seconds }}">00:00:00</p>
-        <a href="{% url 'customer_cancel' %}"> cancel </a>
-    {% else %}
-        <h1>00:00:00</h1>
-    {% endif %} 
-    <h1>number of Queue {{operation.number_Queue}}</h1>
-    {% if operation.status >= 3 %}
-        <a href="{% url 'customer_payment' %}"> FINISH </a>
-    {% else %}
-        <a> FINISH </a>  
-    {% endif %}    
+        <div class="body-area">
+            <div class="timer_block">
+                {% if operation.status >= 2 %}
+                <p id="timer" data-start-time="{{ time_diff.seconds }}" class="timer">00:00:00</p>
+                {% else %}
+                <p class="timer"> 00:00:00 </p>
+                {% endif %} 
+            </div>
 
+            <div class="bar">
+                <div class="table1">
+                    <table>
+                        <tr><th>Number of customer</th></tr>
+                        <tr><td>{{operation.number_of_customer}}</td></tr>
+                    </table>
+                </div>
+                {% if operation.status >= 2 %}
+                <div class="table2">
+                    <table>
+                        <tr><th>Number of Queue</th></tr>
+                        <tr><td>{{ operation.number_Queue }}</td></tr>
+                    </table>
+                </div>
+                <div class="table3">
+                    <a href="{% url 'customer_cancel' %}"> cancel </a>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="block1" id="{% if operation.status == 0 %}current{% else %}pass{% endif %}">
+                <h2>LOOKING FOR QUEUEMAN</h2>
+            </div>
+
+            <div class="block2" id="{% if operation.status == 1 %}current{% else %}pass{% endif %}">
+                <h2>ON THE WAY</h2>
+            </div>
+            
+            <div class="block3" id="{% if operation.status == 2 %}current{% else %}pass{% endif %}">
+                <h2>IN QUEUE</h2>
+            </div>
+            
+            <div class="block4" id="{% if operation.status >= 3 %}current{% else %}pass{% endif %}">
+                <h2> FINISH </h2> 
+                {% if operation.status >= 3 %}
+                <a href="{% url 'customer_payment' %}"> success </a>
+            {% endif %}
+            </div>
+        </div>
+    </div>
     
     <script>
         function startTimer() {
@@ -49,5 +90,4 @@
         // Start the timer when the page loads
         window.onload = startTimer;
     </script>
-</body>
-</html>
+{% endblock %}
