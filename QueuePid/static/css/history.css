@@ -1,0 +1,46 @@
+/* import font : Lato Bold 700 */
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Lato:wght@700&family=Nunito:wght@600&family=Rubik+Iso&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=DM+Sans:opsz,wght@9..40,100&family=Lato:wght@100;700&family=Nunito:wght@600&family=Rubik+Iso&display=swap');
+
+
+h1 {
+    font-size: 40px;
+}
+
+
+/* class */
+.head {
+    margin-left: 30%;
+    /* width: 75%; */
+    padding-top: 30px;
+}
+
+.container {
+    margin-left: 30%;
+    /* margin-right: 50%; */
+    margin-right: 30%
+}
+
+.container > div {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 5px solid #00095c;
+    background-color: rgba(240, 182, 95, 0.6);
+    /* box-shadow: 10px 10px 5px rgb(171, 168, 168);
+    border: 0.5px solid  rgb(205, 205, 205);;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center; */
+    font-size: 18px;
+}
+
+.back{
+    color: #00095c;
+    margin: 10px;
+    padding-left: 17em;
+    padding-right: 1em;
+    font-size: 1.17em;
+    font-weight: bold;
+    text-decoration: none;
+}
