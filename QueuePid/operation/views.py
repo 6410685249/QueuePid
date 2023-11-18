@@ -52,7 +52,7 @@ def customer_payment(request):
         return HttpResponseRedirect(reverse('login')) 
     operation_user = Operation.objects.get(customer_username=request.user.username)
     user = User_info.objects.get(username = request.user)
-    queueman = User.objects.get(username=operation_user.queueMan_username)
+    queueman = User.objects.get(username=operation_user.temp)
     user_queueman = Queueman.objects.get(username=queueman)
 
     time_end = timezone.now()
@@ -80,7 +80,7 @@ def customer_review(request):
     if request.method == "POST":
         op = Operation.objects.get(customer_username = request.user.username)
         user_cus = User.objects.get(username=op.customer_username)
-        user_que = User.objects.get(username=op.queueMan_username)
+        user_que = User.objects.get(username=op.temp)
         customer = User_info.objects.get(username = user_cus)
         queueman = Queueman.objects.get(username = user_que)
         review = Review.objects.create(customer_username=op.customer_username, \
