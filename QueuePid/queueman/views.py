@@ -116,6 +116,7 @@ def change_password(request):
 def status(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
+    
     operate = Operation.objects.get(queueMan_username = request.user.username)
     user = User.objects.get(username =  operate.customer_username)
     info = User_info.objects.get(username = user.id)
@@ -173,4 +174,18 @@ def status(request):
         'operation':operate
     })
 
+def cancel(request):
+    operate = Operation.objects.get(queueMan_username = request.user.username)
+    user = User.objects.get(username =  operate.customer_username)
+    info = User_info.objects.get(username = user.id)
+    queueman = Queueman.objects.get(username = request.user.id)
+    
+    operate.update_status = True
+    info.book = None
+    queueman.is_have_queue = False
 
+    operate.save()
+    info.save()
+    queueman.save()
+
+    return redirect('qhome')

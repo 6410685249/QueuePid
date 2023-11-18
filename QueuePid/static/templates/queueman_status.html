@@ -35,6 +35,10 @@
         function submit() { 
             document.getElementById("update").submit(); 
         }
+
+        function cancel() { 
+            document.getElementById("cancel").submit(); 
+        }
     </script>
     
 
@@ -132,4 +136,11 @@
 
         </section>
     </div>
+
+    <form action="{% url 'qcancel' %}" method="post" id="cancel">
+        {% csrf_token %}
+        <a onclick="cancel()">Cancel</a>
+    </form>
+
+
 {% endblock %}
