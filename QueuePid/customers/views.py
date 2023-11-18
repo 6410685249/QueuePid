@@ -30,13 +30,19 @@ def is_valid_email(email):
 def list_restaurant(request,restaurant=None):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    if request.method == 'POST':
-        return booking(request,request.POST['restaurant_name'])
+    # if request.method == 'POST':
+    #     print(request.POST['restaurant_name'])
+    #     print('IN list_rest')
+    #     return booking(request,request.POST['restaurant_name'])
     
     user = User_info.objects.get(username = request.user)
     name = ''
 
     return render(request, 'customer_home.html', {'form': [(i.name,i.location) for i in Restaurant.objects.all()],'user':user,'book_status':str(user.book),'search_text':name})
+
+def click_rest(request):
+    if request.method == 'POST':
+        return booking(request,request.POST['customer'])
 
 def search(request):
     if request.method == 'POST':
@@ -51,6 +57,7 @@ def search(request):
         print(name_rest)
         return render(request, 'customer_home.html', {'form': name_rest,'user':user,'book_status':str(user.book),'search_text':name})
     return redirect('list_restaurant')
+
 def about(request): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
