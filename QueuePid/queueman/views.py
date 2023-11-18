@@ -149,7 +149,7 @@ def status(request):
             if info.verify_gmail == True:
                 msg = 'Subject: ' + 'Finnish' + '\n' + 'Your queue is finish'
                 smtp_object.sendmail(email, info.email, msg)
-                smtp_object.quit()
+                
 
             return redirect('qstatus')
         
