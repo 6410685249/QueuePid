@@ -1,0 +1,44 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 3fr;
+    grid-template-areas:
+            "header"
+            "body";
+    margin: auto;
+    background-color: bisque;
+}
+
+.header-area {
+    grid-area: header;
+    text-align: center;
+}
+
+.body-area{
+    grid-area: body;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    grid-template-areas: 
+            "timer timer bar"
+            "text1 text2 text3";
+}
+
+.block1 {
+    grid-area: text1;
+    margin: 10px;
+}
+
+.block2 {
+    grid-area: text2;
+    margin: 10px;
+}
+
+.block3 {
+    grid-area: text3;
+    margin: 10px;
+}
+
+.timer_block {
+    grid-area: timer;
+}
