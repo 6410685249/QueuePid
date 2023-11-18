@@ -10,6 +10,4 @@ urlpatterns = [
     path('customer_report',views.customer_report,name='customer_report'),
     path('customer_cancel',views.customer_cancel,name='customer_cancel'),
 
-
-
 ]

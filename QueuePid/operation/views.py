@@ -22,9 +22,10 @@ def booking(request, restaurant_name):
 def customer_status(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login')) 
-
     operate = Operation.objects.get(customer_username = request.user.username)
-
+    if operate.update_status:
+        operate.delete() 
+        return redirect('restaurant_list')
     timezone_now = timezone.now()
     if operate.date != None:
         time_diff = timezone_now - operate.date
@@ -63,6 +64,7 @@ def customer_payment(request):
         user_queueman.credit +=  int((60 + 25*(minute // 25)) / 2)
         user_queueman.save()
         operation_user.cost = 60 + 25*(minute // 25)
+        operation_user.save()
         user.save()
         return render(request,'customer_review.html')
     return render(request,'customer_payment.html',{'operation':operation_user,'price':60 + 25*(minute // 25),'credit':user.credit})
@@ -101,6 +103,8 @@ def customer_report(request):
 
 def customer_cancel(request):
     operation_user = Operation.objects.get(customer_username=request.user.username)
+    user_que = User.objects.get(username=operation_user.queueMan_username)
+    queueman = Queueman.objects.get(username = user_que)
     user = User_info.objects.get(username = request.user)
     time_end = timezone.now()
     time_start = operation_user.date
@@ -108,6 +112,7 @@ def customer_cancel(request):
     minute = time_diff // 60
     user.credit -= 60 + 25*(minute // 25)
     user.book = None
+    queueman.is_have_queue = False
     user.save()
-    operation_user.delete()   
+      
     return redirect('restaurant_list')

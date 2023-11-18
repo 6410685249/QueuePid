@@ -17,7 +17,10 @@
         <h1 class='header-font-size'>Hi! {{ user.username.username }} |</h1>
         <h2 class='header2-font-size'> Enjoy with your meal~</h2>
     </div>
-
+    <form  action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="search" placeholder="Search" value="{{search_text}}"><br><button type= 'submit'> search </button><br>
+    </form>
     <div class='grid-container'>    
         {% for name,location in form %}
         <div>

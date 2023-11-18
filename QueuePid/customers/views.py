@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Restaurant,Historically
 from login.models import User_info
 from login.views import logout_view
@@ -27,16 +27,30 @@ def is_valid_email(email):
     # Return True if there is a match, indicating a valid email format
     return bool(match)
 
-def list_restaurant(request):
+def list_restaurant(request,restaurant=None):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     if request.method == 'POST':
         return booking(request,request.POST['restaurant_name'])
+    
     user = User_info.objects.get(username = request.user)
+    name = ''
 
+    return render(request, 'customer_home.html', {'form': [(i.name,i.location) for i in Restaurant.objects.all()],'user':user,'book_status':str(user.book),'search_text':name})
 
-    return render(request, 'customer_home.html', {'form': [(i.name,i.location) for i in Restaurant.objects.all()],'user':user,'book_status':str(user.book),})
-
+def search(request):
+    if request.method == 'POST':
+        user = User_info.objects.get(username = request.user)
+        name = request.POST['search'] 
+        if name == '' or name == None:
+            return render(request, 'customer_home.html', {'form': [(i.name,i.location) for i in Restaurant.objects.all()],'user':user,'book_status':str(user.book),'search_text':name})
+        name_rest = []
+        for i in Restaurant.objects.all():
+            if name in i.name:
+                name_rest.append((i.name,i.location))
+        print(name_rest)
+        return render(request, 'customer_home.html', {'form': name_rest,'user':user,'book_status':str(user.book),'search_text':name})
+    return redirect('list_restaurant')
 def about(request): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
