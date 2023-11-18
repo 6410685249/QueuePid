@@ -53,6 +53,7 @@ def get_number_of_customer(request):
 
         return redirect('customer_status')
 
+
 def customer_payment(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login')) 
