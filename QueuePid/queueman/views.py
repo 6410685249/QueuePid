@@ -129,8 +129,9 @@ def status(request):
 
     if request.method == 'POST':
 
-        if request.POST['number_queue'] == '':
-            return redirect('qstatus')
+        if ['number_queue'] in request.POST:
+            if request.POST['number_queue'] == '':
+                return redirect('qstatus')
 
         if operate.status == 1:
             operate.status +=1
