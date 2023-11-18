@@ -6,6 +6,10 @@
                 <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
             </th>
             <td>
+                
+                {% if book_status != "None" %}
+                    <a href="{% url 'customer_status' %}" class="link"> Status page</a>
+                {% endif %}
                 <a href="{% url 'about' %}" class="link"> About </a>
                 <a href="{% url 'history' %}" class="link"> History </a>
                 <a href="{% url 'wallet' %}" class="link"> Wallet </a>

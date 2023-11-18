@@ -13,6 +13,7 @@ urlpatterns = [
     path('customer_home/history',views.history,name='history'),
     path('customer_home/verify_gmail',views.verify_gmail,name='verify_gmail'),
     path('customer_home/search',views.search,name='search'),
+    path('customer_home/click_rest',views.click_rest,name='click_rest'),
 
 
 ]
