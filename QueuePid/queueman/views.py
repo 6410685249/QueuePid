@@ -65,7 +65,10 @@ def history(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     
-    return render(request, 'queueman_history.html')
+    queueman = Queueman.objects.get(username = request.user.id)
+    return render(request, 'queueman_history.html',{
+                  'queueman':queueman,
+    })
 
 def profile(request):
     if not request.user.is_authenticated:

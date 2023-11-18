@@ -43,6 +43,22 @@ nav {
     margin-bottom: 50px;
 }
 
+h4 {
+    text-align: center;
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding: 3em;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 1.17em;
+    box-shadow: 5px 5px 5px rgb(171, 168, 168);
+}
+
+h4:hover{
+    cursor: wait;
+}
+
 /* table */
 
 nav ~ table {
@@ -64,5 +80,5 @@ nav ~ table td {
     border-radius: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-style: none outset outset outset;
+    box-shadow: 5px 5px 5px rgb(171, 168, 168);
 }

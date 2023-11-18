@@ -8,7 +8,7 @@ class User_info(models.Model):
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
     email = models.EmailField(unique=True)
-    credit = models.PositiveIntegerField(default=0)
+    credit = models.IntegerField(default=0)
     verify_gmail = models.BooleanField(default=False)
     book = models.CharField(max_length=30, null=True, blank=True,default=None)
 

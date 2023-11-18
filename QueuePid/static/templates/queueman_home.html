@@ -23,31 +23,29 @@
         </div>
     </div>
 
+    <h3>Customer list</h3>
     {% if queueman.is_have_queue == False %}
-
-        <h3>Customer list</h3>
-        <table>
-            {% for customer in clist %}
-                <td class="container">
-                    <div class="profile-area">
-                        <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
-                    </div>
-                    <div>
-                        <form action="{% url 'qhome' %}" method="post" id="gq">
-                            {% csrf_token %}
-                            <p> Username: {{ customer.customer_username }} </p>
-                            <p> Restaurant: {{ customer.restaurant }}</p>
-                            <input type="hidden" name="customer" value="{{customer.customer_username}}">
-                            <input type="hidden" name="restaurant" value="{{customer.restaurant }}">
-                            <a onclick="myFunction()">Get Queue</a>
-                        </form>
-                    </div>
-                </td>
-            {% endfor %}
-        </table>
-
+    <table>
+        {% for customer in clist %}
+            <td class="container">
+                <div class="profile-area">
+                    <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
+                </div>
+                <div>
+                    <form action="{% url 'qhome' %}" method="post" id="gq">
+                        {% csrf_token %}
+                        <p> Username: {{ customer.customer_username }} </p>
+                        <p> Restaurant: {{ customer.restaurant }}</p>
+                        <input type="hidden" name="customer" value="{{customer.customer_username}}">
+                        <input type="hidden" name="restaurant" value="{{customer.restaurant }}">
+                        <a onclick="myFunction()">Get Queue</a>
+                    </form>
+                </div>
+            </td>
+        {% endfor %}
+    </table>
     {% else %}
-        <a href="{% url 'qstatus' %}" id="status">status</a>
+    <h4> Please finish your first queue before take another queue</h4>
     {% endif %}
     
 
