@@ -42,10 +42,7 @@ def list_restaurant(request,restaurant=None):
 
 def click_rest(request):
     if request.method == 'POST':
-        print(request.POST)
-        print(request.POST['restaurant_name'])
-        print('IN list_rest')
-        return booking(request,request.POST['restaurant_name'])
+        return booking(request,request.POST['customer'])
 
 def search(request):
     if request.method == 'POST':

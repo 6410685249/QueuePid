@@ -24,19 +24,21 @@
     <div class='grid-container'>    
         {% for name,location in form %}
         <div>
-            <form id="GFG"  action="{% url 'click_rest' %}" method="post">
+            {% if book_status != "None" %}
+                <img src="{% static 'img/default_avatar.png' %}">   
+            {% else %}
+            <form id="GFG" action="{% url 'click_rest' %}" method="post">
                 {% csrf_token %}
-                {% if book_status != "None" %}
-                    <img src="{% static 'img/default_avatar.png' %}">   
-                {% else %}
-                    <a href="#" onclick="myFunction()" >  
-                        <input type="hidden" name="restaurant_name" value="{{name}}" >
-                        <img src="{% static 'img/default_avatar.png' %}">
-                    </a>
-                {% endif %}
-                    <p>{{name}}</p> <br> <p>{{location}}</p>
-                
+                <input type="hidden" name="customer" value="{{name}}">
+                <button type="submit" class="link-button">
+                    <img src="{% static 'img/default_avatar.png' %}">
+                </button>
+    
             </form>
+            {% endif %}
+            
+            <p>{{name}}</p> <br> <p>{{location}}</p>
+                
         </div>
         {% endfor %}
     </div>
@@ -44,10 +46,22 @@
         <a href="{% url 'verify_gmail' %}">You have not verified your email. Please verify your email to receive notifications.</a>
     {% endif %}
 
-
+    <style>
+        .link-button {
+            background: none;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            color: blue; /* Set the color you desire */
+            text-decoration: underline;
+        }
+    </style>
+    
     <script> 
         function myFunction() { 
             document.getElementById("GFG").submit(); 
         } 
     </script>     
+
 {% endblock %}
