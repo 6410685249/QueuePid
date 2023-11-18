@@ -4,6 +4,7 @@
 
 h1, h2 {
     display: inline-block;
+    margin-bottom: 10px;
 }
 
 p {
@@ -16,6 +17,11 @@ img {
     width: 40%;
     height: auto;
     padding-bottom: 10px ;
+}
+
+p a {
+    text-decoration: none;
+    color: brown;
 }
 
 /* class */
