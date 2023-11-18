@@ -83,13 +83,18 @@ def customer_review(request):
         user_que = User.objects.get(username=op.temp)
         customer = User_info.objects.get(username = user_cus)
         queueman = Queueman.objects.get(username = user_que)
+        print(list(request.POST.keys()))
+        if 'rating' not in request.POST.keys():
+            star = 5
+        else:
+            star = int(request.POST['rating'])
         review = Review.objects.create(customer_username=op.customer_username, \
                                        queueman_username=op.queueMan_username, \
                                        comment=request.POST['comment'], \
-                                       star=int(request.POST['rating'][0])) 
+                                       star=star) 
         his = Historically.objects.create(username=op.customer_username,restaurant=op.restaurant , \
                                 cost= op.cost,queeuManName=op.queueMan_username,date=op.date,phone_number_QueueMan=customer.telephone,phone_number_customer=queueman.phone_number)
-        queueman.star = (queueman.star + int(request.POST['rating'][0])) / 2 ### 4.5 4 4.25
+        queueman.star = (queueman.star + star) / 2 ### 4.5 4 4.25
         customer.book = None
         customer.save()
         op.delete()
