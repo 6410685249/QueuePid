@@ -12,7 +12,6 @@ from .models import *
 from django.utils import timezone
 from queueman.models import *
 
-total_seconds = 0
 
 def booking(request, restaurant_name):
     if not request.user.is_authenticated:
@@ -50,6 +49,7 @@ def get_number_of_customer(request):
         user.book = restaurant=request.POST['restaurant_name']
         book.save()
         user.save()
+
 
         return redirect('customer_status')
 
