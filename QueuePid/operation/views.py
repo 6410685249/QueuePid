@@ -65,6 +65,7 @@ def customer_payment(request):
     time_start = operation_user.date
     time_diff = (time_end - time_start).seconds
     minute = time_diff // 60
+    is_hr = minute >= 60
     if request.method == "POST":
         user.credit -= 60 + 25*(minute // 25)
         user_queueman.credit +=  int((60 + 25*(minute // 25)) / 2)
@@ -73,7 +74,7 @@ def customer_payment(request):
         operation_user.save()
         user.save()
         return render(request,'customer_review.html')
-    return render(request,'customer_payment.html',{'operation':operation_user,'price':60 + 25*(minute // 25),'credit':user.credit})
+    return render(request,'customer_payment.html',{'operation':operation_user,'price':60 + 25*(minute // 25),'credit':user.credit,'timing_hr':minute//60,'timing_min':minute%60,'is_hr':is_hr})
 
 
 
