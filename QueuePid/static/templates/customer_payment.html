@@ -15,9 +15,6 @@
         <h1>Queue waiting SUCCESS!!</h1>    
         <h2>{{operation.restaurant}}</h2>
         <h3>Price Rate</h3>
-        <form action="{% url 'get_number_of_customer' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="restaurant_name" value="{{restaurant}}" >
         <table>
             <tr>
                 <td>
@@ -79,6 +76,5 @@
             {% csrf_token %}
             <button type="submit">Confirm Payment</button>
         </form><br>
-        </form>
     </div>
 {% endblock %}
