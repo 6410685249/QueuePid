@@ -1,20 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    {{operation.restaurant}}
-    <h1>Price Rate</h1>
-    <h1>First 30 min     60 $</h1>
-    <h1>Every Next 10 min 25 $</h1>
-    <h1>total price: {{price}}</h1>
-    <h1>Your credit: {{credit}}</h1>
-    <form action="{% url 'customer_payment' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">PAYMENT</button>
-    </form>
-</body>
-</html>
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}Queuepid{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/customer_booking.css' %}" />
+{% endblock %}
+
+{% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_cus.inc.html' %}
+    
+    <div class='grid-container'>
+        <h1>Queue waiting SUCCESS!!</h1>    
+        <h2>{{operation.restaurant}}</h2>
+        <h3>Price Rate</h3>
+        <form action="{% url 'get_number_of_customer' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="restaurant_name" value="{{restaurant}}" >
+        <table>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <p>First 30 min</p>
+                </td>
+                <td>
+                    <p>60 baht</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <p>Every Next 10 min</p>
+                </td>
+                <td>
+                    <p>25 baht</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <p>Total time</p>
+                </td>
+                <td>
+                    {% if is_hr == True %}
+                        <p>{{timing_hr}} hours {{timing_min}} minutes</p>
+                    {% else %}
+                        <p>{{timing_min}} minutes</p>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <p>Total price</p>
+                </td>
+                <td>
+                    <p>{{price}} baht</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <p>Your Credit</p>
+                </td>
+                <td>
+                    <p>{{credit}} baht</p>
+                </td>
+            </tr>
+        </table>
+        <br><br>
+        <form action="{% url 'customer_payment' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Confirm Payment</button>
+        </form><br>
+        </form>
+    </div>
+{% endblock %}
