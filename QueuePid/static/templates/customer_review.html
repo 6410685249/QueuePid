@@ -10,11 +10,13 @@
     <h1>Reviews</h1>
     <form action="{% url 'customer_review' %}" method="post">
         {% csrf_token %}
-        <input type="radio" name="rating" value="5" onclick="fillRadioButtons(5)"> 5
-        <input type="radio" name="rating" value="4" onclick="fillRadioButtons(4)"> 4
-        <input type="radio" name="rating" value="3" onclick="fillRadioButtons(3)"> 3
-        <input type="radio" name="rating" value="2" onclick="fillRadioButtons(2)"> 2
-        <input type="radio" name="rating" value="1" onclick="fillRadioButtons(1)"> 1
+        <div class='rating'>
+            <input type="radio" name="rating" value="5" onclick="fillRadioButtons(5)"> 5
+            <input type="radio" name="rating" value="4" onclick="fillRadioButtons(4)"> 4
+            <input type="radio" name="rating" value="3" onclick="fillRadioButtons(3)"> 3
+            <input type="radio" name="rating" value="2" onclick="fillRadioButtons(2)"> 2
+            <input type="radio" name="rating" value="1" onclick="fillRadioButtons(1)"> 1
+        </div>
         <script>
         function fillRadioButtons(value) {
             // Get all radio buttons with the name 'rating'
