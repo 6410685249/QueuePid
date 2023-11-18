@@ -6,6 +6,9 @@
                 <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
             </th>
             <td>
+                {% if queueman.is_have_queue == True %}
+                <a href="{% url 'qstatus' %}" id="Status">Status</a>
+                {% endif %}
                 <a href="{% url 'qwallet' %}">Wallet</a>
                 <a href="{% url 'qhistory' %}">History</a>
                 <a href="{% url 'qprofile' %}">Account</a>
