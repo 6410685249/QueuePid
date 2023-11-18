@@ -42,6 +42,7 @@ class Operation(models.Model):
     cancel_by_queueman = models.BooleanField(default=False)
     cancel_by_user = models.BooleanField(default=False)
     update_status = models.BooleanField(default=False)
+    temp = models.CharField(null=True,max_length=30)
 
     def __str__(self):
         return f"{self.customer_username} {self.restaurant} {self.queueMan_username} "

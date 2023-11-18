@@ -1,12 +1,27 @@
 {% extends 'layout.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/history.css' %}" />
+{% endblock %}
+
 {% block body %}
     {% block navigation %}{% endblock %}
 
     {% include 'nav_cus.inc.html' %}
 
+    <h1 class="head">History</h1>
+
+    <div class="container">
     {% for i in history %}
-    <h1>{{i.date}} {{i.queeuManName}} {{i.restaurant}} {{i.cost}} {{i.phone_number_QueueMan}}</h1>
+        <div>
+            {{i.date}}
+            {{i.queeuManName}}
+            {{i.restaurant}}
+            {{i.cost}}
+            {{i.phone_number_QueueMan}}
+        </div>
     {% endfor %}
-    <a href="{% url 'restaurant_list' %}" > back </a>
+    </div>
+    <a href="{% url 'restaurant_list' %}" class="back" > < back </a>
 
 {% endblock %}

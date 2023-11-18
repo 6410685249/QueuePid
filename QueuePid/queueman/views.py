@@ -65,7 +65,10 @@ def history(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     
-    return render(request, 'queueman_history.html')
+    queueman = Queueman.objects.get(username = request.user.id)
+    return render(request, 'queueman_history.html',{
+                  'queueman':queueman,
+    })
 
 def profile(request):
     if not request.user.is_authenticated:
@@ -117,6 +120,7 @@ def status(request):
     user = User.objects.get(username =  operate.customer_username)
     info = User_info.objects.get(username = user.id)
     queueman = Queueman.objects.get(username = request.user.id)
+    alert = 0
 
     if operate.update_status == True:
         operate.delete()
@@ -142,8 +146,10 @@ def status(request):
         
         elif operate.status == 2 and operate.number_Queue ==0:
             operate.status +=1
-            operate.save()
             queueman.is_have_queue = False
+            operate.temp = operate.queueMan_username
+            operate.queueMan_username = ''
+            operate.save()
             queueman.save()
 
             if info.verify_gmail == True:
@@ -151,7 +157,7 @@ def status(request):
                 smtp_object.sendmail(email, info.email, msg)
                 
 
-            return redirect('qstatus')
+            return redirect('qhome')
         
     if operate.date != None:
         timezone_now = timezone.now()
