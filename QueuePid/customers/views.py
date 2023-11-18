@@ -65,13 +65,13 @@ def about(request): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     user = User_info.objects.get(username = request.user)
-    return render(request,'customer_about.html',{'user':user})
+    return render(request,'customer_about.html',{'user':user,'book_status':str(user.book)})
 
 def wallet(request): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     user = User_info.objects.get(username = request.user)
-    return render(request,'customer_wallet.html',{'user':user})
+    return render(request,'customer_wallet.html',{'user':user,'book_status':str(user.book)})
 
 def account(request): # render to html
     if not request.user.is_authenticated:
@@ -85,7 +85,7 @@ def edit_page(request,message = "None"):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     user_profile = User_info.objects.get(username=request.user)  
-    return render(request,'customer_edit_profile.html',{'user_profile': user_profile,'message':message})
+    return render(request,'customer_edit_profile.html',{'user_profile': user_profile,'message':message,'book_status':str(user_profile.book)})
 
 def success_edit(request):
     if request.method == 'POST':
@@ -132,7 +132,8 @@ def success_password(request):
 def history(request): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    return render(request,'customer_history.html',{'history': [i for i in Historically.objects.filter(username=request.user)]})
+    user = User_info.objects.get(username=request.user)
+    return render(request,'customer_history.html',{'history': [i for i in Historically.objects.filter(username=request.user)],'book_status':str(user.book)})
 
 def verify_gmail(request, message="None"):
     if not request.user.is_authenticated:
