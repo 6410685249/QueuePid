@@ -4,6 +4,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/history.css' %}" />
 {% endblock %}
 
+{% block title %}History{% endblock %}
+
 {% block body %}
     {% block navigation %}{% endblock %}
 
@@ -14,11 +16,11 @@
     <div class="container">
     {% for i in history %}
         <div>
-            {{i.date}}
-            {{i.queeuManName}}
-            {{i.restaurant}}
-            {{i.cost}}
-            {{i.phone_number_QueueMan}}
+            Date: {{i.date}} <br>
+            Queueman: {{i.queeuManName}} <br>
+            Restaurant: {{i.restaurant}} <br>
+            Cost: {{i.cost}} <br>
+            Queueman Phone No.: {{i.phone_number_QueueMan}} <br>
         </div>
     {% endfor %}
     </div>
