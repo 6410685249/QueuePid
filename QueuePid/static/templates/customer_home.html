@@ -30,8 +30,8 @@
                     <img src="{% static 'img/default_avatar.png' %}">   
                 {% else %}
                     <a href="#" onclick="myFunction()" >  
-                        <img src="{% static 'img/default_avatar.png' %}">
                         <input type="hidden" name="restaurant_name" value="{{name}}" >
+                        <img src="{% static 'img/default_avatar.png' %}">
                     </a>
                 {% endif %}
                     <p>{{name}}</p> <br> <p>{{location}}</p>
@@ -46,7 +46,6 @@
 
     {% if book_status != "None" %}
         <a href="{% url 'customer_status' %}"> Status page</a>
-
     {% endif %}
 
     <script> 

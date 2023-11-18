@@ -17,6 +17,7 @@ total_seconds = 0
 def booking(request, restaurant_name):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
+    print(restaurant_name)
     return render(request, 'customer_booking.html',{'restaurant':restaurant_name})
 
 def customer_status(request):
@@ -38,6 +39,7 @@ def customer_status(request):
 
 def get_number_of_customer(request):
     if request.method == 'POST':
+        print(request.POST['restaurant_name'])
         book = Booking.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],number_of_customer=int(request.POST['number']))
         user = User_info.objects.get(username=request.user)
         operate = Operation.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],status=0,cost=0,number_of_customer=int(request.POST['number']),update_status="0")
@@ -69,10 +71,7 @@ def customer_payment(request):
         return render(request,'customer_review.html')
     return render(request,'customer_payment.html',{'operation':operation_user,'price':60 + 25*(minute // 25),'credit':user.credit})
 
-def customer_complete(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('login'))
-    return render(request,'customer_complete.html')
+
 
     
 def customer_review(request):
@@ -83,17 +82,17 @@ def customer_review(request):
         user_que = User.objects.get(username=op.temp)
         customer = User_info.objects.get(username = user_cus)
         queueman = Queueman.objects.get(username = user_que)
-        print(list(request.POST.keys()))
+
         if 'rating' not in request.POST.keys():
             star = 5
         else:
             star = int(request.POST['rating'])
         review = Review.objects.create(customer_username=op.customer_username, \
-                                       queueman_username=op.queueMan_username, \
+                                       queueman_username=op.temp, \
                                        comment=request.POST['comment'], \
                                        star=star) 
         his = Historically.objects.create(username=op.customer_username,restaurant=op.restaurant , \
-                                cost= op.cost,queeuManName=op.queueMan_username,date=op.date,phone_number_QueueMan=customer.telephone,phone_number_customer=queueman.phone_number)
+                                cost= op.cost,queeuManName=op.temp,date=op.date,phone_number_QueueMan=customer.telephone,phone_number_customer=queueman.phone_number)
         queueman.star = (queueman.star + star) / 2 ### 4.5 4 4.25
         customer.book = None
         customer.save()
@@ -101,10 +100,7 @@ def customer_review(request):
         return redirect('restaurant_list')
     return render(request,'customer_review.html')
 
-def customer_report(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('login'))
-    return render(request,'customer_report.html')
+
 
 def customer_cancel(request):
     operation_user = Operation.objects.get(customer_username=request.user.username)
