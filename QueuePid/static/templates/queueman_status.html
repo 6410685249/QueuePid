@@ -1,92 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load static %}
 
+{% block header %}
+    Queuepid queue
+{% endblock %}
 
-    <a href="{% url 'qhome' %}"> < back </a>
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/queueman_status.css' %}" />
+{% endblock %}
 
-
-
-    {% if  operation.status >= 1 %}
-        <h1>ON THE WAY</h1>
-        {% if  operation.status == 1 %}
-        <form action="{% url 'qstatus' %}" method="post" id="update">
-            {% csrf_token %}
-            <label for="number_queue">Number of Queue: </label>
-            <input type="number" name="number_queue" id="number_queue" min="0">
-            <a onclick="submit()">In Queue</a>
-        </form>
-        {% endif %}
-    {% endif %}
-
-
-    {% if operation.status >= 2 %}
-        <h1>IN QUEUE</h1>
-
-        <h1>Number of Queue: {{ operation.number_Queue }}</h1>
-
-        {% if operation.number_Queue != 0 %}
-            <form action="{% url 'qstatus' %}" method="post" id="update">
-                {% csrf_token %}
-                <label for="number_queue">Number of Queue: </label>
-                <input type="number" name="number_queue" id="number_queue" min="0" max="{{ operation.number_Queue }}">
-                <a onclick="submit()">Update Queue</a>
-            </form>
-        {% endif %}
-
-        <div id="timeDisplay">
-            {{ hour_diff }} hours {{ minute_diff }} minutes
-        </div>
-
-        <p id="timer" data-start-time="{{ time_diff.seconds }}">00:00:00</p>
-
-        <script>
-            function startTimer() {
-                var startTime = parseInt(document.getElementById('timer').getAttribute('data-start-time'), 10);
-                var seconds = startTime || 0;
-        
-                setInterval(function () {
-                    seconds++;
-                    var hours = Math.floor(seconds / 3600);
-                    var minutes = Math.floor((seconds % 3600) / 60);
-                    var remainingSeconds = seconds % 60;
-        
-                    document.getElementById('timer').innerHTML =
-                        (hours < 10 ? '0' : '') + hours + ':' +
-                        (minutes < 10 ? '0' : '') + minutes + ':' +
-                        (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
-                }, 1000);
-            }
-            // Start the timer when the page loads
-            window.onload = startTimer;
-        </script>
-
-        {% if operation.number_Queue == 0 %}
-            <form action="{% url 'qstatus' %}" method="post" id="update">
-                {% csrf_token %}
-                <a onclick="submit()">Finish</a>
-            </form>
-        {% endif %}
-            
-    {% endif %}
-
-
-    {% if  operation.status >= 3 %}
-        <h1>This is Finish</h1>
-    {% endif %}
-
-
-
+{% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_queue.inc.html' %}
     <script>
+        function startTimer() {
+            var startTime = parseInt(document.getElementById('timer').getAttribute('data-start-time'), 10);
+            var seconds = startTime || 0;
+    
+            setInterval(function () {
+                seconds++;
+                var hours = Math.floor(seconds / 3600);
+                var minutes = Math.floor((seconds % 3600) / 60);
+                var remainingSeconds = seconds % 60;
+    
+                document.getElementById('timer').innerHTML =
+                    (hours < 10 ? '0' : '') + hours + ':' +
+                    (minutes < 10 ? '0' : '') + minutes + ':' +
+                    (remainingSeconds < 10 ? '0' : '') + remainingSeconds;
+            }, 1000);
+        }
+        // Start the timer when the page loads
+        window.onload = startTimer;
+
         function submit() { 
             document.getElementById("update").submit(); 
         }
     </script>
+    
 
-</body>
-</html>
+    <a href="{% url 'qhome' %}"> < back </a>
+
+    <div class="container">
+        <div class="header-area">
+            <h1>{{operation.restaurant}}</h1>
+        </div>
+
+        <section class="body-area">
+            <div class="timer_block">
+                {% if operation.status >= 2 %}
+                    <p id="timer" data-start-time="{{ time_diff.seconds }}" class="timer">00:00:00</p>
+                {% else %}
+                    <p class="timer"> 00:00:00 </p>
+                {% endif %}
+            </div>
+
+            <div class="bar">
+                <div class="table1">
+                    <table>
+                        <tr><th>Number of customer</th></tr>
+                        <tr><td>{{operation.number_of_customer}}</td></tr>
+                    </table>
+                </div>
+                {% if operation.status >= 2 %}
+                <div class="table2">
+                    <table>
+                        <tr><th>Number of Queue</th></tr>
+                        <tr><td>{{ operation.number_Queue }}</td></tr>
+                    </table>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="block1" id="{% if operation.status == 1 %}current{% else %}pass{% endif %}">
+                {% if operation.status >= 1 %}
+                <h2>ON THE WAY</h2>
+                {% if operation.status == 1 %}
+                <form action="{% url 'qstatus' %}" method="post" id="update">
+                    {% csrf_token %}
+                    <label for="number_queue">Number of Queue: </label>
+                    <p>
+                        <input type="number" name="number_queue" id="number_queue" min="0" required>
+                    </p>    
+                    <a onclick="submit()">In Queue</a>
+                    
+                </form>
+                {% endif %}
+            {% endif %}
+            </div>
+
+            {% if operation.status >= 2 %}
+            <div class="block2" id="{% if operation.status == 2 %}current{% else %}pass{% endif %}">
+                <h2>IN QUEUE</h2>
+
+                {% if operation.number_Queue != 0 %}
+                    <form action="{% url 'qstatus' %}" method="post" id="update">
+                        {% csrf_token %}
+                        <label for="number_queue">Number of Queue: </label>
+                        <p>
+                            <input type="number" name="number_queue" id="number_queue" min="0" max="{{ operation.number_Queue }}" required>
+                        </p>
+                        <a onclick="submit()">Update Queue</a>
+                        
+                    </form>
+                {% endif %}
+
+                <p id="timeDisplay">
+                    {{ hour_diff }} hours {{ minute_diff }} minutes
+                </p>
+            </div>
+
+                {% if operation.number_Queue == 0 and operation.status == 2 %}
+                <div class="block3" id="{% if operation.status == 3 %}current{% else %}pass{% endif %}">
+                    <h2>FINISH</h2>
+                    <form action="{% url 'qstatus' %}" method="post" id="update"  class="block3">
+                        {% csrf_token %}
+                        <a onclick="submit()">Accept</a>
+                    </form>
+                </div>
+                {% endif %}
+            {% else %}
+            <div class="block2" id="{% if operation.status == 2 %}current{% else %}pass{% endif %}">
+                <h2>IN QUEUE</h2> 
+            </div>
+            {% endif %}
+
+            {% if operation.number_Queue != 0 or operation.status >= 3 %}
+            <div class="block3" id="{% if operation.status == 3 %}current{% else %}pass{% endif %}">
+                <h2>FINISH</h2>
+            </div>
+            {% endif %}
+
+        </section>
+    </div>
+{% endblock %}

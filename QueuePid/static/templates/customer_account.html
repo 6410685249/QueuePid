@@ -33,10 +33,10 @@
         </div>
         
         <div class="path-area">
-            <a href="{% url 'edit_page' %}"><button>edit</button></a>
-            <a href="{% url 'change_password' %}"><button>change password</button></a>
+            <a href="{% url 'edit_page' %}"><button>Edit</button></a>
+            <a href="{% url 'change_password' %}"><button>Change password</button></a>
             {% if user.verify_gmail == False %}
-                <a href="{% url 'verify_gmail' %}"><button>verify gmail</button></a>
+                <a href="{% url 'verify_gmail' %}"><button>Verify gmail</button></a>
 
             {% endif %}            
         </div>
