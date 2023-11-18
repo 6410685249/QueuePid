@@ -6,7 +6,7 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=30,unique=True,primary_key=True)
     phone_number = models.CharField(max_length=30,unique=True)
     line_id = models.CharField(max_length=30,unique=True)
-    location = models.CharField(max_length=30,unique=True)
+    location = models.CharField(max_length=30)
     upload = models.ImageField(upload_to='uploads/', null=True,default=None)
 
     def __str__(self) -> str:

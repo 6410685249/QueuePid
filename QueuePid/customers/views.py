@@ -41,12 +41,12 @@ def list_restaurant(request,restaurant=None):
 def search(request):
     if request.method == 'POST':
         user = User_info.objects.get(username = request.user)
-        name = request.POST['search'] 
+        name = request.POST['search']
         if name == '' or name == None:
             return render(request, 'customer_home.html', {'form': [(i.name,i.location) for i in Restaurant.objects.all()],'user':user,'book_status':str(user.book),'search_text':name})
         name_rest = []
         for i in Restaurant.objects.all():
-            if name in i.name:
+            if name.lower() in i.name.lower():
                 name_rest.append((i.name,i.location))
         print(name_rest)
         return render(request, 'customer_home.html', {'form': name_rest,'user':user,'book_status':str(user.book),'search_text':name})
