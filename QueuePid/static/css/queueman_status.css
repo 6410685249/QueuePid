@@ -55,10 +55,11 @@
     grid-area: bar;
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto 1fr;
     grid-template-areas: 
             "text4"
-            "text5";
+            "text5"
+            "text6";
     gap: 0px;
 }
 
@@ -71,6 +72,13 @@
 
 .table2{
     grid-area: text5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table3{
+    grid-area: text6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,11 +139,29 @@ div a {
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 10px;
+    font-size: 1em;
 }
 
 div a:hover{
     background-color: white;
     color: #00095C;
+    cursor: pointer;
+}
+
+.bar div form a {
+    background-color: #00095C;
+    color: white;
+    padding: 20px;
+    padding-left: 5em;
+    padding-right: 5em;
+    border-radius: 5px;
+    margin: 0;
+    font-size: 1.17em;
+}
+
+.bar div form a:hover{
+    background-color: rgb(177, 0, 0);
+    color: white;
     cursor: pointer;
 }
 
@@ -147,6 +173,14 @@ a {
     font-size: 1.17em;
     font-weight: bold;
     text-decoration: none;
+}
+
+input {
+    background-color: #e0e0e0;
+    border: none;
+    padding: 5px;
+    padding-left: 3%;
+    padding-right: 3%;
 }
 
 /* class */

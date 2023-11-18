@@ -72,6 +72,12 @@
                         <tr><td>{{ operation.number_Queue }}</td></tr>
                     </table>
                 </div>
+                <div class="table3">
+                    <form action="{% url 'qcancel' %}" method="post" id="cancel">
+                        {% csrf_token %}
+                        <a onclick="cancel()">Cancel</a>
+                    </div>
+                </form>
                 {% endif %}
             </div>
 
@@ -136,11 +142,6 @@
 
         </section>
     </div>
-
-    <form action="{% url 'qcancel' %}" method="post" id="cancel">
-        {% csrf_token %}
-        <a onclick="cancel()">Cancel</a>
-    </form>
 
 
 {% endblock %}
