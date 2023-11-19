@@ -82,3 +82,11 @@ nav ~ table td {
     padding-bottom: 10px;
     box-shadow: 5px 5px 5px rgb(171, 168, 168);
 }
+
+.hover{
+    text-decoration: underline;
+}
+
+.hover:hover {
+    cursor: pointer;
+}

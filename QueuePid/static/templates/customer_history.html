@@ -11,6 +11,8 @@
 
     {% include 'nav_cus.inc.html' %}
 
+    <a href="{% url 'restaurant_list' %}" class="back" > < back </a>
+
     <h1 class="head">History</h1>
 
     <div class="container">
@@ -24,6 +26,5 @@
         </div>
     {% endfor %}
     </div>
-    <a href="{% url 'restaurant_list' %}" class="back" > < back </a>
 
 {% endblock %}
