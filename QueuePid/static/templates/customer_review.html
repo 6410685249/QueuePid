@@ -1,41 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Complete Payment</h1>
-    <h1>Reviews</h1>
-    <form action="{% url 'customer_review' %}" method="post">
-        {% csrf_token %}
-        <div class='rating'>
-            <input type="radio" name="rating" value="5" onclick="fillRadioButtons(5)"> 5
-            <input type="radio" name="rating" value="4" onclick="fillRadioButtons(4)"> 4
-            <input type="radio" name="rating" value="3" onclick="fillRadioButtons(3)"> 3
-            <input type="radio" name="rating" value="2" onclick="fillRadioButtons(2)"> 2
-            <input type="radio" name="rating" value="1" onclick="fillRadioButtons(1)"> 1
-        </div>
-        <script>
-        function fillRadioButtons(value) {
-            // Get all radio buttons with the name 'rating'
-            var radioButtons = document.getElementsByName('rating');
-        
-            // Loop through the radio buttons
-            for (var i = 0; i < radioButtons.length; i++) {
-                // Check the radio buttons from the clicked one onwards
-                if (parseInt(radioButtons[i].value) >= value) {
-                    radioButtons[i].checked = true;
-                } else {
-                    radioButtons[i].checked = false;
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}Queuepid Ratings{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/customer_review.css' %}" />
+{% endblock %}
+
+{% block body %}
+    {% block navigation %}{% endblock %}
+    {% include 'nav_cus.inc.html' %}
+    
+    <div class='container'>
+        <h1>Complete Payment</h1>
+        <p>Reviews</p>
+        <form action="{% url 'customer_review' %}" method="post">
+            {% csrf_token %}
+            <div class='rating'>
+                <input type="radio" name="rating" value="5" onclick="fillRadioButtons(5)"> 5
+                <input type="radio" name="rating" value="4" onclick="fillRadioButtons(4)"> 4
+                <input type="radio" name="rating" value="3" onclick="fillRadioButtons(3)"> 3
+                <input type="radio" name="rating" value="2" onclick="fillRadioButtons(2)"> 2
+                <input type="radio" name="rating" value="1" onclick="fillRadioButtons(1)"> 1
+            </div>
+            <script>
+            function fillRadioButtons(value) {
+                // Get all radio buttons with the name 'rating'
+                var radioButtons = document.getElementsByName('rating');
+            
+                // Loop through the radio buttons
+                for (var i = 0; i < radioButtons.length; i++) {
+                    // Check the radio buttons from the clicked one onwards
+                    if (parseInt(radioButtons[i].value) >= value) {
+                        radioButtons[i].checked = true;
+                    } else {
+                        radioButtons[i].checked = false;
+                    }
                 }
             }
-        }
-        </script>
-
-        <input type="text" name="comment" placeholder="Comment"><br><br>
-        <button> success </button>
-    </form>
-</body>
-</html>
+            </script>
+            <br>
+            <p>More comment for us</p>
+            <textarea name="comment"></textarea><br><br>
+            <button> Success </button>
+        </form>
+    </div>
+{% endblock %}
