@@ -16,6 +16,7 @@ a {
 img {
     height: auto;
     width: 500px;
+    margin-left: 10%;
 }
 
 /* container */
@@ -48,4 +49,9 @@ div {
 .yellow_rectangle:hover{
     background-color: #00095C;
     color: #F0B65F;
+}
+
+/* id */
+#about{
+    margin-left: 10%;
 }
