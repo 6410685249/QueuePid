@@ -40,6 +40,7 @@ button {
     font-weight: bold;
     width: 150px;
     height: 40px;
+    cursor: pointer;
 }
 
 button:hover {
@@ -65,4 +66,10 @@ a {
 
 nav {
     margin-bottom: 50px;
+}
+
+/* class */
+
+.text{
+    text-align: center;
 }

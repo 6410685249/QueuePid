@@ -174,4 +174,78 @@ class TestOpearionApp(TestCase):
         operation_user = Operation.objects.create(customer_username='testcustomer',restaurant='Restaurant3',cost=0,queueMan_username='', \
                                  date = timezone.now(),number_Queue=1,number_of_customer=4,update_status=False,temp='queueman123'
                                 )
-        response = self.client.post(reverse('customer_payment'),{'comment':''})
+        response = self.client.post(reverse('customer_review'), data={'rating': 4, 'comment': 'Great service!'})
+
+        # Check that the response redirects to 'restaurant_list'
+        self.assertRedirects(response, reverse('restaurant_list'))
+
+        # Check that the Review and Historically instances are created
+        self.assertEqual(Review.objects.count(), 1)
+        self.assertEqual(Historically.objects.count(), 1)
+
+        # Check that the queueman's star rating is updated
+        user_queueman.refresh_from_db()
+        self.assertEqual(user_queueman.star, 5.0)
+
+        # Check that the customer's booking status is reset
+        user_info.refresh_from_db()
+        self.assertIsNone(user_info.book)
+
+        # Check that the Operation instance is deleted
+        with self.assertRaises(Operation.DoesNotExist):
+            Operation.objects.get(customer_username='testuser')
+
+    def test_non_reivew_post_review(self):
+        user_info = User_info.objects.create(username=self.customer,telephone='1234',\
+                                            name='peerapat',surname='ngamsanga',email='example@gmail.com',credit=60)
+        user_queueman = Queueman.objects.create(username=self.queueman,phone_number='1234556',line_id='line000',)
+        operation_user = Operation.objects.create(customer_username='testcustomer',restaurant='Restaurant3',cost=0,queueMan_username='', \
+                                 date = timezone.now(),number_Queue=1,number_of_customer=4,update_status=False,temp='queueman123'
+                                )
+        response = self.client.post(reverse('customer_review'), data={'comment': 'Great service!'})
+        self.assertRedirects(response, reverse('restaurant_list'))
+        self.assertEqual(Review.objects.count(), 1)
+        self.assertEqual(Historically.objects.count(), 1)
+        user_queueman.refresh_from_db()
+        self.assertEqual(user_queueman.star, 5.0)
+        user_info.refresh_from_db()
+        self.assertIsNone(user_info.book)
+        with self.assertRaises(Operation.DoesNotExist):
+            Operation.objects.get(customer_username='testuser')
+        
+    def test_cancel_customer(self):
+        user_info = User_info.objects.create(username=self.customer,telephone='1234',\
+                                            name='peerapat',surname='ngamsanga',email='example@gmail.com',credit=60)
+        user_queueman = Queueman.objects.create(username=self.queueman,phone_number='1234556',line_id='line000',)
+        operation_user = Operation.objects.create(customer_username='testcustomer',restaurant='Restaurant3',cost=0,queueMan_username='queueman123', \
+                                 date = timezone.now(),number_Queue=1,number_of_customer=4,update_status=False,temp=''
+                                )
+        response = self.client.get(reverse('customer_cancel'))
+
+        user_info.refresh_from_db()
+        user_queueman.refresh_from_db()
+        operation_user.refresh_from_db()
+
+        self.assertRedirects(response, reverse('restaurant_list'))
+        self.assertEqual(user_info.credit, 0)  # Adjust based on your expected calculation
+        self.assertEqual(user_queueman.credit, 30)  # Adjust based on your expected calculation
+        self.assertIsNone(user_info.book)
+        self.assertTrue(operation_user.update_status)
+
+    def test_book_cancel(self):
+        user_info = User_info.objects.create(username=self.customer,telephone='1234',\
+                                            name='peerapat',surname='ngamsanga',email='example@gmail.com',credit=60)
+        user_queueman = Queueman.objects.create(username=self.queueman,phone_number='1234556',line_id='line000',)
+        operation_user = Operation.objects.create(customer_username='testcustomer',restaurant='Restaurant3',cost=0,queueMan_username='queueman123', \
+                                 date = timezone.now(),number_Queue=1,number_of_customer=4,update_status=False,temp=''
+                                )
+        book = Booking.objects.create(customer_username=self.customer,restaurant='Restaurant3',number_of_customer=10)
+        response = self.client.get(reverse('cancel_book'))
+        self.assertRedirects(response, reverse('restaurant_list'))
+        with self.assertRaises(Booking.DoesNotExist):
+            Booking.objects.get(customer_username=self.customer)
+        with self.assertRaises(Operation.DoesNotExist):
+            Operation.objects.get(customer_username='testcustomer')
+
+
+    

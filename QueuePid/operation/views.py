@@ -44,7 +44,7 @@ def get_number_of_customer(request):
     if request.method == 'POST':
         book = Booking.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],number_of_customer=int(request.POST['number']))
         user = User_info.objects.get(username=request.user)
-        operate = Operation.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],status=0,cost=0,number_of_customer=int(request.POST['number']),update_status="0")
+        operate = Operation.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],status=0,cost=0,number_of_customer=int(request.POST['number']),update_status="0",date=timezone.now())
         user.book = restaurant=request.POST['restaurant_name']
         book.save()
         user.save()
@@ -115,10 +115,8 @@ def customer_cancel(request):
     minute = time_diff // 60
     user.credit -= 60 + 25*(minute // 25)
     queueman.credit += int((60 + 25*(minute // 25)) / 2)
-
     user.book = None 
     operation_user.update_status = True
-
     operation_user.save()
     user.save()
     queueman.save()
