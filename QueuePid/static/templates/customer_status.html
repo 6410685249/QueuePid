@@ -43,6 +43,8 @@
                         <tr><td>{{ operation.number_Queue }}</td></tr>
                     </table>
                 </div>
+                {% endif %}
+                {% if operation.status >= 1 %}
                 <div class="table3">
                     <a href="{% url 'customer_cancel' %}"> cancel </a>
                 </div>

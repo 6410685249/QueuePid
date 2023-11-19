@@ -148,7 +148,7 @@ div a:hover{
     cursor: pointer;
 }
 
-.bar div form a {
+.bar form a {
     background-color: #00095C;
     color: white;
     padding: 20px;
@@ -159,7 +159,7 @@ div a:hover{
     font-size: 1.17em;
 }
 
-.bar div form a:hover{
+.bar form a:hover{
     background-color: rgb(177, 0, 0);
     color: white;
     cursor: pointer;
