@@ -1,0 +1,36 @@
+.container {
+    text-align: center;
+    margin-left: 200px;
+    margin-top: 120px;
+    margin-right: 200px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 0.5px solid  rgb(205, 205, 205);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 10px 10px 5px rgb(171, 168, 168);
+}
+  
+.container header {
+    font-size: 22px;
+    color: #dadada;
+    font-weight: 500;
+    margin-bottom: 20px;
+    text-align: center;
+}
+  
+.container .stars {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+  
+.rating i {
+    color: #e6e6e6;
+    font-size: 35px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+  
+.rating i.active {
+    color: #ff9c1a;
+}
