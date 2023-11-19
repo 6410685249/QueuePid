@@ -173,12 +173,9 @@ def cancel(request):
     user = User.objects.get(username =  operate.customer_username)
     info = User_info.objects.get(username = user.id)
     queueman = Queueman.objects.get(username = request.user.id)
-    
     operate.update_status = True
     queueman.is_have_queue = False
-
     operate.save()
     info.save()
     queueman.save()
-
     return redirect('qhome')
