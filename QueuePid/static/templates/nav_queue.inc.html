@@ -3,7 +3,7 @@
     <table>
         <tr>
             <th>
-                <img src="{% static 'img/logo.png' %}" alt="logo" class="logo">
+                <a href="{% url 'qhome' %}"><img src="{% static 'img/logo.png' %}" alt="logo" class="logo"></a>
             </th>
             <td>
                 {% if queueman.is_have_queue == True %}
