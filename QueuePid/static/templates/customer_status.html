@@ -28,9 +28,7 @@
                 <p class="timer"> 00:00:00 </p>
                 {% endif %} 
             </div>
-            {% if operation.status == 0 %}
-                <a href="{% url 'cancel_book' %}"> cancel book </a>
-            {% endif %}
+            
             <div class="bar">
                 <div class="table1">
                     <table>
@@ -53,6 +51,9 @@
 
             <div class="block1" id="{% if operation.status == 0 %}current{% else %}pass{% endif %}">
                 <h2>LOOKING FOR QUEUEMAN</h2>
+                {% if operation.status == 0 %}
+                <a href="{% url 'cancel_book' %}"> cancel book </a>
+                {% endif %}
             </div>
 
             <div class="block2" id="{% if operation.status == 1 %}current{% else %}pass{% endif %}">
