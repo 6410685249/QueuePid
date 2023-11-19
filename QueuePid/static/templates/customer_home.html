@@ -17,13 +17,20 @@
         <h1 class='header-font-size'>Hi! {{ user.username.username }} |</h1>
         <h2 class='header2-font-size'> Enjoy with your meal~</h2>
         {% if user.verify_gmail == False %}
-        <p><a href="{% url 'verify_gmail' %}">You have not verified your email. Please verify your email to receive notifications.</a></p>
+        <p><a href="{% url 'verify_gmail' %}">You have not verified your email! Please verify your email to receive notifications.</a></p>
         {% endif %}
     </div>
+
     <form  action="{% url 'search' %}" method="post">
-        {% csrf_token %}
-        <input type="text" name="search" placeholder="Search" value="{{search_text}}"><br><button type= 'submit'> search </button><br>
+            {% csrf_token %}
+        <div class="container-search">
+            <input type="text" name="search" placeholder="Search" value="{{search_text}}">
+            <button type='submit' class="search-button">
+                <img src="{%static 'img/search.png' %}">
+            </button>
+        </div>
     </form>
+
     <div class='grid-container'>    
         {% for name,location in form %}
         <div>
@@ -45,18 +52,6 @@
         </div>
         {% endfor %}
     </div>
-
-    <style>
-        .link-button {
-            background: none;
-            border: none;
-            padding: 0;
-            font: inherit;
-            cursor: pointer;
-            color: blue; /* Set the color you desire */
-            text-decoration: underline;
-        }
-    </style>
     
     <script> 
         function myFunction() { 

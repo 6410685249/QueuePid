@@ -67,3 +67,47 @@ p a {
     font-size: 16px;
 }
 
+.link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    color: blue; /* Set the color you desire */
+    text-decoration: underline;
+}
+
+.container-search{
+    margin-top: 20px;
+    margin-left: 10%;
+    margin-right: 25%;
+    width: 50%;
+}
+
+.container-search > input{
+    margin-right: 10px;
+    width: 40%;
+    border: 2px solid rgb(205, 205, 205);
+    border-radius: 20px;
+    font-size: 24px;
+}
+
+.container-search > input::placeholder {
+    padding-left: 2%;
+}
+
+.search-button {
+    box-sizing: border-box;
+    display: inline-block;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.search-button > img{
+    height: 2em;
+    width: auto;
+    vertical-align: middle;
+}
+
