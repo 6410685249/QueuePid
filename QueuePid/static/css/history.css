@@ -8,6 +8,10 @@ h1 {
     color: #00095c;
 }
 
+nav {
+    margin-bottom: 50px;
+}
+
 
 /* class */
 .head {
