@@ -73,6 +73,10 @@
                     </table>
                 </div>
                 {% endif %}
+                <form action="{% url 'qcancel' %}" method="post" id="cancel" class="table3">
+                    {% csrf_token %}
+                    <a onclick="cancel()">Cancel</a>
+                </form>
             </div>
 
             <div class="block1" id="{% if operation.status == 1 %}current{% else %}pass{% endif %}">
@@ -92,7 +96,7 @@
             </div>
 
             {% if operation.status >= 2 %}
-            <div class="block2" id="{% if operation.status == 2 %}current{% else %}pass{% endif %}">
+            <div class="block2" id="{% if operation.status == 2 and operation.number_Queue != 0 %}current{% else %}pass{% endif %}">
                 <h2>IN QUEUE</h2>
 
                 {% if operation.number_Queue != 0 %}
@@ -113,7 +117,7 @@
             </div>
 
                 {% if operation.number_Queue == 0 and operation.status == 2 %}
-                <div class="block3" id="{% if operation.status == 3 %}current{% else %}pass{% endif %}">
+                <div class="block3" id="current">
                     <h2>FINISH</h2>
                     <form action="{% url 'qstatus' %}" method="post" id="update"  class="block3">
                         {% csrf_token %}
@@ -135,11 +139,4 @@
 
         </section>
     </div>
-
-    <form action="{% url 'qcancel' %}" method="post" id="cancel">
-        {% csrf_token %}
-        <a onclick="cancel()">Cancel</a>
-    </form>
-
-
 {% endblock %}

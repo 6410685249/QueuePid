@@ -118,6 +118,7 @@ def status(request):
         queueman.save()
         operate.delete()
         return redirect('qhome')
+    
 
     if request.method == 'POST':
         if 'number_queue' in request.POST and request.POST['number_queue'] == '':
@@ -150,8 +151,7 @@ def status(request):
             if info.verify_gmail == True:
                 msg = 'Subject: ' + 'Finnish' + '\n' + 'Your queue is finish'
                 smtp_object.sendmail(email, info.email, msg)
-                
-
+            
             return redirect('qhome')
         
     if operate.date != None:

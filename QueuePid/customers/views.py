@@ -30,11 +30,7 @@ def is_valid_email(email):
 def list_restaurant(request,restaurant=None):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    # if request.method == 'POST':
-    #     print(request.POST['restaurant_name'])
-    #     print('IN list_rest')
-    #     return booking(request,request.POST['restaurant_name'])
-    
+
     user = User_info.objects.get(username = request.user)
     name = ''
 
@@ -54,14 +50,14 @@ def search(request):
         for i in Restaurant.objects.all():
             if name.lower() in i.name.lower():
                 name_rest.append((i.name,i.location))
-        print(name_rest)
         return render(request, 'customer_home.html', {'form': name_rest,'user':user,'book_status':str(user.book),'search_text':name})
-    return redirect('list_restaurant')
+    return redirect('restaurant_list')
 
 def about(request): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     user = User_info.objects.get(username = request.user)
+
     return render(request,'customer_about.html',{'user':user,'book_status':str(user.book)})
 
 def wallet(request): # render to html
@@ -113,7 +109,9 @@ def success_edit(request):
 def change_password(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    return render(request,'customer_change_password.html')
+    user_profile = User_info.objects.get(username=request.user)  
+
+    return render(request,'customer_change_password.html',{'book_status':str(user_profile.book)})
 
 def success_password(request):
     if request.method == 'POST':
@@ -150,8 +148,8 @@ def verify_gmail(request, message="None"):
         msg = 'Subject: ' + 'verify number' + '\n' + verify_num
         smtp_object.sendmail(email, user.email, msg)
         smtp_object.quit()
-
     if request.method == 'POST':
+        print(request.POST)
         entered_verify_num = str(request.POST.get('verify_number', ''))
 
         if entered_verify_num == verify_num:
