@@ -60,7 +60,7 @@ class QhomeViewTest(TestCase):
     
     def test_wallet_view_redirects_for_unauthenticated_user(self):
         self.client.logout()
-        response = self.client.get(reverse('qhistory'))
+        response = self.client.get(reverse('qwallet'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('login'))
         self.assertFalse(response.wsgi_request.user.is_authenticated)

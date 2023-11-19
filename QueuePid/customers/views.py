@@ -10,12 +10,6 @@ import smtplib
 import random 
 from operation.views import booking
 
-smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
-smtp_object.ehlo()
-smtp_object.starttls()
-email = 'queuepidcorp@gmail.com'
-password = 'jvqk fwso vgkq jlvp'
-smtp_object.login(email, password)
 
 def is_valid_email(email):
     # Define the regular expression pattern for a simple email format
@@ -134,6 +128,12 @@ def verify_gmail(request, message="None"):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
 
+    smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
+    smtp_object.ehlo()
+    smtp_object.starttls()
+    email = 'queuepidcorp@gmail.com'
+    password = 'jvqk fwso vgkq jlvp'
+    smtp_object.login(email, password)
     user = User_info.objects.get(username=request.user)
 
     # Check if verify_num is already stored in the session
@@ -155,7 +155,9 @@ def verify_gmail(request, message="None"):
         if entered_verify_num == verify_num:
             user.verify_gmail = True
             user.save()
+
             del request.session['verify_num']  
+            smtp_object.quit()
             return account(request)
         else:
             return verify_gmail(request, message="verify_number mismatch")
