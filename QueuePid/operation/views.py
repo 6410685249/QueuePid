@@ -13,11 +13,11 @@ from django.utils import timezone
 from queueman.models import *
 
 
-def booking(request, restaurant_name):
+def booking(request, restaurant_name=None):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    print(restaurant_name)
-    return render(request, 'customer_booking.html',{'restaurant':restaurant_name})
+    user = User_info.objects.get(username = request.user)
+    return render(request, 'customer_booking.html',{'restaurant':restaurant_name,'book_status':str(user.book)})
 
 def customer_status(request):
     if not request.user.is_authenticated:
@@ -42,14 +42,12 @@ def customer_status(request):
 
 def get_number_of_customer(request):
     if request.method == 'POST':
-        print(request.POST['restaurant_name'])
         book = Booking.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],number_of_customer=int(request.POST['number']))
         user = User_info.objects.get(username=request.user)
         operate = Operation.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],status=0,cost=0,number_of_customer=int(request.POST['number']),update_status="0")
         user.book = restaurant=request.POST['restaurant_name']
         book.save()
         user.save()
-
 
         return redirect('customer_status')
 
