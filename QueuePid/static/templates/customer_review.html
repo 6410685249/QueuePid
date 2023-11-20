@@ -5,6 +5,7 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/customer_review.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 {% endblock %}
 
 {% block body %}
@@ -13,35 +14,46 @@
     
     <div class='container'>
         <h1>Complete Payment</h1>
-        <p>Reviews</p>
+        <p>How was your experience?</p>
         <form action="{% url 'customer_review' %}" method="post">
             {% csrf_token %}
             <div class='rating'>
-                <input type="radio" name="rating" value="5" onclick="fillRadioButtons(5)"> 5
-                <input type="radio" name="rating" value="4" onclick="fillRadioButtons(4)"> 4
-                <input type="radio" name="rating" value="3" onclick="fillRadioButtons(3)"> 3
-                <input type="radio" name="rating" value="2" onclick="fillRadioButtons(2)"> 2
-                <input type="radio" name="rating" value="1" onclick="fillRadioButtons(1)"> 1
+                <i class="fa-solid fa-star" name="rating" value="1" onclick="fillRadioButtons(1)"></i>
+                <i class="fa-solid fa-star" name="rating" value="2" onclick="fillRadioButtons(2)"></i>
+                <i class="fa-solid fa-star" name="rating" value="3" onclick="fillRadioButtons(3)"></i>
+                <i class="fa-solid fa-star" name="rating" value="4" onclick="fillRadioButtons(4)"></i>
+                <i class="fa-solid fa-star" name="rating" value="5" onclick="fillRadioButtons(5)"></i>
+                <br>
             </div>
             <script>
-            function fillRadioButtons(value) {
-                // Get all radio buttons with the name 'rating'
-                var radioButtons = document.getElementsByName('rating');
-            
-                // Loop through the radio buttons
-                for (var i = 0; i < radioButtons.length; i++) {
-                    // Check the radio buttons from the clicked one onwards
-                    if (parseInt(radioButtons[i].value) >= value) {
-                        radioButtons[i].checked = true;
-                    } else {
-                        radioButtons[i].checked = false;
+                function fillRadioButtons(value) {
+                    // Get all radio buttons with the name 'rating'
+                    var radioButtons = document.getElementsByName('rating');
+                
+                    // Loop through the radio buttons
+                    for (var i = 0; i < radioButtons.length; i++) {
+                        // Check the radio buttons from the clicked one onwards
+                        if (parseInt(radioButtons[i].value) >= value) {
+                            radioButtons[i].checked = true;
+                        } else {
+                            radioButtons[i].checked = false;
+                        }
                     }
                 }
-            }
+
+                const stars = document.querySelectorAll(".rating i");
+                stars.forEach((star, index1) => {
+                star.addEventListener("click", () => {
+                    stars.forEach((star, index2) => {
+                    index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
+                    });
+                });
+                });
             </script>
             <br>
-            <p>More comment for us</p>
-            <textarea name="comment"></textarea><br><br>
+            <p>Review</p>
+            <textarea name="comment" rows="5" cols="50"></textarea>
+            <br><br>
             <button> Success </button>
         </form>
     </div>
