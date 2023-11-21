@@ -371,5 +371,4 @@ class ListRestaurantViewTest(TestCase):
         # Create a POST request
         response = self.client.post(url, data)
 
-
         self.assertEqual(response.status_code, 200)

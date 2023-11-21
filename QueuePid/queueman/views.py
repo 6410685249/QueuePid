@@ -11,7 +11,6 @@ from django.contrib.auth.models import User
 from operation.views import customer_status
 import smtplib
 # Create your views here.
-
 smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
 smtp_object.ehlo()
 smtp_object.starttls()
