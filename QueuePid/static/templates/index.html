@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="find-state">Find My State</button>
+    <p class="status"></p>
+
+    <script>
+        // Paste your JavaScript code here
+        const findMyState = () => {
+            const status = document.querySelector('.status');
+
+            const success = (position) => {
+                console.log(position)
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                console.log(latitude, longitude)
+            }
+            const error = () => {
+                status.textContent = 'Unable to retrieve your location';
+            }
+
+            // Your geolocation logic here
+        }
+
+        document.querySelector('.find-state').addEventListener('click', findMyState);
+    </script>
+</body>
+</html>

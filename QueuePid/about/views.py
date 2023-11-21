@@ -33,3 +33,7 @@ def get_client_ip_view(request):
         la = "None la"
         long = "None long" 
     return render(request, 'test.html', {'result': result,'latitude':la,'longtitude':long})
+
+
+def ip_js(request):
+    return render(request, 'index.html')
