@@ -32,10 +32,11 @@
                     <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
                 </div>
                 <div>
-                    <form action="{% url 'qhome' %}" method="post" id="gq">
+                    <form action="{% url 'get_queue' %}" method="post" id="gq">
                         {% csrf_token %}
                         <p> Username: {{ customer.customer_username }} </p>
                         <p> Restaurant: {{ customer.restaurant }}</p>
+                        <p> Distance: {{ distance }}</p>
                         <input type="hidden" name="customer" value="{{customer.customer_username}}">
                         <input type="hidden" name="restaurant" value="{{customer.restaurant }}">
                         <a onclick="myFunction()" class="hover">Get Queue</a>
@@ -58,5 +59,30 @@
             document.getElementById("gq").submit(); 
         } 
     </script> 
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+         } else {
+            }
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            // Send AJAX request to Django view
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/queueman/home/', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send('latitude=' + latitude + '&longitude=' + longitude);
+        }
+
+        window.onload = function() {
+            getLocation();
+        }
+
+    </script>
 
 {% endblock %}
