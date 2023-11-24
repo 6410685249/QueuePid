@@ -7,6 +7,7 @@ urlpatterns = [
     path('profile/',views.profile,name='qprofile'),
     path('profile/edit',views.edit_profile,name='qedit'),
     path('profile/change-password',views.change_password,name='qpassword'),
+    path('get_queue',views.get_queue,name='get_queue'),
     path('status',views.status,name='qstatus'),
     path('cancel',views.cancel,name='qcancel')
 ]
