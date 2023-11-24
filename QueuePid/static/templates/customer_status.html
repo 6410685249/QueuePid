@@ -52,22 +52,22 @@
             </div>
 
             <div class="block1" id="{% if operation.status == 0 %}current{% else %}pass{% endif %}">
-                <h2>LOOKING FOR QUEUEMAN</h2>
+                <h2>Looking for queueman</h2>
                 {% if operation.status == 0 %}
-                <a href="{% url 'cancel_book' %}"> cancel book </a>
+                    <a href="{% url 'cancel_book' %}"> Cancel Booking </a>
                 {% endif %}
             </div>
 
             <div class="block2" id="{% if operation.status == 1 %}current{% else %}pass{% endif %}">
-                <h2>ON THE WAY</h2>
+                <h2>On the way</h2>
             </div>
             
             <div class="block3" id="{% if operation.status == 2 %}current{% else %}pass{% endif %}">
-                <h2>IN QUEUE</h2>
+                <h2>In queue</h2>
             </div>
             
             <div class="block4" id="{% if operation.status >= 3 %}current{% else %}pass{% endif %}">
-                <h2> FINISH </h2> 
+                <h2> Finish </h2> 
                 {% if operation.status >= 3 %}
                 <a href="{% url 'customer_payment' %}"> success </a>
             {% endif %}
@@ -95,4 +95,5 @@
         // Start the timer when the page loads
         window.onload = startTimer;
     </script>
+    s
 {% endblock %}

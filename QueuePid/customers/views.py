@@ -165,3 +165,28 @@ def verify_gmail(request, message="None"):
     return render(request, 'customer_verifygmail.html', {'message': message})
 
 
+
+def top_up(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    if request.method == 'POST':
+        image = request.FILES.get('image')
+        user = User_info.objects.get(username=request.user)
+        user.upload = image
+        user.save()
+        return redirect(reverse('restaurant_list'))
+    return render(request,'customer_top_up.html')
+
+def admin(request):
+    user = User_info.objects.all()
+    data = []
+    for i in user:
+        if i.upload != '':
+            data.append(i)
+    return render(request,'admin.html',{'data':data})
+
+def admin_commit_top_up(request):
+    print(request.GET)
+    data_value = request.GET.get('user')
+    print(data_value)
+    return render(request,'admin_commit_top_up.html',{'data':data_value})

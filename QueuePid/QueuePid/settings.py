@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'customers',
     'queueman',
     'operation',
-    'location_field.apps.DefaultConfig',
 ]
 
 MIDDLEWARE = [
@@ -132,10 +131,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
-
-
-LOCATION_FIELD = {
-    'provider.mapbox.access_token': 'pk.eyJ1IjoicGVla2ljZSIsImEiOiJjbHBjb25ibmIwb2R5MnBwcG8yd2RyNzE5In0.UGjNWeYJ8UzRMALTadK-XA',
-    'provider.mapbox.max_zoom': 18,
-    'provider.mapbox.id': 'mapbox.streets',
-}
