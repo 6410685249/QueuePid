@@ -15,7 +15,12 @@ from math import radians, cos, sin, asin, sqrt
 from customers.models import Restaurant
 
 # Create your views here.
-
+smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
+smtp_object.ehlo()
+smtp_object.starttls()
+email = 'queuepidcorp@gmail.com'
+password = 'jvqk fwso vgkq jlvp'
+smtp_object.login(email, password)
 
 
 @csrf_exempt
