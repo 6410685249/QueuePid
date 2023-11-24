@@ -11,12 +11,7 @@ from django.contrib.auth.models import User
 from operation.views import customer_status
 import smtplib
 # Create your views here.
-smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
-smtp_object.ehlo()
-smtp_object.starttls()
-email = 'queuepidcorp@gmail.com'
-password = 'jvqk fwso vgkq jlvp'
-smtp_object.login(email, password)
+
 
 
 
@@ -39,9 +34,15 @@ def qhome(request):
         queueman.save()
 
         if info.verify_gmail == True:
+            smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
+            smtp_object.ehlo()
+            smtp_object.starttls()
+            email = 'queuepidcorp@gmail.com'
+            password = 'jvqk fwso vgkq jlvp'
+            smtp_object.login(email, password)
             msg = 'Subject: ' + 'Update Status' + '\n' + 'On the way'
             smtp_object.sendmail(email, info.email, msg)
-
+            smtp_object.quit()
         return redirect('qstatus')
     
     return render(request, 'queueman_home.html',{
@@ -111,7 +112,12 @@ def status(request):
     info = User_info.objects.get(username = user.id)
     queueman = Queueman.objects.get(username = request.user.id)
     alert = 0
-
+    smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
+    smtp_object.ehlo()
+    smtp_object.starttls()
+    email = 'queuepidcorp@gmail.com'
+    password = 'jvqk fwso vgkq jlvp'
+    smtp_object.login(email, password)
     if operate.update_status == True:
         queueman.is_have_queue = False
         queueman.save()
@@ -129,6 +135,7 @@ def status(request):
             operate.save()
             
             if info.verify_gmail == True:
+
                 msg = 'Subject: ' + 'Update Status' + '\n' + 'In Queue'
                 smtp_object.sendmail(email, info.email, msg)
             
@@ -150,7 +157,7 @@ def status(request):
             if info.verify_gmail == True:
                 msg = 'Subject: ' + 'Finnish' + '\n' + 'Your queue is finish'
                 smtp_object.sendmail(email, info.email, msg)
-            
+                smtp_object.quit()
             return redirect('qhome')
         
     if operate.date != None:

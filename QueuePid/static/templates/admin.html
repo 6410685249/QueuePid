@@ -6,9 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Client IP Address</h1>
-    <p>{{result}}</p>
-    <p>{{latitude}}</p>
-    <p>{{longtitude}}</p>
+    {% for i in data %}
+        <input type="hidden" value="{{i}}" name="user">
+        <a href="{% url 'admin_commit_top_up' %}"> <h1>{{i.name}} {{i.surname}}</h1> </a>
+    {% endfor %}
 </body>
 </html>

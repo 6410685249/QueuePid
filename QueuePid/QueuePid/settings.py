@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'customers',
     'queueman',
     'operation',
+    'location_field.apps.DefaultConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -131,3 +133,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
+LOCATION_FIELD = {
+    'class': 'location_field.models.PlainLocationField',
+    'map_provider': 'google',
+}
