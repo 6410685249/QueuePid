@@ -139,3 +139,5 @@ LOCATION_FIELD = {
     'provider.mapbox.max_zoom': 18,
     'provider.mapbox.id': 'mapbox.streets',
 }
+MEDIA_ROOT = ""
+MEDIA_URL = ""

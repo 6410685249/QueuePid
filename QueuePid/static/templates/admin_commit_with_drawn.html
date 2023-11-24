@@ -7,10 +7,10 @@
 </head>
 <body>
     <img src="{{url}}" alt="">
-    <form method="post" action="{% url 'complete_top_up' %}">
+    <form method="post" action="{% url 'complete_with_drawn' %}">
         {% csrf_token %}
         <input type="hidden" value="{{user.username}}" name="user">
         <button type="submit">Complete Top-Up</button>
-    </form>
+    </form>  
 </body>
 </html>

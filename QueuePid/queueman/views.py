@@ -15,13 +15,12 @@ from math import radians, cos, sin, asin, sqrt
 from customers.models import Restaurant
 
 # Create your views here.
+
 smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
 smtp_object.ehlo()
 smtp_object.starttls()
 email = 'queuepidcorp@gmail.com'
 password = 'jvqk fwso vgkq jlvp'
-smtp_object.login(email, password)
-
 
 @csrf_exempt
 def qhome(request):
@@ -139,6 +138,7 @@ def get_queue(request):
         queueman.save()
 
         if info.verify_gmail == True:
+            smtp_object.login(email, password)
             msg = 'Subject: ' + 'Update Status' + '\n' + 'On the way'
             smtp_object.sendmail(email, info.email, msg)
 
@@ -153,12 +153,8 @@ def status(request):
     info = User_info.objects.get(username = user.id)
     queueman = Queueman.objects.get(username = request.user.id)
     alert = 0
-    smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
-    smtp_object.ehlo()
-    smtp_object.starttls()
-    email = 'queuepidcorp@gmail.com'
-    password = 'jvqk fwso vgkq jlvp'
-    smtp_object.login(email, password)
+
+    
     if operate.update_status == True:
         queueman.is_have_queue = False
         queueman.save()
@@ -226,3 +222,32 @@ def cancel(request):
     info.save()
     queueman.save()
     return redirect('qhome')
+
+def withdrawn(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('login'))
+    if request.method == 'POST':
+
+        image = request.FILES.get('image')
+        user = Queueman.objects.get(username=request.user)
+        user.upload = image
+        user.save()
+        return redirect(reverse('qwallet'))
+    return render(request,'queue_with_drawn.html')
+
+def complete_with_drawn(request):
+    if request.method == 'POST':
+        print('in queueman')
+        print(request.POST)
+        user = User.objects.get(username = request.POST['user'])
+        user_value = Queueman.objects.get(username = user)
+        user_value.upload = ""
+        user_value.save()
+        return redirect(reverse('admin'))
+
+def admin_commit_with_drawn(request):
+    if request.method == 'POST':
+
+        user = User.objects.get(username = request.POST['user'])
+        user_value = Queueman.objects.get(username = user)
+        return render(request,'admin_commit_with_drawn.html',{'url':user_value.upload.url,'user':user})

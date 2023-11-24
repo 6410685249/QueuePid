@@ -6,9 +6,24 @@
     <title>Document</title>
 </head>
 <body>
-    {% for i in data %}
-        <input type="hidden" value="{{i}}" name="user">
-        <a href="{% url 'admin_commit_top_up' %}"> <h1>{{i.name}} {{i.surname}}</h1> </a>
+    {% for i,text in top %}
+    <form method="post" action="{% url 'admin_commit_top_up' %}">
+        {% csrf_token %}
+        <input type="hidden" value="{{i.username}}" name="user">
+        <h1>{{i.name}} {{i.surname}} {{text}}</h1>
+        <button type="submit">Click</button>
+    </form>
+        
+    {% endfor %}
+
+    {% for i,texts in drawn %}
+    <form method="post" action="{% url 'admin_commit_with_drawn' %}">
+        {% csrf_token %}
+        <input type="hidden" value="{{i.username}}" name="user">
+        <h1>{{i.username.username}} {{texts}}</h1>
+        <button type="submit">Click</button>
+    </form>
+        
     {% endfor %}
 </body>
 </html>
