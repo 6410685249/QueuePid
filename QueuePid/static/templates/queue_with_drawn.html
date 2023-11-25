@@ -6,26 +6,30 @@
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/wallet.css' %}" />
+<link rel="stylesheet" href="{% static 'css/payment.css' %}" />
 {% endblock %}
 
 {% block body %}
     {% block navigation %}{% endblock %}
-    {% include 'nav_queue.inc.html' %}
 
-    <a href="{% url 'qwallet' %}" > < back </a>
-
-    <div class="center">
-        <table>
-            <tr><th><h2>Payment</h2></th></tr>
-            <form action="{% url 'withdrawn' %}" method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <tr><td>
-                    <input type="text" name="credit">
-                    <br>
-                    <input type="submit" value="submit" class="button">
-                </td></tr>
-            </form>
-        </table>
+    <a href="{% url 'qhome' %}" ><img src='{% static 'img/logo.png' %}' alt="logo" class='logo'></a>
+    <div class="container">
+        <div>
+            <a href="{% url 'qwallet' %}" > < back </a>
+        </div>
+        <div class="center">
+            <table>
+                <tr><th><h2>Payment</h2></th></tr>
+                <form action="{% url 'withdrawn' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <tr><td>
+                        <p>Input your credit:</p>
+                        <input type="text" name="credit" class="yellow-border">
+                        <br>
+                        <input type="submit" value="submit" class="button">
+                    </td></tr>
+                </form>
+            </table>
+        </div>
     </div>
 {% endblock %}
