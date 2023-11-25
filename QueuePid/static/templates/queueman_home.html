@@ -26,7 +26,7 @@
     <h3>Customer list</h3>
     {% if queueman.is_have_queue == False %}
     <table>
-        {% for customer in clist %}
+        {% for customer,restaurant in clist %}
             <td class="container">
                 <div class="profile-area">
                     <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
@@ -36,7 +36,8 @@
                         {% csrf_token %}
                         <p> Username: {{ customer.customer_username }} </p>
                         <p> Restaurant: {{ customer.restaurant }}</p>
-                        <p> Distance: {{ distance }}</p>
+                        <p> Distance: <span id="location{{ forloop.counter }}"></span> KM</p>
+                        <p hidden id="address{{ forloop.counter }}" >{{ restaurant.location_address }}</p>
                         <input type="hidden" name="customer" value="{{customer.customer_username}}">
                         <input type="hidden" name="restaurant" value="{{customer.restaurant }}">
                         <a onclick="myFunction()" class="hover">Get Queue</a>
@@ -60,7 +61,13 @@
         } 
     </script> 
 
+
+    <p hidden id="loop">{{ size }}</p>
+
     <script>
+
+        const loop = Number(document.getElementById("loop").textContent); 
+
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -69,16 +76,44 @@
         }
 
         function showPosition(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
 
-            // Send AJAX request to Django view
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/queueman/home/', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send('latitude=' + latitude + '&longitude=' + longitude);
+            for(let i=1;i<=loop;i++){
+
+                let str1 = "address" + i;
+                let str2 = "location" + i;
+                let lat1 = lat;
+                let lon1 = lon;
+
+                const x = document.getElementById(str2)
+
+                let address = document.getElementById(str1).textContent; 
+                let array = address.split(','),latitude2=array[0], longitude2 = array[1];
+                lat2 = Number(latitude2);
+                lon2 = Number(longitude2)
+
+                lon1 =  lon1 * Math.PI / 180;
+                lon2 = lon2 * Math.PI / 180;
+                lat1 = lat1 * Math.PI / 180;
+                lat2 = lat2 * Math.PI / 180;
+
+                let dlon = lon2 - lon1; 
+                let dlat = lat2 - lat1;
+                let a = Math.pow(Math.sin(dlat / 2), 2)
+                    + Math.cos(lat1) * Math.cos(lat2)
+                    * Math.pow(Math.sin(dlon / 2),2);
+               
+                let c = 2 * Math.asin(Math.sqrt(a));
+   
+                let r = 6371;
+
+                let distance = c * r;
+                distance = distance.toFixed(2);
+
+                x.innerHTML = distance;
+            }
         }
-
         window.onload = function() {
             getLocation();
         }
