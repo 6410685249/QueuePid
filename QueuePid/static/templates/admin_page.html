@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% for i,text in top %}
+    <form method="post" action="{% url 'admin_commit_top_up' %}">
+        {% csrf_token %}
+        <input type="hidden" value="{{i.username}}" name="user">
+        <h1>{{i.name}} {{i.surname}} {{text}}</h1>
+        <button type="submit">Click</button>
+    </form>
+        
+    {% endfor %}
+
+    {% for i,texts in drawn %}
+    <form method="post" action="{% url 'admin_commit_with_drawn' %}">
+        {% csrf_token %}
+        <input type="hidden" value="{{i.username}}" name="user">
+        <h1>{{i.username.username}} {{texts}}</h1>
+        <button type="submit">Click</button>
+    </form>
+        
+    {% endfor %}
+</body>
+</html>

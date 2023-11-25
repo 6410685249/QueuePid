@@ -8,6 +8,7 @@ class Queueman(models.Model):
     star = models.FloatField(default=5)
     credit = models.PositiveIntegerField(default=0)
     is_have_queue = models.BooleanField(default=False)
-
+    upload =  models.ImageField(upload_to='uploads/', null=True,default=None, blank=True)
+    
     def __str__(self):
         return f'{self.username}'

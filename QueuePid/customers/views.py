@@ -9,7 +9,8 @@ import re
 import smtplib
 import random 
 from operation.views import booking
-
+from PIL import Image
+from queueman.models import Queueman
 
 def is_valid_email(email):
     # Define the regular expression pattern for a simple email format
@@ -54,7 +55,7 @@ def about(request): # render to html
 
     return render(request,'customer_about.html',{'user':user,'book_status':str(user.book)})
 
-def wallet(request): # render to html
+def wallet(request,message=None): # render to html
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     user = User_info.objects.get(username = request.user)
@@ -170,6 +171,7 @@ def top_up(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
     if request.method == 'POST':
+        
         image = request.FILES.get('image')
         user = User_info.objects.get(username=request.user)
         user.upload = image
@@ -179,14 +181,31 @@ def top_up(request):
 
 def admin(request):
     user = User_info.objects.all()
-    data = []
+    queuman = Queueman.objects.all()
+    top = []
     for i in user:
         if i.upload != '':
-            data.append(i)
-    return render(request,'admin.html',{'data':data})
+            top.append((i,'Top up'))
+    with_drawn = []
+    for i in queuman:
+        if i.upload != '':
+            with_drawn.append((i,'with drawn'))
+    return render(request,'admin_page.html',{'top':top,'drawn':with_drawn})
 
 def admin_commit_top_up(request):
-    print(request.GET)
-    data_value = request.GET.get('user')
-    print(data_value)
-    return render(request,'admin_commit_top_up.html',{'data':data_value})
+    if request.method == 'POST':
+
+        user = User.objects.get(username = request.POST['user'])
+        user_value = User_info.objects.get(username = user)
+        return render(request,'admin_commit_top_up.html',{'url':user_value.upload.url,'user':user})
+
+def complete_top_up(request):
+
+    if request.method == 'POST':
+        print('in customer')
+        print(request.POST)
+        user = User.objects.get(username = request.POST['user'])
+        user_value = User_info.objects.get(username = user)
+        user_value.upload = ""
+        user_value.save()
+        return redirect(reverse('admin_page'))
