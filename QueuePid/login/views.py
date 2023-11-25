@@ -40,6 +40,8 @@ def login_view(request):
             login(request, user)
             if user.groups.filter(name='Queueman').exists():
                 return HttpResponseRedirect(reverse("qhome"))
+            if user.groups.filter(name='Admins').exists():
+                return HttpResponseRedirect(reverse("admin_page"))
             else:
                 return HttpResponseRedirect(reverse("restaurant_list"))
         else:

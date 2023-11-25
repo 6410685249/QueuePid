@@ -243,7 +243,7 @@ def complete_with_drawn(request):
         user_value = Queueman.objects.get(username = user)
         user_value.upload = ""
         user_value.save()
-        return redirect(reverse('admin'))
+        return redirect(reverse('admin_page'))
 
 def admin_commit_with_drawn(request):
     if request.method == 'POST':

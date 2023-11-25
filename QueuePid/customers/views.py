@@ -190,7 +190,7 @@ def admin(request):
     for i in queuman:
         if i.upload != '':
             with_drawn.append((i,'with drawn'))
-    return render(request,'admin.html',{'top':top,'drawn':with_drawn})
+    return render(request,'admin_page.html',{'top':top,'drawn':with_drawn})
 
 def admin_commit_top_up(request):
     if request.method == 'POST':
@@ -208,4 +208,4 @@ def complete_top_up(request):
         user_value = User_info.objects.get(username = user)
         user_value.upload = ""
         user_value.save()
-        return redirect(reverse('admin'))
+        return redirect(reverse('admin_page'))
