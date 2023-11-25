@@ -1,10 +1,30 @@
 {% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}
+    Wallet
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/wallet.css' %}" />
+{% endblock %}
+
 {% block body %}
     {% block navigation %}{% endblock %}
-
     {% include 'nav_cus.inc.html' %}
-    
-    <h1>wallet</h1>
-    <a href="{% url 'restaurant_list' %}" > back </a>
-    <a href="{% url 'top_up' %}" > top up </a>
+    <a href="{% url 'restaurant_list' %}" > < back </a>
+
+    <div class="center">
+        <table>
+            <tr>
+                <th><h2>Wallet</h2></th>
+            </tr>
+            <tr>
+                <td>
+                    <p>Your credit remaining: {{user.credit}}</p>
+                    <a href="{% url 'top_up' %}"> top up </a>
+                </td>
+            </tr>
+        </table>
+    </div>
 {% endblock %}
