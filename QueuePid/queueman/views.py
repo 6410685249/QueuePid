@@ -228,7 +228,7 @@ def withdrawn(request):
         return HttpResponseRedirect(reverse('login'))
     if request.method == 'POST':
 
-        image = request.FILES.get('image')
+        image = request.POST['credit']
         user = Queueman.objects.get(username=request.user)
         user.upload = image
         user.save()
@@ -238,10 +238,10 @@ def withdrawn(request):
 def complete_with_drawn(request):
     if request.method == 'POST':
         print('in queueman')
-        print(request.POST)
+
         user = User.objects.get(username = request.POST['user'])
         user_value = Queueman.objects.get(username = user)
-        user_value.upload = ""
+        user_value.upload = 0
         user_value.save()
         return redirect(reverse('admin_page'))
 
@@ -250,4 +250,4 @@ def admin_commit_with_drawn(request):
 
         user = User.objects.get(username = request.POST['user'])
         user_value = Queueman.objects.get(username = user)
-        return render(request,'admin_commit_with_drawn.html',{'url':user_value.upload.url,'user':user})
+        return render(request,'admin_commit_with_drawn.html',{'credit':user_value.upload,'user':user})

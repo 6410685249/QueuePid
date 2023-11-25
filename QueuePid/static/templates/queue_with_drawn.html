@@ -8,9 +8,8 @@
 <body>
     <form action="{% url 'withdrawn' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <label for="imageUpload">Choose an image:</label>
-        <input type="file" id="imageUpload" name="image" accept="image/*">
-        <input type="submit" value="Upload">
+        <input type="text" name="credit">
+        <input type="submit" value="submit">
     </form>
 </body>
 </html>
