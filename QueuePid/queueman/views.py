@@ -28,43 +28,19 @@ def qhome(request):
         return HttpResponseRedirect(reverse('login'))
     clist = Booking.objects.all()
     queueman = Queueman.objects.get(username = request.user.id)
-    distance = []
+    restaurant = []
 
-    if request.method == "POST":
-        latitude = request.POST.get("latitude")
-        longitude = request.POST.get("longitude")
+    for c in clist:
+        restaurant.append(Restaurant.objects.get(name = c.restaurant))
 
-        # Do something with the latitude and longitude here
-        print("Latitude:", latitude)
-        print("Longitude:", longitude)
-    
-        latitude1 = float(request.POST.get("latitude"))
-        longitude1 = float(request.POST.get("longitude"))
-        
-        for c in clist:
-            rest = Restaurant.objects.get(name = c.restaurant)
-            latitude2,longitude2 = map(float,rest.location_address.split(','))
-            lon1 = radians(longitude1)
-            lon2 = radians(longitude2)
-            lat1 = radians(latitude1)
-            lat2 = radians(latitude2)
+    clist = zip(clist,restaurant)
 
-            dlon = lon2 - lon1
-            dlat = lat2 - lat1
-            a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
-
-            c = 2 * asin(sqrt(a))
-            r = 6371
-
-            dist = c * r
-            dist = str(f"{dist:.2f}")
-            distance.append(dist) 
-
-    print(distance)
+    size = len(restaurant)
 
     return render(request, 'queueman_home.html',{
                   'clist':clist,
                   'queueman':queueman,
+                  'size':size
             })
 
 
