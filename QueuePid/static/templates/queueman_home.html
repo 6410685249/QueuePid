@@ -7,6 +7,8 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/queue_home.css' %}" />
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' /
 {% endblock %}
 
 {% block body %}
@@ -26,7 +28,7 @@
     <h3>Customer list</h3>
     {% if queueman.is_have_queue == False %}
     <table>
-        {% for customer in clist %}
+        {% for customer,restaurant in clist %}
             <td class="container">
                 <div class="profile-area">
                     <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
@@ -35,8 +37,9 @@
                     <form action="{% url 'get_queue' %}" method="post" id="gq">
                         {% csrf_token %}
                         <p> Username: {{ customer.customer_username }} </p>
-                        <p> Restaurant: {{ customer.restaurant }}</p>
-                        <p> Distance: {{ distance }}</p>
+                        <p id="r{{ forloop.counter }}"> Restaurant: {{ customer.restaurant }}</p>
+                        <p> Distance: <span id="location{{ forloop.counter }}"></span> KM</p>
+                        <p hidden id="address{{ forloop.counter }}" >{{ restaurant.location_address }}</p>
                         <input type="hidden" name="customer" value="{{customer.customer_username}}">
                         <input type="hidden" name="restaurant" value="{{customer.restaurant }}">
                         <a onclick="myFunction()" class="hover">Get Queue</a>
@@ -54,35 +57,109 @@
         <h1>{{ finish_m }}</h1>
     {% endif %}
 
-    <script> 
+    <div id='map' style='width: 400px; height: 300px;'></div>
+    
+
+    <!-- Warning! don't delete this line below -->
+    <p hidden id="loop">{{ size }}</p>
+
+    <script>
+
+        let latitude = [];
+        let longtitude = [];
+        let restaurant = [];
+
         function myFunction() { 
             document.getElementById("gq").submit(); 
         } 
-    </script> 
 
-    <script>
+        const loop = Number(document.getElementById("loop").textContent); 
+
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
+                navigator.geolocation.getCurrentPosition(map);
          } else {
             }
         }
 
         function showPosition(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
 
-            // Send AJAX request to Django view
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/queueman/home/', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.send('latitude=' + latitude + '&longitude=' + longitude);
+
+            for(let i=1;i<=loop;i++){
+
+                let str1 = "address" + i;
+                let str2 = "location" + i;
+                let str3 = "r" + i;
+                let lat1 = lat;
+                let lon1 = lon;
+
+                const x = document.getElementById(str2)
+
+                let name = document.getElementById(str3).textContent;
+                let address = document.getElementById(str1).textContent; 
+                let array = address.split(','),latitude2=array[0], longitude2 = array[1];
+                lat2 = Number(latitude2);
+                lon2 = Number(longitude2)
+                
+                latitude[i] = lat2;
+                longtitude[i] = lon2;
+                restaurant[i] = name;
+
+                lon1 =  lon1 * Math.PI / 180;
+                lon2 = lon2 * Math.PI / 180;
+                lat1 = lat1 * Math.PI / 180;
+                lat2 = lat2 * Math.PI / 180;
+
+                let dlon = lon2 - lon1; 
+                let dlat = lat2 - lat1;
+                let a = Math.pow(Math.sin(dlat / 2), 2)
+                    + Math.cos(lat1) * Math.cos(lat2)
+                    * Math.pow(Math.sin(dlon / 2),2);
+               
+                let c = 2 * Math.asin(Math.sqrt(a));
+   
+                let r = 6371;
+
+                let distance = c * r;
+                distance = distance.toFixed(2);
+
+                x.innerHTML = distance;
+            }
+        }
+
+        function map(position){
+            
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+
+            mapboxgl.accessToken = 'pk.eyJ1IjoicGVla2ljZSIsImEiOiJjbHBjb25ibmIwb2R5MnBwcG8yd2RyNzE5In0.UGjNWeYJ8UzRMALTadK-XA';
+            const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/streets-v12', // style URL
+            center: [lon, lat], // starting position [lng, lat]
+            zoom: 12, // starting zoom
+            });
+
+            const markercurrent = new mapboxgl.Marker({ color: 'red'}).setLngLat([lon, lat])
+            .setPopup(new mapboxgl.Popup({ offset: 30 })
+            .setHTML(`<p>Your location</p>`))
+            .addTo(map);
+            
+            for(let i=1;i<=loop;i++){
+                let marker = new mapboxgl.Marker({ color: 'blue'}).setLngLat([longtitude[i], latitude[i]])
+                .setPopup(new mapboxgl.Popup({ offset: 30 })
+                .setHTML(`<p>${restaurant[i]}</p>`))
+                .addTo(map);;
+            }
         }
 
         window.onload = function() {
             getLocation();
+            map();
         }
-
     </script>
 
 {% endblock %}

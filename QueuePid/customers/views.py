@@ -188,7 +188,7 @@ def admin(request):
             top.append((i,'Top up'))
     with_drawn = []
     for i in queuman:
-        if i.upload != '':
+        if i.upload > 0:
             with_drawn.append((i,'with drawn'))
     return render(request,'admin_page.html',{'top':top,'drawn':with_drawn})
 
