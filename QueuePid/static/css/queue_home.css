@@ -61,26 +61,30 @@ h4:hover{
 
 /* table */
 
-nav ~ table {
+.stick ~ table {
     width: 60%;
     margin-left: 10%;
 }
 
-nav ~ table .container {
+.stick ~ table .container {
     margin-left: 0;
     gap: 10px;
 }
 
-nav ~ table div img {
-    height: 5em;
+.stick ~ table div img {
+    height: 6.5em;
     width: auto;
 }
 
-nav ~ table td {
+.stick ~ table td {
     border-radius: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
     box-shadow: 5px 5px 5px rgb(171, 168, 168);
+}
+
+.stick ~ table .container .account-area {
+    margin-top: 0;
 }
 
 .hover{
