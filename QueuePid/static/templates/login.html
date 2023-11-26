@@ -18,6 +18,7 @@
             <input type="text" name="username" placeholder="Username"><br><br>
             <input type="password" name="password" placeholder="Password"><br><br>
             <input type="submit" value="Sign in" id="button">
+            <p id="demo"></p>
         </form>
 
         {% if message %}
@@ -26,4 +27,6 @@
 
         <p class="btmline">Don't have an account? <a href="{% url 'signup' %}" class="signup">Create your accout.</a></p><br>
     </div>
+
+
 {% endblock %}
