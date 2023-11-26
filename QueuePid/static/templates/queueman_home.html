@@ -35,7 +35,7 @@
                 <div class="profile-area">
                     <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
                 </div>
-                <div>
+                <div class="account-area">
                     <form action="{% url 'get_queue' %}" method="post" id="gq">
                         {% csrf_token %}
                         <p> Username: {{ customer.customer_username }} </p>
