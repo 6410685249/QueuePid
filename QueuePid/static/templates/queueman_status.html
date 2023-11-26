@@ -100,7 +100,7 @@
                         <h2>FINISH</h2>
                         <form action="{% url 'qstatus' %}" method="post" id="update"  class="block3">
                             {% csrf_token %}
-                            <a onclick="submit()">Accept</a>
+                            <a onclick="submit()" id="finish-button">Accept</a>
                         </form>
                     </div>
                     {% endif %}

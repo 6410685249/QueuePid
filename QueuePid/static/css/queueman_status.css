@@ -120,6 +120,12 @@
     font-size: 1.17em;
 }
 
+#finish-button:hover{
+    background-color: #FFFFFF;
+    color:#00095C;
+    cursor: pointer;
+}
+
 /* css */
 nav {
     margin-bottom: 50px;
@@ -186,8 +192,6 @@ div table th{
     color: white;
     cursor: pointer;
 }
-
-
 
 a {
     color: #00095c;
