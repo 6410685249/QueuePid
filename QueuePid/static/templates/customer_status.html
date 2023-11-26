@@ -55,6 +55,9 @@
                 <h2>Looking for queueman</h2>
                 {% if operation.status == 0 %}
                     <a href="{% url 'cancel_book' %}"> Cancel Booking </a>
+                {% else %}
+                    <p> Queueman: {{operation.queueMan_username}}</p>
+                    <p> Tel: {{operation.que_phone}} </p>
                 {% endif %}
             </div>
 
