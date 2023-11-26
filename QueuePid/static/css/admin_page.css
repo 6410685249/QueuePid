@@ -1,0 +1,58 @@
+/* CSS */
+body {
+    background-image: url("../img/background.jpg");
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+h1 {
+    color: #00095c;
+    margin-left: 10%;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 1.17em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.container {
+    border: 3px solid #00095c;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    margin-top: 30px;
+    width: 80%;
+}
+
+button{
+    background-color: #00095c;
+    color: #ffffff;
+    padding: 3px;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    font-size: 1.17em;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #F0B65F;
+    color: black;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 65% 35%;
+}
+
+.grid-name {
+    padding: 10px;
+    text-align: left;
+}
+
+.grid-button {
+    padding: 10px;
+    text-align: left;
+}
