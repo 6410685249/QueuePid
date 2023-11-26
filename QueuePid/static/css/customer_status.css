@@ -135,7 +135,7 @@ a {
     cursor: pointer;
 }
 
-.block4 a {
+.block4 a, .block1 a {
     background-color: #00095C;
     color: white;
     padding: 5px;
@@ -143,7 +143,7 @@ a {
     margin-bottom: 10px;
 }
 
-.block4 a:hover{
+.block4 a:hover, .block1 a:hover{
     background-color: white;
     color: #00095C;
     cursor: pointer;

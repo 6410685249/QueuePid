@@ -150,15 +150,17 @@ class StatusTest(TestCase):
         self.user = User.objects.create_user(username='testuser', password='12345')
         self.queueman = Queueman.objects.create(username=self.user)
         self.customer = User.objects.create_user(username='customer', password='54321')
-        self.booking = Booking.objects.create(customer_username=self.customer)
+        self.booking = Booking.objects.create(customer_username=self.customer ,restaurant = "Restaurant 1")
         self.operate = Operation.objects.create(customer_username=self.customer.username, queueMan_username=self.user.username,status = 0)
         self.info = User_info.objects.create(username=self.customer)
+        self.restaurant1 = Restaurant.objects.create(name="Restaurant 1", phone_number = '1', line_id = 'l1')
+        self.restaurant = [self.restaurant1]
         self.client.login(username='testuser', password='12345')
 
 
     def test_get_queue(self):
         data = {'customer': self.customer.username}
-        response = self.client.post(reverse('qhome'), data=data)
+        response = self.client.post(reverse('get_queue'), data=data)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('qstatus'))
 
@@ -214,3 +216,50 @@ class StatusTest(TestCase):
 
         self.assertEqual(Operation.objects.get(pk=self.operate.id).update_status, True)
         self.assertEqual(Queueman.objects.get(pk=self.queueman.id).is_have_queue, False)
+
+class WalletTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.queueman = Queueman.objects.create(username=self.user)
+        self.client = Client()
+        self.client.login(username='testuser', password='12345')
+
+    def test_withdrawn_view_unauthenticated(self):
+        self.client.logout()
+        response = self.client.get(reverse('withdrawn'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('login'))
+
+    def test_withdrawn(self):
+        data = {'credit': 100}
+        response = self.client.post(reverse('withdrawn'), data)
+
+        self.assertEqual(Queueman.objects.get(pk=self.queueman.id).upload,100)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('qwallet'))
+
+    def test_complete_withdrawn(self):
+        self.queueman.credit = 200
+        self.queueman.upload = 100
+        self.queueman.save()
+
+        response = self.client.post(reverse('complete_with_drawn'), {'user': self.queueman.username})
+        queueman = Queueman.objects.get(username=self.queueman.username)
+        
+        self.assertEqual(queueman.credit, 100)
+        self.assertEqual(queueman.upload, 0)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('admin_page'))
+    
+    def test_admin_commit_with_drawn(self):
+        response = self.client.post(reverse('admin_commit_with_drawn'), {'user': self.queueman.username})
+        user = User.objects.get(username = self.queueman.username)
+        queueman = Queueman.objects.get(username=user)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'admin_commit_with_drawn.html')
+
+        context = response.context
+        self.assertEqual(context['credit'], queueman.upload)
+        self.assertEqual(context['user'], user)
