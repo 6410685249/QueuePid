@@ -52,7 +52,7 @@ nav a:hover {
 }
 
 .link {
-    margin: 0px;
+    margin: 0 1.5em 0 0;
 }
 
 nav.sticky {
@@ -95,4 +95,8 @@ nav.sticky {
 #signin:hover {
     border-color: white;
     color: #F0B65F;
+}
+
+#navbar {
+    width: 100%;
 }

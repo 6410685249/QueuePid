@@ -7,11 +7,11 @@
             </th>
             <td>
                 {% if queueman.is_have_queue == True %}
-                <a href="{% url 'qstatus' %}" id="Status">Status</a>
+                <a href="{% url 'qstatus' %}" id="Status" class="link">Status</a>
                 {% endif %}
-                <a href="{% url 'qwallet' %}">Wallet</a>
-                <a href="{% url 'qprofile' %}">Account</a>
-                <a href="{% url 'logout' %}" id="logout">Log Out</a>
+                <a href="{% url 'qwallet' %}" class="link">Wallet</a>
+                <a href="{% url 'qprofile' %}" class="link">Account</a>
+                <a href="{% url 'logout' %}" id="logout" class="link">Log Out</a>
             </td>
         </tr>
     </table>

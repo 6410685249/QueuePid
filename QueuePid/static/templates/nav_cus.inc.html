@@ -6,7 +6,6 @@
                 <a href="{% url 'restaurant_list' %}"><img src="{% static 'img/logo.png' %}" alt="logo" class="logo"></a>
             </th>
             <td>
-                
                 {% if book_status != "None" %}
                     <a href="{% url 'customer_status' %}" class="link"> Status page</a>
                 {% endif %}
