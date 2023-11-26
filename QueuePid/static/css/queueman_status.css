@@ -17,11 +17,11 @@
 .body-area{
     grid-area: body;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 2fr 1fr;
     grid-template-areas: 
-            "timer timer bar"
-            "text1 text2 text3";
+            "timer timer timer bar"
+            "cus text1 text2 text3";
     gap: 10px;
     text-align: center;
     margin-left: 20px;
@@ -40,6 +40,11 @@
 
 .block3 {
     grid-area: text3;
+    margin: 10px;
+}
+
+.cus {
+    grid-area: cus;
     margin: 10px;
 }
 
@@ -79,6 +84,7 @@
 
 .table3{
     grid-area: text6;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,6 +102,22 @@
     color: white;
     border-radius: 20px;
     box-shadow: 5px 5px 5px rgba(158, 158, 158);
+}
+
+#cus {
+    background-color: #00095C;
+    color: #F0B65F;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgba(158, 158, 158);
+    font-weight: bold;
+}
+
+#cus h2 {
+    color: white;
+}
+
+#cus p {
+    font-size: 1.17em;
 }
 
 /* css */
@@ -133,7 +155,7 @@ div table th{
     color: white;
 }
 
-div a {
+.block1 a, .block2 a, .block3 a {
     background-color: #00095C;
     color: white;
     padding: 5px;
@@ -142,7 +164,7 @@ div a {
     font-size: 1em;
 }
 
-div a:hover{
+.block1 a, .block2 a, .block3 a a:hover{
     background-color: white;
     color: #00095C;
     cursor: pointer;
@@ -152,8 +174,8 @@ div a:hover{
     background-color: #00095C;
     color: white;
     padding: 20px;
-    padding-left: 5em;
-    padding-right: 5em;
+    padding-left: 6.5em;
+    padding-right: 6.5em;
     border-radius: 5px;
     margin: 0;
     font-size: 1.17em;
@@ -164,6 +186,8 @@ div a:hover{
     color: white;
     cursor: pointer;
 }
+
+
 
 a {
     color: #00095c;
@@ -190,4 +214,8 @@ input {
     padding: 20px;
     background-color: #00095C;
     color: white;
+}
+
+.stick + .content {
+    padding-top: 150px;
 }
