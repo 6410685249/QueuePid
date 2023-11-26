@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from location_field.models.plain import PlainLocationField
+
 # Create your models here.
 class Queueman(models.Model):
     username = models.OneToOneField(User,on_delete=models.CASCADE)
@@ -8,7 +10,8 @@ class Queueman(models.Model):
     star = models.FloatField(default=5)
     credit = models.PositiveIntegerField(default=0)
     is_have_queue = models.BooleanField(default=False)
-    upload =  models.ImageField(upload_to='uploads/', null=True,default=None, blank=True)
+    upload =  models.PositiveIntegerField(default=0)
+    location_address = PlainLocationField(zoom=7, null=True,default=None,blank=True)
     
     def __str__(self):
         return f'{self.username}'

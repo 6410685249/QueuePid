@@ -10,10 +10,12 @@
 {% block body %}
     {% block navigation %}{% endblock %}
 
-    {% include 'nav_cus.inc.html' %}
+        {% include 'nav_cus.inc.html' %}
+
+        <br><a href="{% url 'restaurant_list' %}" id="back"> < back </a><br>
 
     <div class="container">
-        <a href="{% url 'restaurant_list' %}" id="about"> < back </a><br>
+        
         <div>
             <img src="{% static 'img/background.jpg' %}" alt="">
         </div>
@@ -41,4 +43,5 @@
             </ol>
         </div>
     </div>
+
 {% endblock %}

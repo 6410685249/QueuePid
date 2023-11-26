@@ -17,7 +17,7 @@ nav {
 .head {
     margin-left: 30%;
     /* width: 75%; */
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 .container {
@@ -44,4 +44,8 @@ nav {
     font-size: 1.17em;
     text-decoration: none;
     font-weight: bold;
+}
+
+.stick + .content {
+    padding-top: 150px;
 }

@@ -13,7 +13,9 @@ import smtplib
 from django.views.decorators.csrf import csrf_exempt
 from math import radians, cos, sin, asin, sqrt
 from customers.models import Restaurant
-
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 # Create your views here.
 
 smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
@@ -21,13 +23,35 @@ smtp_object.ehlo()
 smtp_object.starttls()
 email = 'queuepidcorp@gmail.com'
 password = 'jvqk fwso vgkq jlvp'
+import math
+
+def haversine_distance(lat1, lon1, lat2, lon2):
+    # Convert latitude and longitude from degrees to radians
+    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
+
+    # Haversine formula
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
+    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+
+    # Radius of the Earth in kilometers (approximate)
+    R = 6371.0
+
+    # Calculate the distance
+    distance = R * c
+
+    return distance
 
 @csrf_exempt
 def qhome(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
+
     clist = Booking.objects.all()
     queueman = Queueman.objects.get(username = request.user.id)
+    
+    # queueman.location_address = {"latitude": latitude, "longitude": longitude}
     restaurant = []
 
     for c in clist:
@@ -109,6 +133,7 @@ def get_queue(request):
         customer_book.delete()
         operate.queueMan_username = request.user.username
         operate.status += 1
+        operate.que_phone = queueman.phone_number
         queueman.is_have_queue =True
         operate.save() 
         queueman.save()
@@ -204,7 +229,7 @@ def withdrawn(request):
         return HttpResponseRedirect(reverse('login'))
     if request.method == 'POST':
 
-        image = request.FILES.get('image')
+        image = request.POST['credit']
         user = Queueman.objects.get(username=request.user)
         user.upload = image
         user.save()
@@ -214,10 +239,10 @@ def withdrawn(request):
 def complete_with_drawn(request):
     if request.method == 'POST':
         print('in queueman')
-        print(request.POST)
+
         user = User.objects.get(username = request.POST['user'])
         user_value = Queueman.objects.get(username = user)
-        user_value.upload = ""
+        user_value.upload = 0
         user_value.save()
         return redirect(reverse('admin_page'))
 
@@ -226,4 +251,4 @@ def admin_commit_with_drawn(request):
 
         user = User.objects.get(username = request.POST['user'])
         user_value = Queueman.objects.get(username = user)
-        return render(request,'admin_commit_with_drawn.html',{'url':user_value.upload.url,'user':user})
+        return render(request,'admin_commit_with_drawn.html',{'credit':user_value.upload,'user':user})

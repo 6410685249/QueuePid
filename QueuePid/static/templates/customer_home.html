@@ -11,52 +11,75 @@
 {% block body %}
     {% block navigation %}{% endblock %}
 
-    {% include 'nav_cus.inc.html' %}
-
-    <div class='head'>
-        <h1 class='header-font-size'>Hi! {{ user.username.username }} |</h1>
-        <h2 class='header2-font-size'> Enjoy with your meal~</h2>
-        {% if user.verify_gmail == False %}
-        <p><a href="{% url 'verify_gmail' %}" id="underline">You have not verified your email! Please verify your email to receive notifications.</a></p>
-        {% endif %}
+    <div class="stick">
+        {% include 'nav_cus.inc.html' %}
     </div>
 
-    <form  action="{% url 'search' %}" method="post">
-            {% csrf_token %}
-        <div class="container-search">
-            <input type="text" name="search" placeholder="Search" value="{{search_text}}">
-            <button type='submit' class="search-button">
-                <img src="{%static 'img/search.png' %}">
-            </button>
-        </div>
-    </form>
-
-    <div class='grid-container'>    
-        {% for name,location in form %}
-        <div>
-            {% if book_status != "None" %}
-                <img src="{% static 'img/default_avatar.png' %}">   
-            {% else %}
-            <form id="GFG" action="{% url 'click_rest' %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="customer" value="{{name}}">
-                <button type="submit" class="link-button">
-                    <img src="{% static 'img/default_avatar.png' %}">
-                </button>
-    
-            </form>
+    <div class="content">
+        <div class='head'>
+            <h1 class='header-font-size'>Hi! {{ user.username.username }} |</h1>
+            <h2 class='header2-font-size'> Enjoy with your meal~</h2>
+            {% if user.verify_gmail == False %}
+            <p><a href="{% url 'verify_gmail' %}" id="underline">You have not verified your email! Please verify your email to receive notifications.</a></p>
             {% endif %}
-            
-            <p>{{name}}</p> <br> <p>{{location}}</p>
-                
         </div>
-        {% endfor %}
+
+        <form  action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+            <div class="container-search">
+                <input type="text" name="search" placeholder="Search" value="{{search_text}}">
+                <button type='submit' class="search-button">
+                    <img src="{%static 'img/search.png' %}">
+                </button>
+            </div>
+        </form>
+
+        <div class='grid-container'>    
+            {% for name,location in form %}
+            <div>
+                {% if book_status != "None" %}
+                    <img src="{% static 'img/default_avatar.png' %}">   
+                {% else %}
+                <form id="GFG" action="{% url 'click_rest' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="customer" value="{{name}}">
+                    <button type="submit" class="link-button">
+                        <img src="{% static 'img/default_avatar.png' %}">
+                    </button>
+                
+                </form>
+                {% endif %}
+
+                <p>{{name}}</p> <br> <p>{{location}}</p>
+
+            </div>
+            {% endfor %}
+        </div>
     </div>
     
-    <script> 
-        function myFunction() { 
-            document.getElementById("GFG").submit(); 
-        } 
-    </script>     
+<script> 
+    function myFunction() { 
+        document.getElementById("GFG").submit(); 
+    }
+
+    window.onscroll = function() {
+        stickyNavbar();
+    };
+    
+    var navbar = document.getElementById("navbar");
+    var sticky = navbar.offsetTop;
+    
+    function stickyNavbar() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky");
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+
+    {% comment %} function scrollToTop() { 
+        window.scrollTo(0, 0); 
+    } {% endcomment %}
+</script>     
 
 {% endblock %}

@@ -1,0 +1,107 @@
+/* class */
+.center {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reduce-size{
+    width: 175px;
+    cursor: pointer;
+    padding-bottom: 10px;
+}
+
+.yellow-border{
+    border: 2px solid #F0B65F;
+    color: #333;
+    font-size: 18px;
+    padding: 3px;
+    border-radius: 5px;
+    width: 20%;
+    margin-bottom: 10px;
+}
+
+.reduce-size:hover {
+    cursor: pointer;
+}
+
+.button{
+    background-color: #00095c;
+    color: #ffffff;
+    padding: 3px;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    font-size: 1.17em;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.button:hover {
+    background-color: #F0B65F;
+    color: black;
+}
+
+.container {
+    display: grid;
+    background-color: #ffffff;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 20px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.logo{
+    display: block;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 7%;
+    height: auto;
+    margin-top: 120px;
+}
+
+/* CSS */
+body {
+    background-image: url("../img/background.jpg");
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+a {
+    color: #00095c;
+    margin-left: 10%;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 1.17em;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+p, label {
+    line-height: 1.5em;
+    font-family: DM sans;
+    font-size: 1.17em;
+    font-weight: bold;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+div table {
+    border: 3px solid #00095c;
+    border-collapse: collapse;
+    margin-top: 30px;
+    padding-bottom: 20px;
+    width: 80%;
+}
+
+div th {
+    background-color: #00095c;
+    color: white;
+}
+
+div td {
+    padding: 40px;
+}

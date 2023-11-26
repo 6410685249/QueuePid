@@ -44,7 +44,8 @@ def get_number_of_customer(request):
     if request.method == 'POST':
         book = Booking.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],number_of_customer=int(request.POST['number']))
         user = User_info.objects.get(username=request.user)
-        operate = Operation.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],status=0,cost=0,number_of_customer=int(request.POST['number']),update_status="0",date=timezone.now())
+        operate = Operation.objects.create(customer_username=request.user,restaurant=request.POST['restaurant_name'],status=0,cost=0 \
+                                    ,number_of_customer=int(request.POST['number']),update_status="0",date=timezone.now(),cus_phone=user.telephone)
         user.book = restaurant=request.POST['restaurant_name']
         book.save()
         user.save()

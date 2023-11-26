@@ -9,22 +9,43 @@
 {% block body %}
     {% block navigation %}{% endblock %}
 
-    {% include 'nav_cus.inc.html' %}
-
-    <a href="{% url 'restaurant_list' %}" class="back" > < back </a>
-
-    <h1 class="head">History</h1>
-
-    <div class="container">
-    {% for i in history %}
-        <div>
-            Date: {{i.date}} <br>
-            Queueman: {{i.queeuManName}} <br>
-            Restaurant: {{i.restaurant}} <br>
-            Cost: {{i.cost}} <br>
-            Queueman Phone No.: {{i.phone_number_QueueMan}} <br>
-        </div>
-    {% endfor %}
+    <div class="stick">
+        {% include 'nav_cus.inc.html' %}
     </div>
+
+    <div class="content">
+        <a href="{% url 'restaurant_list' %}" class="back" > < back </a>
+
+        <h1 class="head">History</h1>
+
+        <div class="container">
+        {% for i in history %}
+            <div>
+                Date: {{i.date}} <br>
+                Queueman: {{i.queeuManName}} <br>
+                Restaurant: {{i.restaurant}} <br>
+                Cost: {{i.cost}} <br>
+                Queueman Phone No.: {{i.phone_number_QueueMan}} <br>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        window.onscroll = function() {
+            stickyNavbar();
+        };
+        
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+        
+        function stickyNavbar() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky");
+            } else {
+                navbar.classList.remove("sticky");
+            }
+        }
+    </script>
 
 {% endblock %}

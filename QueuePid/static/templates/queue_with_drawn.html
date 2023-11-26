@@ -1,16 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <form action="{% url 'withdrawn' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="imageUpload">Choose an image:</label>
-        <input type="file" id="imageUpload" name="image" accept="image/*">
-        <input type="submit" value="Upload">
-    </form>
-</body>
-</html>
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %}
+    Wallet
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/payment.css' %}" />
+{% endblock %}
+
+{% block body %}
+    {% block navigation %}{% endblock %}
+
+    <a href="{% url 'qhome' %}" ><img src='{% static 'img/logo.png' %}' alt="logo" class='logo'></a>
+    <div class="container">
+        <div>
+            <a href="{% url 'qwallet' %}" > < back </a>
+        </div>
+        <div class="center">
+            <table>
+                <tr><th><h2>Payment</h2></th></tr>
+                <form action="{% url 'withdrawn' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <tr><td>
+                        <p>Input your credit:</p>
+                        <input type="text" name="credit" class="yellow-border">
+                        <br>
+                        <input type="submit" value="submit" class="button">
+                    </td></tr>
+                </form>
+            </table>
+        </div>
+    </div>
+{% endblock %}
