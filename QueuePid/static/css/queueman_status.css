@@ -17,11 +17,11 @@
 .body-area{
     grid-area: body;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 2fr 1fr;
     grid-template-areas: 
-            "timer timer bar"
-            "text1 text2 text3";
+            "timer timer timer bar"
+            "cus text1 text2 text3";
     gap: 10px;
     text-align: center;
     margin-left: 20px;
@@ -40,6 +40,11 @@
 
 .block3 {
     grid-area: text3;
+    margin: 10px;
+}
+
+.cus {
+    grid-area: cus;
     margin: 10px;
 }
 
@@ -96,6 +101,14 @@
     color: white;
     border-radius: 20px;
     box-shadow: 5px 5px 5px rgba(158, 158, 158);
+}
+
+#cus {
+    background-color: #00095C;
+    color: white;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgba(158, 158, 158);
+    font-weight: bold;
 }
 
 /* css */

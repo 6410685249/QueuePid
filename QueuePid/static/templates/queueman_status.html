@@ -79,6 +79,12 @@
                 </form>
             </div>
 
+            <div class="cus" id="cus">
+                <h2>CUSTOMER</h2>
+                <p>Customer: {{operation.customer_username}}</p>
+                <p>Tel: {{operation.cus_phone}}</p>
+            </div>
+
             <div class="block1" id="{% if operation.status == 1 %}current{% else %}pass{% endif %}">
                 {% if operation.status >= 1 %}
                 <h2>ON THE WAY</h2>
