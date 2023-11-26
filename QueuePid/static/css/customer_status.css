@@ -95,7 +95,7 @@ nav {
     margin-bottom: 50px;
 }
 
-label {
+label, .block1 p{
     font-weight: bold;
 }
 

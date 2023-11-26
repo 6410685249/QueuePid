@@ -17,13 +17,11 @@
     </div>
 
     <div class="content">
-        <a href="{% url 'qhome' %}"> < back </a>
-        
         <div class="container">
             <div class="header-area">
                 <h1>{{operation.restaurant}}</h1>
             </div>
-        
+    
             <section class="body-area">
                 <div class="timer_block">
                     {% if operation.status >= 2 %}
@@ -32,7 +30,7 @@
                         <p class="timer"> 00:00:00 </p>
                     {% endif %}
                 </div>
-            
+    
                 <div class="bar">
                     <div class="table1">
                         <table>
@@ -53,7 +51,13 @@
                         <a onclick="cancel()">Cancel</a>
                     </form>
                 </div>
-            
+    
+                <div class="cus" id="cus">
+                    <h2>CUSTOMER</h2>
+                    <p>Customer: {{operation.customer_username}}</p>
+                    <p>Tel: {{operation.cus_phone}}</p>
+                </div>
+    
                 <div class="block1" id="{% if operation.status == 1 %}current{% else %}pass{% endif %}">
                     {% if operation.status >= 1 %}
                     <h2>ON THE WAY</h2>
@@ -69,11 +73,11 @@
                     {% endif %}
                 {% endif %}
                 </div>
-            
+    
                 {% if operation.status >= 2 %}
                 <div class="block2" id="{% if operation.status == 2 and operation.number_Queue != 0 %}current{% else %}pass{% endif %}">
                     <h2>IN QUEUE</h2>
-                
+    
                     {% if operation.number_Queue != 0 %}
                         <form action="{% url 'qstatus' %}" method="post" id="update">
                             {% csrf_token %}
@@ -85,12 +89,12 @@
                             
                         </form>
                     {% endif %}
-                    
+    
                     <p id="timeDisplay">
                         {{ hour_diff }} hours {{ minute_diff }} minutes
                     </p>
                 </div>
-            
+    
                     {% if operation.number_Queue == 0 and operation.status == 2 %}
                     <div class="block3" id="current">
                         <h2>FINISH</h2>
@@ -105,13 +109,13 @@
                     <h2>IN QUEUE</h2> 
                 </div>
                 {% endif %}
-            
+    
                 {% if operation.number_Queue != 0 or operation.status >= 3 %}
                 <div class="block3" id="{% if operation.status == 3 %}current{% else %}pass{% endif %}">
                     <h2>FINISH</h2>
                 </div>
                 {% endif %}
-            
+    
             </section>
         </div>
     </div>
