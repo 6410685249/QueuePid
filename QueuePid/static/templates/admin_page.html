@@ -1,29 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block header %} Top up examine {% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_page.css' %}" />
+{% endblock %}
+
+{% block navigation %} {% endblock %}
+{% block body %}
     {% for i,text in top %}
-    <form method="post" action="{% url 'admin_commit_top_up' %}">
-        {% csrf_token %}
-        <input type="hidden" value="{{i.username}}" name="user">
-        <h1>{{i.name}} {{i.surname}} {{text}}</h1>
-        <button type="submit">Click</button>
-    </form>
-        
+        <div class="container">
+            <form method="post" action="{% url 'admin_commit_top_up' %}">
+                {% csrf_token %}
+                <input type="hidden" value="{{i.username}}" name="user">
+                <div class="grid-container">
+                    <div class="grid-name"><h1>{{i.name}} {{i.surname}} {{text}}</h1></div>
+                    <div class="grid-button"><button type="submit">Top up examine</button></div>
+                </div>
+            </form>
+        </div>     
     {% endfor %}
 
     {% for i,texts in drawn %}
-    <form method="post" action="{% url 'admin_commit_with_drawn' %}">
-        {% csrf_token %}
-        <input type="hidden" value="{{i.username}}" name="user">
-        <h1>{{i.username.username}} {{texts}}</h1>
-        <button type="submit">Click</button>
-    </form>
-        
+        <div class="container">
+            <form method="post" action="{% url 'admin_commit_with_drawn' %}">
+                {% csrf_token %}
+                <input type="hidden" value="{{i.username}}" name="user">
+                <div class="grid-container">
+                    <div class="grid-name"><h1>{{i.username.username}} {{texts}}</h1></div>
+                    <div class="grid-button"><button type="submit">Withdraw</button></div>
+                </div>
+            </form>
+        </div>        
     {% endfor %}
-</body>
-</html>
+
+{% endblock %}

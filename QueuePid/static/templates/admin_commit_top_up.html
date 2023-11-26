@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <img src="{{url}}" alt="">
+<body style="text-align:center">
+    <br><br>
+    <img src="{{url}}" alt="" width="500px" >
     <form method="post" action="{% url 'complete_top_up' %}">
         {% csrf_token %}
         <input type="hidden" value="{{user.username}}" name="user">
