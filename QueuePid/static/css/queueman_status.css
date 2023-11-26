@@ -84,6 +84,7 @@
 
 .table3{
     grid-area: text6;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -105,10 +106,18 @@
 
 #cus {
     background-color: #00095C;
-    color: white;
+    color: #F0B65F;
     border-radius: 20px;
     box-shadow: 5px 5px 5px rgba(158, 158, 158);
     font-weight: bold;
+}
+
+#cus h2 {
+    color: white;
+}
+
+#cus p {
+    font-size: 1.17em;
 }
 
 /* css */
@@ -165,8 +174,8 @@ div a:hover{
     background-color: #00095C;
     color: white;
     padding: 20px;
-    padding-left: 5em;
-    padding-right: 5em;
+    padding-left: 6.5em;
+    padding-right: 6.5em;
     border-radius: 5px;
     margin: 0;
     font-size: 1.17em;
