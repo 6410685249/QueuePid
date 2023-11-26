@@ -95,7 +95,7 @@ nav {
     margin-bottom: 50px;
 }
 
-label {
+label, .block1 p{
     font-weight: bold;
 }
 
@@ -135,7 +135,7 @@ a {
     cursor: pointer;
 }
 
-div a {
+.block4 a, .block1 a {
     background-color: #00095C;
     color: white;
     padding: 5px;
@@ -143,7 +143,7 @@ div a {
     margin-bottom: 10px;
 }
 
-div a:hover{
+.block4 a:hover, .block1 a:hover{
     background-color: white;
     color: #00095C;
     cursor: pointer;
@@ -163,6 +163,10 @@ div a:hover{
 div table th{
     background-color: #00095C;
     color: white;
+}
+
+.stick + .content {
+    padding-top: 150px;
 }
 
 /* id */

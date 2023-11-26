@@ -19,11 +19,11 @@
 }
   
 .container .rating {
-    display: flex;
+    display: inline-block;
     align-items: center;
     gap: 25px;
 }
-  
+
 .rating i {
     color: #e6e6e6;
     font-size: 35px;

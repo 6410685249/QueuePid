@@ -10,67 +10,75 @@
 {% endblock %}
 
 {% block body %}
-    {% block navigation %}{% endblock %}
-    {% include 'nav_cus.inc.html' %}
 
-    <a href="{% url 'restaurant_list' %}"> < back </a>
-    
-    <div class="container">
-        <div class="header-area">
-            <h1>{{operation.restaurant}}</h1>
-        </div>
+    <div class="stick">
+        {% block navigation %}{% endblock %}
+        {% include 'nav_cus.inc.html' %}
+    </div>
 
-        <div class="body-area">
-            <div class="timer_block">
-                {% if operation.status >= 2 %}
-                <p id="timer" data-start-time="{{ time_diff.seconds }}" class="timer">00:00:00</p>
-                {% else %}
-                <p class="timer"> 00:00:00 </p>
-                {% endif %} 
+    <div class="content">
+        <a href="{% url 'restaurant_list' %}"> < back </a>
+        
+        <div class="container">
+            <div class="header-area">
+                <h1>{{operation.restaurant}}</h1>
             </div>
-            
-            <div class="bar">
-                <div class="table1">
-                    <table>
-                        <tr><th>Number of customer</th></tr>
-                        <tr><td>{{operation.number_of_customer}}</td></tr>
-                    </table>
+
+            <div class="body-area">
+                <div class="timer_block">
+                    {% if operation.status >= 2 %}
+                    <p id="timer" data-start-time="{{ time_diff.seconds }}" class="timer">00:00:00</p>
+                    {% else %}
+                    <p class="timer"> 00:00:00 </p>
+                    {% endif %} 
                 </div>
-                {% if operation.status >= 2 %}
-                <div class="table2">
-                    <table>
-                        <tr><th>Number of Queue</th></tr>
-                        <tr><td>{{ operation.number_Queue }}</td></tr>
-                    </table>
-                </div>
-                {% endif %}
-                {% if operation.status >= 1 %}
-                <div class="table3">
-                    <a href="{% url 'customer_cancel' %}"> cancel </a>
-                </div>
-                {% endif %}
-            </div>
 
-            <div class="block1" id="{% if operation.status == 0 %}current{% else %}pass{% endif %}">
-                <h2>Looking for queueman</h2>
-                {% if operation.status == 0 %}
-                    <a href="{% url 'cancel_book' %}"> Cancel Booking </a>
-                {% endif %}
-            </div>
+                <div class="bar">
+                    <div class="table1">
+                        <table>
+                            <tr><th>Number of customer</th></tr>
+                            <tr><td>{{operation.number_of_customer}}</td></tr>
+                        </table>
+                    </div>
+                    {% if operation.status >= 2 %}
+                    <div class="table2">
+                        <table>
+                            <tr><th>Number of Queue</th></tr>
+                            <tr><td>{{ operation.number_Queue }}</td></tr>
+                        </table>
+                    </div>
+                    {% endif %}
+                    {% if operation.status >= 1 %}
+                    <div class="table3">
+                        <a href="{% url 'customer_cancel' %}"> cancel </a>
+                    </div>
+                    {% endif %}
+                </div>
 
-            <div class="block2" id="{% if operation.status == 1 %}current{% else %}pass{% endif %}">
-                <h2>On the way</h2>
-            </div>
-            
-            <div class="block3" id="{% if operation.status == 2 %}current{% else %}pass{% endif %}">
-                <h2>In queue</h2>
-            </div>
-            
-            <div class="block4" id="{% if operation.status >= 3 %}current{% else %}pass{% endif %}">
-                <h2> Finish </h2> 
-                {% if operation.status >= 3 %}
-                <a href="{% url 'customer_payment' %}"> success </a>
-            {% endif %}
+                <div class="block1" id="{% if operation.status == 0 %}current{% else %}pass{% endif %}">
+                    <h2>Looking for queueman</h2>
+                    {% if operation.status == 0 %}
+                        <a href="{% url 'cancel_book' %}"> Cancel Booking </a>
+                    {% else %}
+                        <p> Queueman: {{operation.queueMan_username}}</p>
+                        <p> Tel: {{operation.que_phone}} </p>
+                    {% endif %}
+                </div>
+
+                <div class="block2" id="{% if operation.status == 1 %}current{% else %}pass{% endif %}">
+                    <h2>On the way</h2>
+                </div>
+
+                <div class="block3" id="{% if operation.status == 2 %}current{% else %}pass{% endif %}">
+                    <h2>In queue</h2>
+                </div>
+
+                <div class="block4" id="{% if operation.status >= 3 %}current{% else %}pass{% endif %}">
+                    <h2> Finish </h2> 
+                    {% if operation.status >= 3 %}
+                    <a href="{% url 'customer_payment' %}"> success </a>
+                {% endif %}
+                </div>
             </div>
         </div>
     </div>
@@ -94,6 +102,21 @@
         }
         // Start the timer when the page loads
         window.onload = startTimer;
+
+        window.onscroll = function() {
+            stickyNavbar();
+        };
+        
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+        
+        function stickyNavbar() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky");
+            } else {
+                navbar.classList.remove("sticky");
+            }
+        }
     </script>
-    s
+    
 {% endblock %}

@@ -202,10 +202,11 @@ def admin_commit_top_up(request):
 def complete_top_up(request):
 
     if request.method == 'POST':
-        print('in customer')
-        print(request.POST)
+
         user = User.objects.get(username = request.POST['user'])
         user_value = User_info.objects.get(username = user)
         user_value.upload = ""
         user_value.save()
         return redirect(reverse('admin_page'))
+    
+
