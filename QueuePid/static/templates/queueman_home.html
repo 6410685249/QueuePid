@@ -12,8 +12,10 @@
 {% endblock %}
 
 {% block body %}
-    {% block navigation %}{% endblock %}
-    {% include 'nav_queue.inc.html' %}
+    <div class="stick">
+        {% block navigation %}{% endblock %}
+        {% include 'nav_queue.inc.html' %}
+    </div>
 
     <div class="container">
         <div class="profile-area">
@@ -159,6 +161,21 @@
         window.onload = function() {
             getLocation();
             map();
+        }
+
+        window.onscroll = function() {
+            stickyNavbar();
+        };
+        
+        var navbar = document.getElementById("navbar");
+        var sticky = navbar.offsetTop;
+        
+        function stickyNavbar() {
+            if (window.pageYOffset >= sticky) {
+                navbar.classList.add("sticky");
+            } else {
+                navbar.classList.remove("sticky");
+            }
         }
     </script>
 

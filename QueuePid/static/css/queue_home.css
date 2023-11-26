@@ -90,3 +90,7 @@ nav ~ table td {
 .hover:hover {
     cursor: pointer;
 }
+
+.stick + .container {
+    padding-top: 150px;
+}

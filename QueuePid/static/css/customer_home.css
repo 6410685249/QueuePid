@@ -114,3 +114,7 @@ p a {
 #underline{
     text-decoration: underline;
 }
+
+.stick + .content {
+    padding-top: 120px;
+}
