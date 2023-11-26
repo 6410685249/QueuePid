@@ -116,6 +116,6 @@ h4:hover{
     cursor: pointer;
 }
 
-.stick + .container {
+.stick + .container-show {
     padding-top: 150px;
 }
