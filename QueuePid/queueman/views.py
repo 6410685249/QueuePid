@@ -23,25 +23,6 @@ smtp_object.ehlo()
 smtp_object.starttls()
 email = 'queuepidcorp@gmail.com'
 password = 'jvqk fwso vgkq jlvp'
-import math
-
-def haversine_distance(lat1, lon1, lat2, lon2):
-    # Convert latitude and longitude from degrees to radians
-    lat1, lon1, lat2, lon2 = map(math.radians, [lat1, lon1, lat2, lon2])
-
-    # Haversine formula
-    dlat = lat2 - lat1
-    dlon = lon2 - lon1
-    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-
-    # Radius of the Earth in kilometers (approximate)
-    R = 6371.0
-
-    # Calculate the distance
-    distance = R * c
-
-    return distance
 
 @csrf_exempt
 def qhome(request):
@@ -50,15 +31,12 @@ def qhome(request):
 
     clist = Booking.objects.all()
     queueman = Queueman.objects.get(username = request.user.id)
-    
-    # queueman.location_address = {"latitude": latitude, "longitude": longitude}
     restaurant = []
 
     for c in clist:
         restaurant.append(Restaurant.objects.get(name = c.restaurant))
 
     clist = zip(clist,restaurant)
-
     size = len(restaurant)
 
     return render(request, 'queueman_home.html',{
@@ -227,28 +205,26 @@ def cancel(request):
 def withdrawn(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
+    
     if request.method == 'POST':
-
-        image = request.POST['credit']
-        user = Queueman.objects.get(username=request.user)
-        user.upload = image
-        user.save()
+        amount = request.POST['credit']
+        queueman = Queueman.objects.get(username=request.user)
+        queueman.upload = amount
+        queueman.save()
         return redirect(reverse('qwallet'))
     return render(request,'queue_with_drawn.html')
 
 def complete_with_drawn(request):
     if request.method == 'POST':
-        print('in queueman')
-
         user = User.objects.get(username = request.POST['user'])
-        user_value = Queueman.objects.get(username = user)
-        user_value.upload = 0
-        user_value.save()
+        queueman = Queueman.objects.get(username = user)
+        queueman.credit -= queueman.upload
+        queueman.upload = 0
+        queueman.save()
         return redirect(reverse('admin_page'))
 
 def admin_commit_with_drawn(request):
     if request.method == 'POST':
-
         user = User.objects.get(username = request.POST['user'])
-        user_value = Queueman.objects.get(username = user)
-        return render(request,'admin_commit_with_drawn.html',{'credit':user_value.upload,'user':user})
+        queueman = Queueman.objects.get(username = user)
+        return render(request,'admin_commit_with_drawn.html',{'credit':queueman.upload,'user':user})
