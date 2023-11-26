@@ -10,9 +10,21 @@
     gap: 5%;
 }
 
+.container-show {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+            "text1 text2 text3";
+    margin: auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    gap: 5%;
+}
+
 .profile-area {
     grid-area: text1;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
 }
@@ -21,6 +33,15 @@
     grid-area: text2;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+
+.map-area {
+    grid-area: text3;
+}
+
+.container-show .account-area {
+    margin-top: 40%;
+    margin-bottom: 40%;
 }
 
 /* css */

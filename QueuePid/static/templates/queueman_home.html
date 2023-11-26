@@ -17,14 +17,15 @@
         {% include 'nav_queue.inc.html' %}
     </div>
 
-    <div class="container">
+    <div class="container-show">
         <div class="profile-area">
             <img src="{% static 'img/default_avatar.png' %}" alt="avatar">
         </div>
         <div class="account-area">
-            <h2>Username: {{ queueman.username }}</h2>
+            <h2>Username: {{ queueman.username }}<br></h2>
             <p>Your credit remaining: {{ queueman.credit }}</p>
         </div>
+        <div id='map' class="map-area" style='width: 100%; height: 300px;'></div>
     </div>
 
     <h3>Customer list</h3>
@@ -57,10 +58,7 @@
 
     {% if finish_m %}
         <h1>{{ finish_m }}</h1>
-    {% endif %}
-
-    <div id='map' style='width: 400px; height: 300px;'></div>
-    
+    {% endif %}    
 
     <!-- Warning! don't delete this line below -->
     <p hidden id="loop">{{ size }}</p>
