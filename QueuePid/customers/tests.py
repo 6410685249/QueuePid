@@ -4,7 +4,7 @@ from login.models import User_info
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.models import User, Group
-
+from queueman.models import *
 
 class ListRestaurantViewTest(TestCase):
     def setUp(self):
@@ -372,3 +372,61 @@ class ListRestaurantViewTest(TestCase):
         response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, 200)
+
+    def test_top_up_view_authenticated_user(self):
+        user_info = User_info.objects.create(username=self.customer,telephone='1234',\
+                                            name='peerapat',surname='ngamsanga',email='example@gmail.com')
+        url = reverse('top_up')
+        
+        with open('C:\\Users\\kiw00\Documents\\work\\jack\\Queuepid2\\uploads\\letter-q_tawUCLd.png', 'rb') as image_file:
+            response = self.client.post(url, {'image': image_file})
+
+        # Check if the user's upload field is updated
+        user_info.refresh_from_db()
+        self.assertEqual(response.status_code, 302)  # 302 is the status code for a redirect
+        self.assertTrue('letter-q_tawUCLd' in user_info.upload.url)
+
+    def test_top_up_with_unauthenticated_user(self):
+        self.client.logout()
+        url = reverse('top_up')  # Replace 'top_up' with the actual name used in your urls.py
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)  # 302 is the status code for a redirect
+        self.assertRedirects(response, reverse('login')) 
+    
+    
+    def test_top_up_authenticated_none_post(self):
+        url = reverse('top_up')  # Replace 'top_up' with the actual name used in your urls.py
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)  # 302 is the status code for a redirect
+        self.assertTemplateUsed(response,'customer_top_up.html')
+
+    def test_admin_page(self):
+        user_info = User_info.objects.create(username=self.customer,telephone='1234',\
+                                            name='peerapat',surname='ngamsanga',email='example@gmail.com',upload='uploads/letter-q_tawUCLd')
+        user_queueman = Queueman.objects.create(username=self.queueman,phone_number='1234556',line_id='line000',upload=100)
+
+        url = reverse('admin_page')  # Replace 'admin' with the actual name used in your urls.py
+        response = self.client.get(url)
+        
+        self.assertIn('top', response.context)
+        self.assertIn('drawn', response.context)
+        self.assertTemplateUsed(response,'admin_page.html')
+
+    def test_admin_commit(self):
+        user_info = User_info.objects.create(username=self.customer,telephone='1234',\
+                                            name='peerapat',surname='ngamsanga',email='example@gmail.com',upload='uploads/letter-q_tawUCLd')
+        user_queueman = Queueman.objects.create(username=self.queueman,phone_number='1234556',line_id='line000',upload=100)
+        url = reverse('admin_commit_top_up')  
+        response = self.client.post(url, {'user': self.customer.username})
+        self.assertTemplateUsed(response,'admin_commit_top_up.html')
+        self.assertIn('url', response.context)
+        self.assertIn('user', response.context)
+
+    def test_complete_top_up(self):
+        user_info = User_info.objects.create(username=self.customer,telephone='1234',\
+                                            name='peerapat',surname='ngamsanga',email='example@gmail.com',upload='uploads/letter-q_tawUCLd')
+        user_queueman = Queueman.objects.create(username=self.queueman,phone_number='1234556',line_id='line000',upload=100)
+        url = reverse('complete_top_up')  
+        response = self.client.post(url, {'user': self.customer.username})
+        self.assertEqual(response.status_code,302)
+        self.assertRedirects(response,reverse('admin_page'))
